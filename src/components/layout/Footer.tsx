@@ -1,0 +1,38 @@
+import Link from "next/link";
+export default function Footer() {
+  return (
+    <footer className="bg-gradient-to-b from-white to-brand-50 border-t border-brand-100 mt-auto">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div>
+            <Link href="/" className="flex items-center gap-2 mb-3">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center text-white font-heading font-black text-sm">R</div>
+              <span className="font-heading font-bold text-lg text-brand-800">ESL<span className="text-accent-500">by</span>Rayane</span>
+            </Link>
+            <p className="text-sm text-slate-400 leading-relaxed">Interactive platform for learning English. Courses, exercises and progress tracking.</p>
+          </div>
+          <div>
+            <h3 className="font-heading font-bold text-sm text-brand-800 mb-3">Navigation</h3>
+            <nav className="flex flex-col gap-2 text-sm text-slate-400">
+              <Link href="/" className="hover:text-brand-600 transition-colors">Home</Link>
+              <Link href="/cours" className="hover:text-brand-600 transition-colors">Courses</Link>
+              <Link href="/activites" className="hover:text-brand-600 transition-colors">Activities</Link>
+            </nav>
+          </div>
+          <div>
+            <h3 className="font-heading font-bold text-sm text-brand-800 mb-3">Account</h3>
+            <nav className="flex flex-col gap-2 text-sm text-slate-400">
+              <Link href="/login" className="hover:text-brand-600 transition-colors">Login</Link>
+              <Link href="/register" className="hover:text-brand-600 transition-colors">Sign up</Link>
+              <Link href="/dashboard" className="hover:text-brand-600 transition-colors">My space</Link>
+            </nav>
+          </div>
+        </div>
+        <div className="mt-8 pt-6 border-t border-brand-100 flex flex-col sm:flex-row items-center justify-between gap-2">
+          <p className="text-xs text-slate-300">ESLbyRayane</p>
+          <p className="text-xs text-slate-300">Made with love for ESL</p>
+        </div>
+      </div>
+    </footer>
+  );
+}
