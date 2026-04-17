@@ -8,7 +8,7 @@ export async function GET(_r: Request, { params }: { params: { courseId: string;
     where: { id: params.lessonId },
     include: { blocks: { orderBy: { position: "asc" }, include: { activity: { select: { id: true, title: true, type: true, config: true } } } } },
   });
-  if (!lesson) return NextResponse.json({ message: "Non trouve." }, { status: 404 });
+  if (!lesson) return NextResponse.json({ message: "Not found." }, { status: 404 });
   return NextResponse.json({
     ...lesson,
     blocks: lesson.blocks.map(b => ({

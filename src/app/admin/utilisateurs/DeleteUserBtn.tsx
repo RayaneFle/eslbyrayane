@@ -16,7 +16,7 @@ export default function DeleteUserBtn({ userId, email, currentUserEmail }: { use
     
     const res = await fetch("/api/admin/users/" + userId, { method: "DELETE" });
     if (res.ok) router.refresh();
-    else alert("Erreur lors de la suppression.");
+    else alert("Error during deletion.");
   }
   
   return <button onClick={handleDelete} className="text-xs px-3 py-1.5 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">Delete</button>;

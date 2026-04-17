@@ -7,7 +7,7 @@ import { supabase } from "@/lib/supabase";
 export async function GET(_req: Request, { params }: { params: { id: string } }) {
   const { id } = params;
   const a = await prisma.activity.findUnique({ where: { id }, include: { createdBy: { select: { name: true } }, _count: { select: { results: true } } } });
-  if (!a) return NextResponse.json({ message: "Non trouvé." }, { status: 404 });
+  if (!a) return NextResponse.json({ message: "Not found." }, { status: 404 });
   return NextResponse.json({ ...a, config: JSON.parse(a.config) });
 }
 

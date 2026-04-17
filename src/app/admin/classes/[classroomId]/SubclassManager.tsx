@@ -23,7 +23,7 @@ export default function SubclassManager({ classroomId, members, subclasses }: { 
   }
 
   async function deleteSubclass(id: string) {
-    if (!confirm("Delete this subclass ? Les students ne seront pas supprimés.")) return;
+    if (!confirm("Delete this subclass ? Students will not be removed.")) return;
     await fetch("/api/classrooms/" + classroomId + "/subclasses/" + id, { method: "DELETE" });
     router.refresh();
   }

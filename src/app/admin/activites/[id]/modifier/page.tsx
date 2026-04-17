@@ -120,7 +120,7 @@ export default function EditActivityPage() {
       body: JSON.stringify({ title, description: desc, level: level || null, isPublic: pub, config: buildConfig() }),
     });
     if (res.ok) { router.push("/admin/activites"); router.refresh(); }
-    else { setError("Erreur."); }
+    else { setError("Error."); }
     setSaving(false);
   }
 
@@ -154,7 +154,7 @@ export default function EditActivityPage() {
             <input value={q.question||""} onChange={e => { const u=[...qcm]; u[qi]={...u[qi],question:e.target.value}; setQcm(u); }} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Question" />
             <ImageUpload value={q.imageUrl||""} onChange={v => { const u=[...qcm]; u[qi]={...u[qi],imageUrl:v}; setQcm(u); }} label="Image" />
             {(q.options||[]).map((o: string, oi: number) => <div key={oi} className="flex items-center gap-2"><input type="radio" name={`eq${qi}`} checked={q.correctIndex===oi} onChange={() => { const u=[...qcm]; u[qi]={...u[qi],correctIndex:oi}; setQcm(u); }} className="accent-green-600" /><input value={o} onChange={e => { const u=[...qcm]; const opts=[...u[qi].options]; opts[oi]=e.target.value; u[qi]={...u[qi],options:opts}; setQcm(u); }} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" />{(q.options||[]).length > 2 && <button type="button" onClick={() => { const u=[...qcm]; const opts=u[qi].options.filter((_:any,j:number)=>j!==oi); u[qi]={...u[qi],options:opts,correctIndex:u[qi].correctIndex>=opts.length?0:u[qi].correctIndex}; setQcm(u); }} className="text-red-400 text-xs shrink-0">x</button>}</div>)}
-            <button type="button" onClick={() => { const u=[...qcm]; u[qi]={...u[qi],options:[...u[qi].options,""]}; setQcm(u); }} className="text-xs text-brand-600 font-medium mt-1">+ Add une reponse</button>
+            <button type="button" onClick={() => { const u=[...qcm]; u[qi]={...u[qi],options:[...u[qi].options,""]}; setQcm(u); }} className="text-xs text-brand-600 font-medium mt-1">+ Add an answer</button>
             <input value={q.explanation||""} onChange={e => { const u=[...qcm]; u[qi]={...u[qi],explanation:e.target.value}; setQcm(u); }} className="w-full border border-slate-100 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Explication" />
           </div>)}<button type="button" onClick={() => setQcm([...qcm, {question:"",imageUrl:"",options:["",""],correctIndex:0,explanation:""}])} className="w-full py-3 border-2 border-dashed border-slate-200 rounded-xl text-sm text-slate-400 hover:border-brand-400">+ Question</button></div>}
 

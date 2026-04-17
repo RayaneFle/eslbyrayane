@@ -20,7 +20,7 @@ export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
   if (!session || (session.user.role !== "admin" && session.user.role !== "teacher")) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   const { title, description, level, requiresEnrollment } = await request.json();
-  if (!title || !description || !level) return NextResponse.json({ message: "Champs requis." }, { status: 400 });
+  if (!title || !description || !level) return NextResponse.json({ message: "Fields required." }, { status: 400 });
   let slug = slugify(title);
   const exists = await prisma.course.findUnique({ where: { slug } });
   if (exists) slug = slug + "-" + Date.now();

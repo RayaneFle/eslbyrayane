@@ -39,7 +39,7 @@ export default function PageLoader() {
       const button = target.closest("button");
       if (button && button.type === "submit") {
         const text = button.textContent?.toLowerCase() || "";
-        if (text.includes("sauvegarder") || text.includes("creer") || text.includes("publishedr")) {
+        if (text.includes("save") || text.includes("create") || text.includes("publishedr")) {
           setMessage("Saving...");
           setLoading(true);
         }

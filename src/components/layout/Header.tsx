@@ -76,7 +76,7 @@ export default function Header() {
         {menuOpen && (
           <div className="md:hidden border-t border-brand-100 py-4 space-y-1 animate-slide-down">
             <MLink href="/" onClick={() => setMenuOpen(false)}>🏠 Home</MLink>
-            <MLink href="/cours" onClick={() => setMenuOpen(false)}>📖 Courseses</MLink>
+            <MLink href="/cours" onClick={() => setMenuOpen(false)}>📖 Courses</MLink>
             <MLink href="/activites" onClick={() => setMenuOpen(false)}>🎮 Activities</MLink>
             {isTeacher && <MLink href="/admin" onClick={() => setMenuOpen(false)}>⚙️ Admin</MLink>}
             <hr className="border-brand-100 my-2" />

@@ -34,7 +34,7 @@ export function formatTime(seconds: number): string {
 }
 
 export const levelLabels: Record<string, string> = {
-  A1: "Débutant", A2: "Élémentaire", B1: "Intermédiaire", B2: "Avancé", C1: "Autonome", C2: "Maîtrise",
+  A1: "Beginner", A2: "Elementary", B1: "Intermediate", B2: "Advanced", C1: "Proficient", C2: "Mastery",
 };
 
 export const levelEmoji: Record<string, string> = {

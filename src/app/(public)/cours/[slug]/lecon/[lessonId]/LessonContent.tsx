@@ -142,7 +142,7 @@ export default function LessonContent({ blocks, lessonId, nextLessonUrl, courseU
                 {accessible && done && nextIdx >= 0 && (
                   <div className="mt-4 text-center">
                     <button onClick={() => scrollToBlock(nextIdx)} className="px-6 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all text-sm">
-                      Partie suivante {"\u2192"}
+                      Next part {"\u2192"}
                     </button>
                   </div>
                 )}
@@ -186,7 +186,7 @@ export default function LessonContent({ blocks, lessonId, nextLessonUrl, courseU
       {blocks.length === 0 && (
         <div className="bg-white rounded-2xl border border-brand-100 p-12 text-center">
           <span className="text-4xl">{"\ud83d\udcdd"}</span>
-          <p className="text-slate-400 mt-4">Pas encore de contenu.</p>
+          <p className="text-slate-400 mt-4">No content yet.</p>
         </div>
       )}
     </div>

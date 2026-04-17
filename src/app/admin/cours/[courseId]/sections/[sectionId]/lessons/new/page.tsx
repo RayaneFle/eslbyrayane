@@ -96,7 +96,7 @@ export default function NewLessonPage() {
       body: JSON.stringify({ title, blocks: blocks.map((b,i) => ({ position:i, type:b.type, content:b.type==="text"?b.content:null, activityId:b.type==="activity"?b.activityId:null, requireScore:b.requireScore, minScore:b.minScore })) }),
     });
     if(res.ok) { router.push(`/admin/cours/${courseId}`); router.refresh(); }
-    else setError("Erreur de sauvegarde.");
+    else setError("Save error.");
     setIsSubmitting(false);
   }
 

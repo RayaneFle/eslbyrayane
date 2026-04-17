@@ -86,7 +86,7 @@ export default function EditLessonPage() {
       body: JSON.stringify({ title, blocks: blocks.map((b, i) => ({ position: i, type: b.type, content: b.content || null, activityId: b.activityId || null, requireScore: b.requireScore || false, minScore: b.minScore || 60 })) }),
     });
     if (res.ok) { router.push(`/admin/cours/${courseId}`); router.refresh(); }
-    else { setError("Erreur de sauvegarde."); }
+    else { setError("Save error."); }
     setSaving(false);
   }
 
@@ -131,7 +131,7 @@ export default function EditLessonPage() {
                   </div>
                   <label className="flex items-center gap-2 text-sm text-slate-600 mt-2">
                     <input type="checkbox" checked={block.requireScore} onChange={e => updateBlock(idx, { requireScore: e.target.checked })} className="accent-brand-500" />
-                    Score minimum requis
+                    Minimum score required
                   </label>
                   {block.requireScore && <input type="number" value={block.minScore} onChange={e => updateBlock(idx, { minScore: parseInt(e.target.value) || 0 })} className="w-20 border border-slate-200 rounded-lg px-3 py-1 text-sm outline-none mt-2" min="0" max="100" />}
                 </div>

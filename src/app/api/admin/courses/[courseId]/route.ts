@@ -8,7 +8,7 @@ export async function PUT(request: Request, { params }: { params: { courseId: st
   const session = await getServerSession(authOptions);
   if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   const course = await prisma.course.findUnique({ where: { id: params.courseId } });
-  if (!course) return NextResponse.json({ message: "Non trouvé." }, { status: 404 });
+  if (!course) return NextResponse.json({ message: "Not found." }, { status: 404 });
   if (course.authorId !== session.user.id && session.user.role !== "admin") return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
   const { title, description, level, published, requiresEnrollment } = await request.json();
   const updated = await prisma.course.update({ where: { id: params.courseId }, data: { ...(title?{title}:{}), ...(description?{description}:{}), ...(level?{level}:{}), ...(published!==undefined?{published}:{}), ...(requiresEnrollment!==undefined?{requiresEnrollment}:{}) } });
@@ -19,7 +19,7 @@ export async function DELETE(_r: Request, { params }: { params: { courseId: stri
   const session = await getServerSession(authOptions);
   if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   const course = await prisma.course.findUnique({ where: { id: params.courseId } });
-  if (!course) return NextResponse.json({ message: "Non trouvé." }, { status: 404 });
+  if (!course) return NextResponse.json({ message: "Not found." }, { status: 404 });
   if (course.authorId !== session.user.id && session.user.role !== "admin") return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
   // Clean up images from lessons
   try {

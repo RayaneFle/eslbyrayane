@@ -28,7 +28,7 @@ export default async function HomePage() {
               <p className="mt-4 text-base md:text-lg text-pink-100/80 max-w-md leading-relaxed">Structured courses, fun exercises and progress tracking — all in one.</p>
               <div className="mt-6 flex flex-wrap gap-3 justify-center md:justify-start">
                 <Link href="/activites" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-brand-700 font-semibold rounded-xl hover:shadow-xl hover:-translate-y-0.5 transition-all text-sm">🎮 Play</Link>
-                <Link href="/cours" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all border border-white/20 text-sm">📖 Courseses</Link>
+                <Link href="/cours" className="inline-flex items-center gap-2 px-5 py-2.5 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all border border-white/20 text-sm">📖 Courses</Link>
               </div>
             </div>
             <div className="grid grid-cols-3 gap-3 w-full md:w-auto">
@@ -98,7 +98,7 @@ export default async function HomePage() {
           <p className="text-pink-100/70 mb-8">Create a free account and start learning.</p>
           <div className="flex flex-col sm:flex-row justify-center gap-3">
             <Link href={session ? "/dashboard" : "/register"} className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-brand-700 font-bold rounded-xl hover:shadow-xl transition-all">
-              {session ? "📊 Mon espace" : "✨ Create my account"}
+              {session ? "📊 My space" : "✨ Create my account"}
             </Link>
             <Link href="/activites" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/10 text-white font-semibold rounded-xl hover:bg-white/20 transition-all border border-white/20">Try without an account</Link>
           </div>

@@ -23,7 +23,7 @@ export async function POST(_r: Request, { params }: { params: { courseId: string
       },
     },
   });
-  if (!original) return NextResponse.json({ message: "Non trouve." }, { status: 404 });
+  if (!original) return NextResponse.json({ message: "Not found." }, { status: 404 });
 
   const slug = original.slug + "-copie-" + Date.now().toString(36);
 

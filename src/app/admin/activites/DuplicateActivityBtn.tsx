@@ -15,7 +15,7 @@ export default function DuplicateActivityBtn({ activityId }: { activityId: strin
       router.push("/admin/activites/" + data.id + "/modifier");
       router.refresh();
     } else {
-      alert("Erreur lors de la duplication.");
+      alert("Error during duplication.");
     }
     setLoading(false);
   }

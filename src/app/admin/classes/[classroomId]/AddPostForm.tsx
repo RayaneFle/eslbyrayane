@@ -26,14 +26,14 @@ export default function AddPostForm({ classroomId }: { classroomId: string }) {
     router.refresh();
   }
 
-  if (!open) return <button onClick={() => setOpen(true)} className="w-full py-3 border-2 border-dashed border-brand-200 rounded-xl text-sm font-medium text-slate-400 hover:border-brand-400 hover:text-brand-600 transition-colors">+ Publish du contenu</button>;
+  if (!open) return <button onClick={() => setOpen(true)} className="w-full py-3 border-2 border-dashed border-brand-200 rounded-xl text-sm font-medium text-slate-400 hover:border-brand-400 hover:text-brand-600 transition-colors">+ Publish content</button>;
 
   return (
     <div className="p-4 bg-brand-50 rounded-xl space-y-3">
       <div className="flex gap-2">
         {["text","video","pdf","link"].map(t => (
           <button key={t} onClick={() => setType(t)} className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${type === t ? "bg-brand-500 text-white" : "bg-white text-slate-500 hover:bg-brand-100"}`}>
-            {t === "text" ? "📝 Texte" : t === "video" ? "🎬 Vidéo" : t === "pdf" ? "📄 Fichier" : "🔗 Lien"}
+            {t === "text" ? "📝 Text" : t === "video" ? "🎬 Video" : t === "pdf" ? "📄 File" : "🔗 Lien"}
           </button>
         ))}
       </div>

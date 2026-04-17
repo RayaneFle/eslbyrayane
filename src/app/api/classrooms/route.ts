@@ -25,13 +25,13 @@ export async function POST(request: Request) {
     const classroom = await prisma.classroom.findUnique({ where: { code: body.code } });
     if (!classroom) return NextResponse.json({ message: "Code introuvable." }, { status: 404 });
     const existing = await prisma.classroomMember.findUnique({ where: { userId_classroomId: { userId: session.user.id, classroomId: classroom.id } } });
-    if (existing) return NextResponse.json({ message: "Déjà inscrit." }, { status: 409 });
+    if (existing) return NextResponse.json({ message: "Already enrolled." }, { status: 409 });
     await prisma.classroomMember.create({ data: { userId: session.user.id, classroomId: classroom.id } });
     return NextResponse.json({ message: "OK", classroom });
   }
 
   if (session.user.role !== "admin" && session.user.role !== "teacher") return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
-  if (!body.name) return NextResponse.json({ message: "Nom requis." }, { status: 400 });
+  if (!body.name) return NextResponse.json({ message: "Name required." }, { status: 400 });
   let code = generateClassCode();
   while (await prisma.classroom.findUnique({ where: { code } })) code = generateClassCode();
   const classroom = await prisma.classroom.create({ data: { name: body.name, description: body.description || null, code, ownerId: session.user.id } });

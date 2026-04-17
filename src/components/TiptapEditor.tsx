@@ -50,7 +50,7 @@ export default function TiptapEditor({ content, onChange }: Props) {
     if (res.ok) {
       const d = await res.json();
       editor?.chain().focus().setImage({ src: d.url }).run();
-    } else { alert("Erreur upload."); }
+    } else { alert("Upload error."); }
     setUploading(false);
   }
 

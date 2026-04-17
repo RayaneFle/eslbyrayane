@@ -13,7 +13,7 @@ export async function POST(request: Request, { params }: { params: { lessonId: s
     where: { id: params.lessonId },
     include: { blocks: { orderBy: { position: "asc" } } },
   });
-  if (!lesson) return NextResponse.json({ message: "Non trouve." }, { status: 404 });
+  if (!lesson) return NextResponse.json({ message: "Not found." }, { status: 404 });
   const last = await prisma.lesson.findFirst({ where: { sectionId: targetSectionId }, orderBy: { position: "desc" } });
   const newLesson = await prisma.lesson.create({
     data: {

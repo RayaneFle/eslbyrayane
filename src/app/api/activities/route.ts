@@ -19,7 +19,7 @@ export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
   if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   const { title, description, type, config, level, isPublic } = await request.json();
-  if (!title || !type || !config) return NextResponse.json({ message: "Champs requis." }, { status: 400 });
+  if (!title || !type || !config) return NextResponse.json({ message: "Fields required." }, { status: 400 });
   const activity = await prisma.activity.create({
     data: { title, description, type, config: JSON.stringify(config), level: level || null, isPublic: isPublic ?? true, createdById: session.user.id },
   });

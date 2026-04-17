@@ -18,7 +18,7 @@ export async function POST(request: Request, { params }: { params: { classroomId
     return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   }
   const { name } = await request.json();
-  if (!name?.trim()) return NextResponse.json({ message: "Nom requis." }, { status: 400 });
+  if (!name?.trim()) return NextResponse.json({ message: "Name required." }, { status: 400 });
   
   const subclass = await prisma.subclass.create({
     data: { name: name.trim(), classroomId: params.classroomId },

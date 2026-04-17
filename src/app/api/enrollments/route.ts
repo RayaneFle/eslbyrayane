@@ -12,7 +12,7 @@ export async function POST(request: Request) {
   if (!course) return NextResponse.json({ message: "Course not found." }, { status: 404 });
   if (course.requiresEnrollment && course.enrollmentCode !== enrollmentCode) return NextResponse.json({ message: "Code d'inscription incorrect." }, { status: 403 });
   const existing = await prisma.enrollment.findUnique({ where: { userId_courseId: { userId: session.user.id, courseId } } });
-  if (existing) return NextResponse.json({ message: "Déjà inscrit." }, { status: 409 });
+  if (existing) return NextResponse.json({ message: "Already enrolled." }, { status: 409 });
   await prisma.enrollment.create({ data: { userId: session.user.id, courseId } });
   return NextResponse.json({ success: true }, { status: 201 });
 }

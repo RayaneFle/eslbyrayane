@@ -17,7 +17,7 @@ export async function GET(_r: Request, { params }: { params: { classroomId: stri
       courses: { include: { course: { select: { id: true, title: true } } } },
     },
   });
-  if (!classroom) return NextResponse.json({ message: "Non trouve." }, { status: 404 });
+  if (!classroom) return NextResponse.json({ message: "Not found." }, { status: 404 });
 
   const lessons = await prisma.lesson.findMany({
     where: { section: { courseId: { in: classroom.courses.map(c => c.courseId) } } },
@@ -42,13 +42,13 @@ export async function GET(_r: Request, { params }: { params: { classroomId: stri
   const wb = new ExcelJS.Workbook();
   wb.creator = "FLEbyRayane";
 
-  // ===== SHEET 1: Progression des lessons =====
+  // ===== SHEET 1: Lesson progress =====
   const ws1 = wb.addWorksheet("Progression");
 
   // Title row
   ws1.mergeCells(1, 1, 1, 3 + lessons.length);
   const titleCell = ws1.getCell(1, 1);
-  titleCell.value = classroom.name + " - Progression des lessons";
+  titleCell.value = classroom.name + " - Lesson progress";
   titleCell.font = { size: 14, bold: true, color: { argb: "FF4338CA" } };
   titleCell.alignment = { horizontal: "center" };
 
