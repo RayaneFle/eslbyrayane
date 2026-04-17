@@ -28,7 +28,7 @@ export default async function ResultatsPage() {
         <div className="bg-white rounded-2xl border border-brand-100 p-12 text-center"><span className="text-5xl">📈</span><p className="text-slate-400 mt-4">No results.</p></div>
       ) : (
         <div className="bg-white rounded-2xl border border-brand-100 overflow-x-auto">
-          <table className="w-full"><thead><tr className="border-b border-slate-100 bg-brand-50/50 text-xs font-semibold text-slate-400 uppercase"><th className="text-left px-5 py-3">Activity</th><th className="text-center px-5 py-3">Type</th><th className="text-center px-5 py-3">Level</th><th className="text-center px-5 py-3">Score</th><th className="text-center px-5 py-3">Étoiles</th><th className="text-center px-5 py-3">Tentatives</th></tr></thead>
+          <table className="w-full"><thead><tr className="border-b border-slate-100 bg-brand-50/50 text-xs font-semibold text-slate-400 uppercase"><th className="text-left px-5 py-3">Activity</th><th className="text-center px-5 py-3">Type</th><th className="text-center px-5 py-3">Level</th><th className="text-center px-5 py-3">Score</th><th className="text-center px-5 py-3">Stars</th><th className="text-center px-5 py-3">Attempts</th></tr></thead>
           <tbody className="divide-y divide-slate-50">{results.map(r => {
             const t = activityTypeLabels[r.activity.type] || { emoji: "📝", label: r.activity.type };
             const stars = scoreToStars(r.score || 0);

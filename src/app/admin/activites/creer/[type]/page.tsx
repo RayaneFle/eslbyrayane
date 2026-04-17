@@ -113,7 +113,7 @@ export default function CreateActivityPage() {
           {type === "TRUE_FALSE" && <div className="space-y-4">{tf.map((q, i) => <div key={i} className="p-4 bg-slate-50 rounded-xl space-y-3">
             <input value={q.statement} onChange={e => { const u=[...tf]; u[i].statement=e.target.value; setTf(u); }} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Affirmation" />
             <ImageUpload value={q.imageUrl} onChange={v => { const u=[...tf]; u[i].imageUrl=v; setTf(u); }} label="Image" />
-            <div className="flex gap-4"><label className="flex items-center gap-2 text-sm"><input type="radio" name={`tf${i}`} checked={q.isTrue} onChange={() => { const u=[...tf]; u[i].isTrue=true; setTf(u); }} />Vrai</label><label className="flex items-center gap-2 text-sm"><input type="radio" name={`tf${i}`} checked={!q.isTrue} onChange={() => { const u=[...tf]; u[i].isTrue=false; setTf(u); }} />Faux</label></div>
+            <div className="flex gap-4"><label className="flex items-center gap-2 text-sm"><input type="radio" name={`tf${i}`} checked={q.isTrue} onChange={() => { const u=[...tf]; u[i].isTrue=true; setTf(u); }} />True</label><label className="flex items-center gap-2 text-sm"><input type="radio" name={`tf${i}`} checked={!q.isTrue} onChange={() => { const u=[...tf]; u[i].isTrue=false; setTf(u); }} />False</label></div>
           </div>)}<button type="button" onClick={() => setTf([...tf, {statement:"",imageUrl:"",isTrue:true,explanation:""}])} className="w-full py-3 border-2 border-dashed border-slate-200 rounded-xl text-sm font-medium text-slate-400 hover:border-brand-400">+ Statement</button></div>}
 
           {type === "FILL_BLANKS" && <div><p className="text-sm text-slate-400 mb-2">Entourez avec {"{{mot}}"}</p><textarea value={fb} onChange={e => setFb(e.target.value)} rows={6} className="w-full border border-slate-200 rounded-xl px-4 py-3 font-mono text-sm outline-none" placeholder={"Je {{mange}} une {{pomme}}."} /></div>}
@@ -181,10 +181,10 @@ export default function CreateActivityPage() {
         </div>
 
         <div className="bg-white rounded-2xl border border-brand-100 p-6">
-          <h2 className="font-heading font-bold text-slate-800 mb-3">Assigner a une classe (optionnel)</h2>
+          <h2 className="font-heading font-bold text-slate-800 mb-3">Assign to a class (optionnel)</h2>
           {classrooms.length > 0 ? (
             <select value={selectedClassroom} onChange={e => setSelectedClassroom(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 outline-none">
-              <option value="">Aucune classe</option>
+              <option value="">No class</option>
               {classrooms.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           ) : <p className="text-xs text-slate-400">Aucune classe. Creez-en une d abord.</p>}

@@ -46,7 +46,7 @@ export default async function DashboardCoursPage() {
         <div className="space-y-4">
           {enrollments.length > 0 && (
             <details open className="bg-white rounded-2xl border border-brand-100 overflow-hidden">
-              <summary className="px-6 py-4 bg-gradient-to-r from-brand-50 to-accent-50 border-b border-brand-100 cursor-pointer font-heading font-bold text-slate-800 select-none">\ud83d\udcd6 Mes cours inscrits ({enrollments.length})</summary>
+              <summary className="px-6 py-4 bg-gradient-to-r from-brand-50 to-accent-50 border-b border-brand-100 cursor-pointer font-heading font-bold text-slate-800 select-none">\ud83d\udcd6 My enrolled courses ({enrollments.length})</summary>
               <div className="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {enrollments.map((e: any) => (
                   <Link key={e.id} href={`/cours/${e.course.slug}`} className="bg-brand-50/50 rounded-xl p-4 hover:bg-brand-50 transition-colors group">
@@ -60,7 +60,7 @@ export default async function DashboardCoursPage() {
 
           {classCourses.length > 0 && (
             <details open className="bg-white rounded-2xl border border-brand-100 overflow-hidden">
-              <summary className="px-6 py-4 bg-gradient-to-r from-brand-50 to-accent-50 border-b border-brand-100 cursor-pointer font-heading font-bold text-slate-800 select-none">\ud83c\udfeb Cours de mes classes ({classCourses.length})</summary>
+              <summary className="px-6 py-4 bg-gradient-to-r from-brand-50 to-accent-50 border-b border-brand-100 cursor-pointer font-heading font-bold text-slate-800 select-none">\ud83c\udfeb Courses from my classes ({classCourses.length})</summary>
               <div className="p-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {classCourses.map((c: any) => (
                   <Link key={c.id} href={`/cours/${c.slug}`} className="bg-brand-50/50 rounded-xl p-4 hover:bg-brand-50 transition-colors group">

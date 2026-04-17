@@ -35,19 +35,19 @@ export default function CreateCoursPage() {
           <div><label className="block text-sm font-medium text-slate-600 mb-1">Level</label><select value={level} onChange={e=>setLevel(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 outline-none">{LEVELS.map(l=><option key={l} value={l}>{l}</option>)}</select></div>
           <label className="flex items-center gap-3 p-4 bg-brand-50 rounded-xl cursor-pointer">
             <input type="checkbox" checked={requireCode} onChange={e=>setRequireCode(e.target.checked)} className="accent-brand-500 w-5 h-5" />
-            <div><p className="font-medium text-slate-800 text-sm">🔒 Protected course par un code</p><p className="text-xs text-slate-400">Un code sera généré. Les students le saisiront pour s&apos;inscrire.</p></div>
+            <div><p className="font-medium text-slate-800 text-sm">🔒 Protected by a code</p><p className="text-xs text-slate-400">A code will be generated. Students will enter it pour s&apos;inscrire.</p></div>
           </label>
           {classrooms.length > 0 && (
             <div>
-              <label className="block text-sm font-medium text-slate-600 mb-1">Assigner a une classe (optionnel)</label>
+              <label className="block text-sm font-medium text-slate-600 mb-1">Assign to a class (optionnel)</label>
               <select value={selectedClassroom} onChange={e => setSelectedClassroom(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 outline-none">
-                <option value="">Aucune classe</option>
+                <option value="">No class</option>
                 {classrooms.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
               </select>
             </div>
           )}
         </div>
-        <button type="submit" disabled={loading} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-50 transition-all">{loading?"Création…":"📖 Créer"}</button>
+        <button type="submit" disabled={loading} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-50 transition-all">{loading?"Création…":"📖 Create"}</button>
       </form>
     </div>
   );

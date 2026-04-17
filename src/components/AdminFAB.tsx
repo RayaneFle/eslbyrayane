@@ -26,7 +26,7 @@ export default function AdminFAB() {
             <p className="text-xs font-bold text-slate-600">Quick add</p>
           </div>
           <div className="p-2 max-h-64 overflow-y-auto">
-            <p className="text-[10px] font-bold text-slate-400 uppercase px-2 py-1">Ajouter une lesson</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase px-2 py-1">Add a lesson</p>
             {courses.length === 0 ? (
               <p className="text-xs text-slate-400 px-2 py-3 text-center">Loading...</p>
             ) : (
@@ -50,7 +50,7 @@ export default function AdminFAB() {
               <p className="text-[10px] font-bold text-slate-400 uppercase px-2 py-1">Create</p>
               <Link href="/admin/activites/creer" onClick={() => setOpen(false)} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent-50 text-xs text-slate-700">
                 <span className="w-5 h-5 rounded bg-accent-100 flex items-center justify-center text-[10px] font-bold text-accent-600">+</span>
-                Nouvelle activite
+                New activity
               </Link>
               <Link href="/admin/cours/creer" onClick={() => setOpen(false)} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-brand-50 text-xs text-slate-700">
                 <span className="w-5 h-5 rounded bg-brand-100 flex items-center justify-center text-[10px] font-bold text-brand-600">+</span>

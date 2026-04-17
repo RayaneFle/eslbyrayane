@@ -127,7 +127,7 @@ prisma.activityResult.findMany({
           <h2 className="font-heading font-bold text-slate-800 mb-4">My classes</h2>
           {myClassrooms.length === 0 ? (
             <div className="text-center py-6">
-              <p className="text-sm text-slate-400">Aucune classe</p>
+              <p className="text-sm text-slate-400">No class</p>
               <Link href="/admin/classes" className="text-xs text-brand-600 font-medium mt-2 inline-block">Create une classe</Link>
             </div>
           ) : (

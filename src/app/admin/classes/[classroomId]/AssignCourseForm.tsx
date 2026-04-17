@@ -14,7 +14,7 @@ export default function AssignCourseForm({ classroomId, courses }: { classroomId
   return (
     <div className="flex gap-2">
       <select value={courseId} onChange={e => setCourseId(e.target.value)} className="flex-1 border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none">
-        <option value="">Assigner un cours…</option>
+        <option value="">Assign a course…</option>
         {courses.map(c => <option key={c.id} value={c.id}>{c.title} ({c.level})</option>)}
       </select>
       <button onClick={assign} disabled={!courseId || loading} className="px-4 py-2 bg-brand-500 text-white text-sm font-semibold rounded-xl hover:bg-brand-600 disabled:opacity-50">+</button>
