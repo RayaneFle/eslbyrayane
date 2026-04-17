@@ -12,20 +12,20 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
             <div className="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-white font-heading font-black text-xl">R</div>
             <span className="font-heading font-bold text-2xl text-white">ESL<span className="text-accent-200">by</span>Rayane</span>
           </Link>
-          <h2 className="font-heading text-4xl font-bold text-white leading-tight mb-4">Apprenez le francais<br />the fun way</h2>
-          <p className="text-brand-100 text-lg leading-relaxed mb-8">Cours structures, fun exercises and progress tracking for all levels.</p>
+          <h2 className="font-heading text-4xl font-bold text-white leading-tight mb-4">Learn English<br />the fun way</h2>
+          <p className="text-brand-100 text-lg leading-relaxed mb-8">Structured courses, fun exercises and progress tracking for all levels.</p>
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white">10</div>
-              <div><p className="text-white font-medium text-sm">Types d exercices</p><p className="text-brand-200 text-xs">MCQ, memory, hangman, matching...</p></div>
+              <div><p className="text-white font-medium text-sm">Exercise types</p><p className="text-brand-200 text-xs">MCQ, memory, hangman, matching...</p></div>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white text-lg">A1</div>
-              <div><p className="text-white font-medium text-sm">All CEFR levels</p><p className="text-brand-200 text-xs">De debutant a avance</p></div>
+              <div><p className="text-white font-medium text-sm">All CEFR levels</p><p className="text-brand-200 text-xs">From beginner to advanced</p></div>
             </div>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white text-lg">%</div>
-              <div><p className="text-white font-medium text-sm">Progress tracking</p><p className="text-brand-200 text-xs">Scores, erreurs, temps passe</p></div>
+              <div><p className="text-white font-medium text-sm">Progress tracking</p><p className="text-brand-200 text-xs">Scores, mistakes, time spent</p></div>
             </div>
           </div>
         </div>
