@@ -7,7 +7,7 @@ export default function DuplicateActivityBtn({ activityId }: { activityId: strin
   const [loading, setLoading] = useState(false);
 
   async function handleDuplicate() {
-    if (!confirm("Duplicate cette activite ?")) return;
+    if (!confirm("Duplicate this activity?")) return;
     setLoading(true);
     const res = await fetch("/api/activities/" + activityId + "/duplicate", { method: "POST" });
     if (res.ok) {

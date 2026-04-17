@@ -8,7 +8,7 @@ export default function DeleteUserBtn({ userId, email, currentUserEmail }: { use
   if (email === currentUserEmail) return null;
   
   async function handleDelete() {
-    const confirmed = confirm("Supprimer le compte de " + email + " ?\n\nCette action est irreversible. Toutes les donnees de cet utilisateur seront supprimees (scores, progressions, inscriptions, etc.).");
+    const confirmed = confirm("Delete account of " + email + " ?\n\nThis action is irreversible. All data de this user will be deleted (scores, progressions, inscriptions, etc.).");
     if (!confirmed) return;
     
     const doubleConfirm = confirm("Derniere confirmation : voulez-vous vraiment supprimer definitivement ce compte ?");

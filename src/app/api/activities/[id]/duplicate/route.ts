@@ -10,7 +10,7 @@ export async function POST(_r: Request, { params }: { params: { id: string } }) 
   }
 
   const original = await prisma.activity.findUnique({ where: { id: params.id } });
-  if (!original) return NextResponse.json({ message: "Non trouve." }, { status: 404 });
+  if (!original) return NextResponse.json({ message: "Not found." }, { status: 404 });
 
   const newActivity = await prisma.activity.create({
     data: {

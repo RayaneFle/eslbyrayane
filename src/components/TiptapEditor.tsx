@@ -128,7 +128,7 @@ export default function TiptapEditor({ content, onChange }: Props) {
           <B onClick={() => editor.chain().focus().deleteColumn().run()} title="Colonne -">C-</B>
           <B onClick={() => editor.chain().focus().addRowAfter().run()} title="Ligne +">L+</B>
           <B onClick={() => editor.chain().focus().deleteRow().run()} title="Ligne -">L-</B>
-          <B onClick={() => editor.chain().focus().deleteTable().run()} title="Supprimer tableau">{"\ud83d\uddd1"}</B>
+          <B onClick={() => editor.chain().focus().deleteTable().run()} title="Delete tableau">{"\ud83d\uddd1"}</B>
           <span className="w-px h-6 bg-brand-200 mx-1 self-center" />
         </>}
         <B onClick={() => editor.chain().focus().undo().run()} title="Cancel">{"\u21a9"}</B>

@@ -16,7 +16,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   const session = await getServerSession(authOptions);
   if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   const a = await prisma.activity.findUnique({ where: { id: params.id } });
-  if (!a) return NextResponse.json({ message: "Non trouve." }, { status: 404 });
+  if (!a) return NextResponse.json({ message: "Not found." }, { status: 404 });
   if (a.createdById !== session.user.id && session.user.role !== "admin") return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
   const { title, description, config, level, isPublic } = await request.json();
   const updated = await prisma.activity.update({ where: { id: params.id }, data: { ...(title?{title}:{}), ...(description!==undefined?{description}:{}), ...(config?{config:JSON.stringify(config)}:{}), ...(level!==undefined?{level}:{}), ...(isPublic!==undefined?{isPublic}:{}) } });

@@ -21,7 +21,7 @@ export default function CreateClassroomForm() {
         <input type="text" required value={name} onChange={e=>setName(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-brand-400" placeholder="Class name" />
         <input type="text" value={desc} onChange={e=>setDesc(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 outline-none" placeholder="Description (optionnel)" />
         <div className="flex gap-3">
-          <button type="submit" disabled={loading} className="px-6 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-50 transition-all">{loading?"Création…":"Créer"}</button>
+          <button type="submit" disabled={loading} className="px-6 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-50 transition-all">{loading?"Création…":"Create"}</button>
           <button type="button" onClick={()=>setOpen(false)} className="px-6 py-2.5 bg-slate-50 text-slate-600 rounded-xl">Cancel</button>
         </div>
       </form>}

@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 export async function POST(request: Request) {
   try {
     const { name, email, password } = await request.json();
-    if (!name || !email || !password) return NextResponse.json({ message: "Champs requis." }, { status: 400 });
+    if (!name || !email || !password) return NextResponse.json({ message: "Fields required." }, { status: 400 });
     if (password.length < 6) return NextResponse.json({ message: "6 characters minimum." }, { status: 400 });
     const existing = await prisma.user.findUnique({ where: { email } });
     if (existing) return NextResponse.json({ message: "Email already in use." }, { status: 409 });

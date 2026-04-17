@@ -13,7 +13,7 @@ export default function CourseEnrollPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault(); setLoading(true); setError(null);
     const courseRes = await fetch(`/api/cours/${slug}`);
-    if (!courseRes.ok) { setError("Cours non trouvé."); setLoading(false); return; }
+    if (!courseRes.ok) { setError("Course not found."); setLoading(false); return; }
     const course = await courseRes.json();
     const res = await fetch("/api/enrollments", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ courseId: course.id, enrollmentCode: code }) });
     const data = await res.json();
@@ -32,7 +32,7 @@ export default function CourseEnrollPage() {
           <input type="text" required value={code} onChange={e => setCode(e.target.value.toUpperCase())} maxLength={6}
             className="w-full border border-brand-200 rounded-xl px-4 py-3 text-center text-2xl font-mono font-bold tracking-[0.3em] focus:ring-2 focus:ring-brand-400 outline-none uppercase" placeholder="ABC123" />
           <button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-brand-500 to-accent-500 text-white py-2.5 rounded-xl font-semibold hover:shadow-glow disabled:opacity-50 transition-all">
-            {loading ? "Vérification…" : "S'inscrire au cours"}
+            {loading ? "Verifying..." : "Enroll in course"}
           </button>
         </form>
       </div>

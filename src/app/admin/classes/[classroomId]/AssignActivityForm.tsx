@@ -10,7 +10,7 @@ export default function AssignActivityForm({ classroomId, activities }: { classr
     await fetch(`/api/classrooms/${classroomId}/activities`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ activityId }) });
     setActivityId(""); setLoading(false); router.refresh();
   }
-  if (activities.length === 0) return <p className="text-xs text-slate-400">Toutes les activites sont assignees.</p>;
+  if (activities.length === 0) return <p className="text-xs text-slate-400">All activities are assigned.</p>;
   return (
     <div className="flex gap-2">
       <select value={activityId} onChange={e => setActivityId(e.target.value)} className="flex-1 border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none">

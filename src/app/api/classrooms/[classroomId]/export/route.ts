@@ -117,12 +117,12 @@ export async function GET(_r: Request, { params }: { params: { classroomId: stri
   ws1.getColumn(3).width = 10;
   for (let i = 4; i <= 3 + lessons.length; i++) ws1.getColumn(i).width = 12;
 
-  // ===== SHEET 2: Scores des activites =====
-  const ws2 = wb.addWorksheet("Activites");
+  // ===== SHEET 2: Activity scores =====
+  const ws2 = wb.addWorksheet("Activities");
 
   ws2.mergeCells(1, 1, 1, 2 + activityList.length);
   const titleCell2 = ws2.getCell(1, 1);
-  titleCell2.value = classroom.name + " - Scores des activites";
+  titleCell2.value = classroom.name + " - Activity scores";
   titleCell2.font = { size: 14, bold: true, color: { argb: "FF4338CA" } };
   titleCell2.alignment = { horizontal: "center" };
 

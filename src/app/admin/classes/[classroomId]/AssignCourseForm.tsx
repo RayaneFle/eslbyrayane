@@ -10,7 +10,7 @@ export default function AssignCourseForm({ classroomId, courses }: { classroomId
     await fetch(`/api/classrooms/${classroomId}/courses`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ courseId }) });
     setCourseId(""); setLoading(false); router.refresh();
   }
-  if (courses.length === 0) return <p className="text-xs text-slate-400">Tous les cours sont déjà assignés.</p>;
+  if (courses.length === 0) return <p className="text-xs text-slate-400">All courses are already assigned.</p>;
   return (
     <div className="flex gap-2">
       <select value={courseId} onChange={e => setCourseId(e.target.value)} className="flex-1 border border-slate-200 rounded-xl px-3 py-2 text-sm outline-none">

@@ -8,7 +8,7 @@ export async function POST(request: Request, { params }: { params: { lessonId: s
   if (!session || (session.user.role !== "admin" && session.user.role !== "teacher"))
     return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   const { targetSectionId } = await request.json();
-  if (!targetSectionId) return NextResponse.json({ message: "Section cible requise." }, { status: 400 });
+  if (!targetSectionId) return NextResponse.json({ message: "Target section required." }, { status: 400 });
   const lesson = await prisma.lesson.findUnique({
     where: { id: params.lessonId },
     include: { blocks: { orderBy: { position: "asc" } } },

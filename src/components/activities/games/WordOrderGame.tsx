@@ -80,7 +80,7 @@ export default function WordOrderGame({ config, onComplete }: { config: any; onC
         <div className="h-full bg-gradient-to-r from-brand-500 to-accent-500 transition-all duration-500 rounded-full" style={{ width: ((idx + (checked ? 1 : 0)) / config.sentences.length * 100) + "%" }} />
       </div>
       <div className="p-6 sm:p-8">
-        <p className="text-xs text-brand-400 mb-2 font-medium">Phrase {idx + 1}/{config.sentences.length}</p>
+        <p className="text-xs text-brand-400 mb-2 font-medium">Sentence {idx + 1}/{config.sentences.length}</p>
         {sentence.hint && <p className="text-sm text-slate-500 mb-4 italic">{"\ud83d\udca1"} {sentence.hint}</p>}
 
         <div className="min-h-[60px] p-4 mb-6 bg-brand-50 rounded-xl border-2 border-dashed border-brand-200 flex flex-wrap gap-2">
@@ -119,7 +119,7 @@ export default function WordOrderGame({ config, onComplete }: { config: any; onC
 
         {checked && !isLast && (
           <div className="text-center">
-            <button type="button" onClick={next} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">Phrase suivante</button>
+            <button type="button" onClick={next} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">Sentence suivante</button>
           </div>
         )}
       </div>

@@ -39,7 +39,7 @@ export default function ProfilPage() {
             <input type="password" required value={current} onChange={e => setCurrent(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 outline-none text-sm" placeholder="Current password" />
             <input type="password" required value={newPw} onChange={e => setNewPw(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 outline-none text-sm" placeholder="New password" />
             <input type="password" required value={confirm} onChange={e => setConfirm(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 outline-none text-sm" placeholder="Confirmer" />
-            <button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-brand-500 to-accent-500 text-white py-2.5 rounded-xl font-semibold hover:shadow-glow disabled:opacity-50 transition-all">{loading ? "Modification…" : "Modifier"}</button>
+            <button type="submit" disabled={loading} className="w-full bg-gradient-to-r from-brand-500 to-accent-500 text-white py-2.5 rounded-xl font-semibold hover:shadow-glow disabled:opacity-50 transition-all">{loading ? "Modification…" : "Edit"}</button>
           </form>
         </div>
       </div>

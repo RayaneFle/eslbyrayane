@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   if (!session) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   const formData = await request.formData();
   const file = formData.get("file") as File;
-  if (!file) return NextResponse.json({ message: "Aucun fichier." }, { status: 400 });
+  if (!file) return NextResponse.json({ message: "No file." }, { status: 400 });
 
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
 
   if (error) {
     console.error("Supabase upload error:", error);
-    return NextResponse.json({ message: "Erreur upload: " + error.message }, { status: 500 });
+    return NextResponse.json({ message: "Upload error: " + error.message }, { status: 500 });
   }
 
   const { data: urlData } = supabase.storage

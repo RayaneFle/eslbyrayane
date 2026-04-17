@@ -144,7 +144,7 @@ export default async function DashboardPage() {
               <div key={cm.id}>
                 <p className="text-xs font-bold text-brand-700 mb-1.5">{cm.classroom.name}</p>
                 {cm.classroom.courses.length === 0 ? (
-                  <p className="text-xs text-slate-400 pl-2">Aucun cours assigne</p>
+                  <p className="text-xs text-slate-400 pl-2">No courses assigned</p>
                 ) : (
                   <div className="space-y-1 pl-2">{cm.classroom.courses.map((cc: any) => {
                     const totalLessons = cc.course.sections.reduce((s: number, sec: any) => s + sec.lessons.length, 0);
@@ -183,7 +183,7 @@ export default async function DashboardPage() {
                   <span className="text-base">{t.emoji}</span>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-medium text-slate-700 truncate">{r.activity.title}</p>
-                    <p className="text-[10px] text-slate-400">{r.completed ? "Terminé" : "En cours"}</p>
+                    <p className="text-[10px] text-slate-400">{r.completed ? "Completed" : "En cours"}</p>
                   </div>
                   <span className={"text-xs font-bold px-2 py-0.5 rounded-full " + ((r.score || 0) >= 80 ? "bg-green-100 text-green-700" : (r.score || 0) >= 50 ? "bg-amber-100 text-amber-700" : "bg-red-100 text-red-700")}>{Math.round(r.score || 0)}%</span>
                 </div>

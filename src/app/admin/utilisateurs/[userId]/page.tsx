@@ -132,7 +132,7 @@ export default async function UserDetailPage({ params }: { params: { userId: str
                   (p.status === "completed" ? "bg-green-100 text-green-700" :
                    p.status === "in_progress" ? "bg-amber-100 text-amber-700" :
                    "bg-slate-100 text-slate-400")}>
-                  {p.status === "completed" ? "Terminée" : p.status === "in_progress" ? "En cours" : "À faire"}
+                  {p.status === "completed" ? "Completed" : p.status === "in_progress" ? "In progress" : "To do"}
                 </span>
               </div>
             ))}

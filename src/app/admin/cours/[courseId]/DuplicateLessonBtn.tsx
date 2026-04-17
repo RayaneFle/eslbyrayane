@@ -35,9 +35,9 @@ export default function DuplicateLessonBtn({ lessonId, currentCourseId }: { less
   return (
     <div className="fixed inset-0 bg-black/30 z-50 flex items-center justify-center p-4" onClick={() => setOpen(false)}>
       <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl" onClick={e => e.stopPropagation()}>
-        <h3 className="font-heading font-bold text-lg mb-4">Copier la lesson vers...</h3>
+        <h3 className="font-heading font-bold text-lg mb-4">Copy lesson to...</h3>
         {done ? (
-          <div className="text-center py-4"><p className="text-green-600 font-medium">Lesson copiee !</p></div>
+          <div className="text-center py-4"><p className="text-green-600 font-medium">Lesson copied!</p></div>
         ) : (
           <>
             <div className="space-y-2 max-h-64 overflow-y-auto mb-4">

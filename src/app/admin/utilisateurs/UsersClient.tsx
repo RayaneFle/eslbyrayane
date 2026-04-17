@@ -64,7 +64,7 @@ export default function UsersClient({ users, isAdmin, currentUserEmail, classroo
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
         <div>
           <h1 className="font-heading text-2xl font-bold text-slate-900">{isAdmin ? "Users" : "My students"}</h1>
-          <p className="text-sm text-slate-400">{filtered.length} {isAdmin ? "utilisateur" : "student"}{filtered.length > 1 ? "s" : ""} {inactiveCount > 0 && " - " + inactiveCount + " inactif" + (inactiveCount > 1 ? "s" : "") + " (>7j)"}</p>
+          <p className="text-sm text-slate-400">{filtered.length} {isAdmin ? "user" : "student"}{filtered.length > 1 ? "s" : ""} {inactiveCount > 0 && " - " + inactiveCount + " inactif" + (inactiveCount > 1 ? "s" : "") + " (>7j)"}</p>
         </div>
       </div>
 
@@ -84,7 +84,7 @@ export default function UsersClient({ users, isAdmin, currentUserEmail, classroo
               <span className="text-xs font-bold text-slate-500 mr-1">Role :</span>
               <Pill active={!roleFilter} onClick={() => setRoleFilter(null)}>All</Pill>
               <Pill active={roleFilter === "student"} onClick={() => setRoleFilter("student")}>Students</Pill>
-              <Pill active={roleFilter === "teacher"} onClick={() => setRoleFilter("teacher")}>Professeurs</Pill>
+              <Pill active={roleFilter === "teacher"} onClick={() => setRoleFilter("teacher")}>Teachers</Pill>
               <Pill active={roleFilter === "admin"} onClick={() => setRoleFilter("admin")}>Admins</Pill>
             </div>
             {classrooms.length > 0 && (
@@ -124,7 +124,7 @@ export default function UsersClient({ users, isAdmin, currentUserEmail, classroo
               return (
                 <tr key={u.id} className="hover:bg-brand-50/30 transition-colors">
                   <td className="px-4 py-3">
-                    <Link href={"/admin/utilisateurs/" + u.id} className="flex items-center gap-2 hover:text-brand-700">
+                    <Link href={"/admin/users/" + u.id} className="flex items-center gap-2 hover:text-brand-700">
                       <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-300 to-accent-400 flex items-center justify-center text-white text-xs font-bold shrink-0">{u.name?.charAt(0) || "?"}</div>
                       <div className="min-w-0">
                         <p className="font-medium text-slate-800 truncate text-sm">{u.name || "-"}</p>

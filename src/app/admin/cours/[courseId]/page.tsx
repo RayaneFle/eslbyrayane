@@ -67,7 +67,7 @@ export default async function AdminCourseEditorPage({ params }: { params: { cour
                 <div key={l.id} className="flex items-center gap-4 px-6 py-3 hover:bg-brand-50/50">
                   <span className="text-sm font-medium text-slate-300 w-8">{si+1}.{li+1}</span>
                   <p className="flex-1 font-medium text-slate-700">{l.title}</p>
-                  <span className="text-xs text-slate-400">{l._count.blocks} blocs</span>
+                  <span className="text-xs text-slate-400">{l._count.blocks} blocks</span>
                   <div className="flex items-center gap-1.5"><Link href={`/admin/cours/${course.id}/sections/${s.id}/lessons/${l.id}/modifier`} className="text-xs px-3 py-1 bg-amber-50 text-amber-700 rounded-lg hover:bg-amber-100">Edit</Link><DuplicateLessonBtn lessonId={l.id} currentCourseId={course.id} /><ToggleLessonBtn lessonId={l.id} hidden={(l as any).hidden || false} /><DeleteLessonBtn courseId={course.id} sectionId={s.id} lessonId={l.id} /></div>
                 </div>
               ))}</div>}

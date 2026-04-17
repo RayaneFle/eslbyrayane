@@ -157,7 +157,7 @@ export default function LessonContent({ blocks, lessonId, nextLessonUrl, courseU
         <div className="bg-green-50 rounded-2xl border-2 border-green-300 p-8 text-center">
           <span className="text-5xl">{"\ud83c\udf89"}</span>
           <h2 className="font-heading text-2xl font-bold text-green-800 mt-4">Lesson terminee !</h2>
-          <p className="text-green-600 mt-2">Vous avez complete toutes les activites.</p>
+          <p className="text-green-600 mt-2">You have completed all activities.</p>
           <div className="mt-4 space-y-2">
             {Array.from(scores.entries()).map(([actId, score]) => {
               const block = blocks.find(b => b.activity?.id === actId);

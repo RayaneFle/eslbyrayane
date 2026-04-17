@@ -20,8 +20,8 @@ export default function TrueFalseGame({ config, onComplete }: { config: any; onC
       if (last) {
         const details: AnswerDetail[] = config.questions.map((q: any, i: number) => ({
           question: q.statement,
-          userAnswer: newAnswers[i] ? "Vrai" : "Faux",
-          correctAnswer: q.isTrue ? "Vrai" : "Faux",
+          userAnswer: newAnswers[i] ? "True" : "False",
+          correctAnswer: q.isTrue ? "True" : "False",
           isCorrect: newAnswers[i] === q.isTrue,
           explanation: q.explanation || undefined,
           imageUrl: q.imageUrl || undefined,

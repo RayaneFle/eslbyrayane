@@ -70,7 +70,7 @@ export default function SubclassManager({ classroomId, members, subclasses }: { 
               <p className="text-sm font-bold text-brand-800">{sc.name} <span className="text-xs font-normal text-slate-400">({scMembers.length})</span></p>
               <div className="flex items-center gap-2">
                 <button onClick={() => { setAddingTo(isAdding ? null : sc.id); setSelected(new Set()); }} className={"text-[10px] px-2 py-0.5 rounded font-bold " + (isAdding ? "bg-brand-500 text-white" : "bg-white text-brand-600 border border-brand-200")}>
-                  {isAdding ? "Cancel" : "+ Ajouter"}
+                  {isAdding ? "Cancel" : "+ Add"}
                 </button>
                 <button onClick={() => deleteSubclass(sc.id)} className="text-[10px] text-red-400 hover:text-red-600">x</button>
               </div>
@@ -100,7 +100,7 @@ export default function SubclassManager({ classroomId, members, subclasses }: { 
                 </div>
                 {selected.size > 0 && (
                   <button onClick={() => assignSelected(sc.id)} className="mt-2 w-full py-1.5 bg-brand-500 text-white text-xs font-bold rounded-lg hover:bg-brand-600">
-                    Ajouter {selected.size} student{selected.size > 1 ? "s" : ""}
+                    Add {selected.size} student{selected.size > 1 ? "s" : ""}
                   </button>
                 )}
               </div>
