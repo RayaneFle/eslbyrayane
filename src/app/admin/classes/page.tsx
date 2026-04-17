@@ -8,7 +8,7 @@ export default async function AdminClasssPage() {
   const session = await getServerSession(authOptions);
   const classrooms = await prisma.classroom.findMany({
     where: { ownerId: session?.user?.id || "" },
-    include: { _count: { select: { members: true, courseses: true, posts: true } } },
+    include: { _count: { select: { members: true, courses: true, posts: true } } },
     orderBy: { createdAt: "desc" },
   });
 
