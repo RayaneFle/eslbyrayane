@@ -8,7 +8,7 @@ export default async function AdminClasssPage() {
   const session = await getServerSession(authOptions);
   const classrooms = await prisma.classroom.findMany({
     where: { ownerId: session?.user?.id || "" },
-    include: { _count: { select: { members: true, courses: true, posts: true } } },
+    include: { _count: { select: { members: true, courseses: true, posts: true } } },
     orderBy: { createdAt: "desc" },
   });
 
@@ -31,7 +31,7 @@ export default async function AdminClasssPage() {
               {c.description && <p className="text-sm text-slate-400 mb-3">{c.description}</p>}
               <div className="flex items-center gap-4 text-sm text-slate-400">
                 <span>👥 {c._count.members} student{c._count.members !== 1 ? "s" : ""}</span>
-                <span>📖 {c._count.courses} cours</span>
+                <span>📖 {c._count.courses} courses</span>
                 <span>📌 {c._count.posts} post{c._count.posts !== 1 ? "s" : ""}</span>
               </div>
             </Link>

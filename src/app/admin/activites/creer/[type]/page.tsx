@@ -23,7 +23,7 @@ function ImageUpload({ value, onChange, label }: { value: string; onChange: (url
           {uploading ? "Upload..." : "📷 Image"}
           <input type="file" accept="image/*" onChange={handleFile} className="hidden" />
         </label>
-        <input value={value} onChange={e => onChange(e.target.value)} className="flex-1 border border-slate-200 rounded-lg px-2 py-1 text-xs outline-none" placeholder="or URL image" />
+        <input value={value} onChange={e => onChange(e.target.value)} className="flex-1 border border-slate-200 rounded-lg px-2 py-1 text-xs outline-none" placeholder="or image URL" />
         {value && <img src={value} alt="" className="w-8 h-8 rounded object-cover" />}
       </div>
     </div>
@@ -86,7 +86,7 @@ export default function CreateActivityPage() {
 
   return (
     <div className="max-w-3xl">
-      <div className="flex items-center gap-3 mb-8"><span className="text-3xl">{info.emoji}</span><h1 className="font-heading text-2xl font-bold text-slate-900">Create : {info.label}</h1></div>
+      <div className="flex items-center gap-3 mb-8"><span className="text-3xl">{info.emoji}</span><h1 className="font-heading text-2xl font-bold text-slate-900">Create: {info.label}</h1></div>
       {error && <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl mb-6">{error}</div>}
       <form onSubmit={onSubmit} className="space-y-6">
         <div className="bg-white rounded-2xl border border-brand-100 p-6 space-y-4">
@@ -104,10 +104,10 @@ export default function CreateActivityPage() {
           {type === "QCM" && <div className="space-y-4">{qcm.map((q, qi) => <div key={qi} className="p-4 bg-slate-50 rounded-xl space-y-3">
             <div className="flex justify-between"><span className="text-xs font-bold text-slate-400">Q{qi+1}</span>{qcm.length>1 && <button type="button" onClick={() => setQcm(qcm.filter((_,i) => i!==qi))} className="text-xs text-red-500">x</button>}</div>
             <input value={q.question} onChange={e => { const u=[...qcm]; u[qi].question=e.target.value; setQcm(u); }} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Question" />
-            <ImageUpload value={q.imageUrl} onChange={v => { const u=[...qcm]; u[qi].imageUrl=v; setQcm(u); }} label="Image de la question" />
+            <ImageUpload value={q.imageUrl} onChange={v => { const u=[...qcm]; u[qi].imageUrl=v; setQcm(u); }} label="Question image" />
             {q.options.map((o: string, oi: number) => <div key={oi} className="flex items-center gap-2"><input type="radio" name={`q${qi}`} checked={q.correctIndex===oi} onChange={() => { const u=[...qcm]; u[qi].correctIndex=oi; setQcm(u); }} className="accent-green-600" /><input value={o} onChange={e => { const u=[...qcm]; u[qi].options[oi]=e.target.value; setQcm(u); }} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder={`Option ${String.fromCharCode(65+oi)}`} />{q.options.length > 2 && <button type="button" onClick={() => { const u=[...qcm]; u[qi].options = u[qi].options.filter((_:any,j:number)=>j!==oi); if(u[qi].correctIndex >= u[qi].options.length) u[qi].correctIndex = 0; setQcm(u); }} className="text-red-400 text-xs shrink-0">x</button>}</div>)}
             <button type="button" onClick={() => { const u=[...qcm]; u[qi].options = [...u[qi].options, ""]; setQcm(u); }} className="text-xs text-brand-600 font-medium mt-1">+ Add an answer</button>
-            <input value={q.explanation} onChange={e => { const u=[...qcm]; u[qi].explanation=e.target.value; setQcm(u); }} className="w-full border border-slate-100 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Explication" />
+            <input value={q.explanation} onChange={e => { const u=[...qcm]; u[qi].explanation=e.target.value; setQcm(u); }} className="w-full border border-slate-100 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Explanation" />
           </div>)}<button type="button" onClick={() => setQcm([...qcm, {question:"",imageUrl:"",options:["","","",""],correctIndex:0,explanation:""}])} className="w-full py-3 border-2 border-dashed border-slate-200 rounded-xl text-sm font-medium text-slate-400 hover:border-brand-400">+ Question</button></div>}
 
           {type === "TRUE_FALSE" && <div className="space-y-4">{tf.map((q, i) => <div key={i} className="p-4 bg-slate-50 rounded-xl space-y-3">
@@ -144,24 +144,24 @@ export default function CreateActivityPage() {
 
           {type === "HANGMAN" && <div className="space-y-2">{words.map((w, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl space-y-2">
             <div className="flex items-center gap-2"><input value={w.word} onChange={e => { const u=[...words]; u[i].word=e.target.value; setWords(u); }} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Word" /><input value={w.hint} onChange={e => { const u=[...words]; u[i].hint=e.target.value; setWords(u); }} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Hint" /></div>
-            <ImageUpload value={w.imageUrl} onChange={v => { const u=[...words]; u[i].imageUrl=v; setWords(u); }} label="Image indice" />
+            <ImageUpload value={w.imageUrl} onChange={v => { const u=[...words]; u[i].imageUrl=v; setWords(u); }} label="Hint image" />
             {words.length > 1 && <button type="button" onClick={() => setWords(words.filter((_: any,j: number) => j!==i))} className="text-xs text-red-500">Delete</button>}
             {words.length > 1 && <button type="button" onClick={() => setWords(words.filter((_: any, j: number) => j !== i))} className="text-xs text-red-500 mt-1">Delete ce mot</button>}
           </div>)}<button type="button" onClick={() => setWords([...words, {word:"",hint:"",imageUrl:""}])} className="w-full py-3 border-2 border-dashed border-slate-200 rounded-xl text-sm font-medium text-slate-400 hover:border-brand-400">+ Word</button></div>}
 
           {type === "DRAG_DROP" && <div className="space-y-4">
-            <div><p className="text-xs font-bold text-slate-500 mb-2">Zones de depot :</p>{ddZones.map((z, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2"><input value={z.name} onChange={e => { const u=[...ddZones]; u[i].name=e.target.value; setDdZones(u); }} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder={`Zone ${i+1}`} /><ImageUpload value={z.imageUrl} onChange={v => { const u=[...ddZones]; u[i].imageUrl=v; setDdZones(u); }} label="Image zone" />{ddZones.length>2 && <button type="button" onClick={() => setDdZones(ddZones.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}</div>)}<button type="button" onClick={() => setDdZones([...ddZones, {name:"",imageUrl:""}])} className="text-xs text-brand-600 font-medium">+ Zone</button></div>
-            <div><p className="text-xs font-bold text-slate-500 mb-2">Elements a glisser :</p>{ddItems.map((it, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2"><div className="flex items-center gap-2"><input value={it.text} onChange={e => { const u=[...ddItems]; u[i].text=e.target.value; setDdItems(u); }} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Text" /><select value={it.zone} onChange={e => { const u=[...ddItems]; u[i].zone=e.target.value; setDdItems(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none"><option value="">Zone...</option>{ddZones.filter(z=>z.name||z.imageUrl).map(z=><option key={z.name||z.imageUrl} value={z.name||z.imageUrl}>{z.name||"(image)"}</option>)}</select></div><ImageUpload value={it.imageUrl} onChange={v => { const u=[...ddItems]; u[i].imageUrl=v; setDdItems(u); }} label="Image element" />{ddItems.length>1 && <button type="button" onClick={() => setDdItems(ddItems.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}</div>)}<button type="button" onClick={() => setDdItems([...ddItems, {text:"",zone:"",imageUrl:""}])} className="text-xs text-brand-600 font-medium">+ Element</button></div>
+            <div><p className="text-xs font-bold text-slate-500 mb-2">Drop zones:</p>{ddZones.map((z, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2"><input value={z.name} onChange={e => { const u=[...ddZones]; u[i].name=e.target.value; setDdZones(u); }} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder={`Zone ${i+1}`} /><ImageUpload value={z.imageUrl} onChange={v => { const u=[...ddZones]; u[i].imageUrl=v; setDdZones(u); }} label="Zone image" />{ddZones.length>2 && <button type="button" onClick={() => setDdZones(ddZones.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}</div>)}<button type="button" onClick={() => setDdZones([...ddZones, {name:"",imageUrl:""}])} className="text-xs text-brand-600 font-medium">+ Zone</button></div>
+            <div><p className="text-xs font-bold text-slate-500 mb-2">Elements to drag:</p>{ddItems.map((it, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2"><div className="flex items-center gap-2"><input value={it.text} onChange={e => { const u=[...ddItems]; u[i].text=e.target.value; setDdItems(u); }} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Text" /><select value={it.zone} onChange={e => { const u=[...ddItems]; u[i].zone=e.target.value; setDdItems(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none"><option value="">Zone...</option>{ddZones.filter(z=>z.name||z.imageUrl).map(z=><option key={z.name||z.imageUrl} value={z.name||z.imageUrl}>{z.name||"(image)"}</option>)}</select></div><ImageUpload value={it.imageUrl} onChange={v => { const u=[...ddItems]; u[i].imageUrl=v; setDdItems(u); }} label="Element image" />{ddItems.length>1 && <button type="button" onClick={() => setDdItems(ddItems.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}</div>)}<button type="button" onClick={() => setDdItems([...ddItems, {text:"",zone:"",imageUrl:""}])} className="text-xs text-brand-600 font-medium">+ Element</button></div>
           </div>}
 
           {type === "SORTING" && <div className="space-y-3"><input value={sortInst} onChange={e => setSortInst(e.target.value)} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Instruction" />{sort.map((s, i) => <div key={i} className="flex items-center gap-2"><span className="text-xs text-slate-300 w-6">{i+1}.</span><input value={s} onChange={e => { const u=[...sort]; u[i]=e.target.value; setSort(u); }} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" />{sort.length>1 && <button type="button" onClick={() => setSort(sort.filter((_,j)=>j!==i))} className="text-red-400 p-1">x</button>}</div>)}<button type="button" onClick={() => setSort([...sort, ""])} className="w-full py-3 border-2 border-dashed border-slate-200 rounded-xl text-sm font-medium text-slate-400 hover:border-brand-400">+ Element</button></div>}
 
           {type === "WORD_ORDER" && <div className="space-y-3">
-            <p className="text-xs text-slate-400 mb-2">Ecrivez les phrases dans le bon ordre. Les mots seront melanges automatiquement.</p>
+            <p className="text-xs text-slate-400 mb-2">Write sentences in the correct order. Words will be shuffled automatically.</p>
             {sentences.map((s, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl space-y-2">
               <div className="flex justify-between"><span className="text-xs font-bold text-slate-400">Sentence {i+1}</span>{sentences.length>1 && <button type="button" onClick={() => setSentences(sentences.filter((_,j)=>j!==i))} className="text-xs text-red-500">x</button>}</div>
-              <input value={s.text} onChange={e => { const u=[...sentences]; u[i]={...u[i], text:e.target.value}; setSentences(u); }} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ex: Je suis francais" />
-              <input value={s.hint} onChange={e => { const u=[...sentences]; u[i]={...u[i], hint:e.target.value}; setSentences(u); }} className="w-full border border-slate-100 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Hint (optionnel)" />
+              <input value={s.text} onChange={e => { const u=[...sentences]; u[i]={...u[i], text:e.target.value}; setSentences(u); }} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ex: I am a student" />
+              <input value={s.hint} onChange={e => { const u=[...sentences]; u[i]={...u[i], hint:e.target.value}; setSentences(u); }} className="w-full border border-slate-100 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Hint (optional)" />
             </div>)}
             <button type="button" onClick={() => setSentences([...sentences, {text:"",hint:""}])} className="w-full py-3 border-2 border-dashed border-slate-200 rounded-xl text-sm font-medium text-slate-400 hover:border-brand-400">+ Sentence</button>
           </div>}
@@ -174,14 +174,14 @@ export default function CreateActivityPage() {
             </div>)}<button type="button" onClick={() => setCats([...cats, {name:"",imageUrl:""}])} className="text-xs text-brand-600 font-medium">+ Category</button></div>
             <div><p className="text-xs font-bold text-slate-500 mb-2">Elements:</p>{catItems.map((it, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2">
               <div className="flex items-center gap-2"><input value={it.text} onChange={e => { const u=[...catItems]; u[i].text=e.target.value; setCatItems(u); }} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Text" /><select value={it.category} onChange={e => { const u=[...catItems]; u[i].category=e.target.value; setCatItems(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none"><option value="">Cat...</option>{cats.filter(c=>c.name||c.imageUrl).map(c=><option key={c.name||c.imageUrl} value={c.name||c.imageUrl}>{c.name||"(image)"}</option>)}</select></div>
-              <ImageUpload value={it.imageUrl} onChange={v => { const u=[...catItems]; u[i].imageUrl=v; setCatItems(u); }} label="Image element" />
+              <ImageUpload value={it.imageUrl} onChange={v => { const u=[...catItems]; u[i].imageUrl=v; setCatItems(u); }} label="Element image" />
               {catItems.length>1 && <button type="button" onClick={() => setCatItems(catItems.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}
             </div>)}<button type="button" onClick={() => setCatItems([...catItems, {text:"",category:"",imageUrl:""}])} className="text-xs text-brand-600 font-medium">+ Element</button></div>
           </div>}
         </div>
 
         <div className="bg-white rounded-2xl border border-brand-100 p-6">
-          <h2 className="font-heading font-bold text-slate-800 mb-3">Assign to a class (optionnel)</h2>
+          <h2 className="font-heading font-bold text-slate-800 mb-3">Assign to a class (optional)</h2>
           {classrooms.length > 0 ? (
             <select value={selectedClassroom} onChange={e => setSelectedClassroom(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 outline-none">
               <option value="">No class</option>

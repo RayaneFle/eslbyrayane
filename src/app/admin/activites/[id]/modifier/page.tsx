@@ -155,7 +155,7 @@ export default function EditActivityPage() {
             <ImageUpload value={q.imageUrl||""} onChange={v => { const u=[...qcm]; u[qi]={...u[qi],imageUrl:v}; setQcm(u); }} label="Image" />
             {(q.options||[]).map((o: string, oi: number) => <div key={oi} className="flex items-center gap-2"><input type="radio" name={`eq${qi}`} checked={q.correctIndex===oi} onChange={() => { const u=[...qcm]; u[qi]={...u[qi],correctIndex:oi}; setQcm(u); }} className="accent-green-600" /><input value={o} onChange={e => { const u=[...qcm]; const opts=[...u[qi].options]; opts[oi]=e.target.value; u[qi]={...u[qi],options:opts}; setQcm(u); }} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" />{(q.options||[]).length > 2 && <button type="button" onClick={() => { const u=[...qcm]; const opts=u[qi].options.filter((_:any,j:number)=>j!==oi); u[qi]={...u[qi],options:opts,correctIndex:u[qi].correctIndex>=opts.length?0:u[qi].correctIndex}; setQcm(u); }} className="text-red-400 text-xs shrink-0">x</button>}</div>)}
             <button type="button" onClick={() => { const u=[...qcm]; u[qi]={...u[qi],options:[...u[qi].options,""]}; setQcm(u); }} className="text-xs text-brand-600 font-medium mt-1">+ Add an answer</button>
-            <input value={q.explanation||""} onChange={e => { const u=[...qcm]; u[qi]={...u[qi],explanation:e.target.value}; setQcm(u); }} className="w-full border border-slate-100 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Explication" />
+            <input value={q.explanation||""} onChange={e => { const u=[...qcm]; u[qi]={...u[qi],explanation:e.target.value}; setQcm(u); }} className="w-full border border-slate-100 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Explanation" />
           </div>)}<button type="button" onClick={() => setQcm([...qcm, {question:"",imageUrl:"",options:["",""],correctIndex:0,explanation:""}])} className="w-full py-3 border-2 border-dashed border-slate-200 rounded-xl text-sm text-slate-400 hover:border-brand-400">+ Question</button></div>}
 
           {type === "TRUE_FALSE" && <div className="space-y-4">{tf.map((q, i) => <div key={i} className="p-4 bg-slate-50 rounded-xl space-y-3">
@@ -203,7 +203,7 @@ export default function EditActivityPage() {
             {sentences.map((s: any, i: number) => <div key={i} className="p-3 bg-slate-50 rounded-xl space-y-2">
               <div className="flex justify-between"><span className="text-xs font-bold text-slate-400">Sentence {i+1}</span>{sentences.length>1 && <button type="button" onClick={() => setSentences(sentences.filter((_: any,j: number)=>j!==i))} className="text-xs text-red-500">x</button>}</div>
               <input value={s.text||""} onChange={e => { const u=[...sentences]; u[i]={...u[i], text:e.target.value}; setSentences(u); }} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Sentence" />
-              <input value={s.hint||""} onChange={e => { const u=[...sentences]; u[i]={...u[i], hint:e.target.value}; setSentences(u); }} className="w-full border border-slate-100 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Hint (optionnel)" />
+              <input value={s.hint||""} onChange={e => { const u=[...sentences]; u[i]={...u[i], hint:e.target.value}; setSentences(u); }} className="w-full border border-slate-100 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Hint (optional)" />
             </div>)}
             <button type="button" onClick={() => setSentences([...sentences, {text:"",hint:""}])} className="w-full py-3 border-2 border-dashed border-slate-200 rounded-xl text-sm text-slate-400 hover:border-brand-400">+ Sentence</button>
           </div>}
@@ -224,7 +224,7 @@ export default function EditActivityPage() {
           {type === "DRAG_DROP" && <div className="space-y-4">
             <div><p className="text-xs font-bold text-slate-500 mb-2">Zones:</p>{ddZones.map((z, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2">
               <input value={z.name||""} onChange={e => { const u=[...ddZones]; u[i]={...u[i],name:e.target.value}; setDdZones(u); }} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Zone" />
-              <ImageUpload value={z.imageUrl||""} onChange={v => { const u=[...ddZones]; u[i]={...u[i],imageUrl:v}; setDdZones(u); }} label="Image zone" />
+              <ImageUpload value={z.imageUrl||""} onChange={v => { const u=[...ddZones]; u[i]={...u[i],imageUrl:v}; setDdZones(u); }} label="Zone image" />
               {ddZones.length>2 && <button type="button" onClick={() => setDdZones(ddZones.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}
             </div>)}<button onClick={() => setDdZones([...ddZones, {name:"",imageUrl:""}])} className="text-xs text-brand-600 font-medium">+ Zone</button></div>
             <div><p className="text-xs font-bold text-slate-500 mb-2">Elements:</p>{ddItems.map((it, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2">
