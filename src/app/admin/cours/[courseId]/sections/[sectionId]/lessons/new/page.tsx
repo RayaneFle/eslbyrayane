@@ -141,7 +141,7 @@ export default function NewLessonPage() {
                     </div>
                   </div>
                   <label className="flex items-center gap-2 text-sm text-slate-600 mt-2">
-                    <input type="checkbox" checked={block.requireScore} onChange={e=>updateBlock(idx,{requireScore:e.target.checked})} className="accent-brand-500" />Score minimum requis
+                    <input type="checkbox" checked={block.requireScore} onChange={e=>updateBlock(idx,{requireScore:e.target.checked})} className="accent-brand-500" />Minimum score required
                   </label>
                   {block.requireScore && <input type="number" value={block.minScore} onChange={e=>updateBlock(idx,{minScore:parseInt(e.target.value)||0})} className="w-20 border border-slate-200 rounded-lg px-3 py-1 text-sm outline-none mt-2" min="0" max="100" />}
                 </div>

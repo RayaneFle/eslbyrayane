@@ -33,7 +33,7 @@ export default function CategorizeGame({ config, onComplete }: { config: any; on
       <p className="text-sm text-slate-400 mb-2">{config.instruction || "Triez les elements"}</p>
       <p className="text-xs text-slate-300 mb-6">{placements.size}/{config.items.length} tries</p>
       <div className="flex flex-wrap gap-3 mb-8 min-h-[60px] p-3 bg-slate-50 rounded-xl border-2 border-dashed border-slate-200">
-        {unplaced.length === 0 && !checked && <p className="text-xs text-slate-300 m-auto">Tous tries !</p>}
+        {unplaced.length === 0 && !checked && <p className="text-xs text-slate-300 m-auto">All sorted!</p>}
         {unplaced.map((i: any) => (
           <div key={key(i)} draggable onDragStart={() => dragStart(key(i))} onDragEnd={() => { setDragging(null); ref.current = null; }} onClick={() => tap(key(i))}
             className={`px-4 py-2 rounded-xl font-medium text-sm cursor-grab select-none transition-all flex items-center gap-2 ${dragging === key(i) ? "bg-brand-500 text-white scale-105 shadow-lg" : "bg-white text-slate-700 border border-slate-200 hover:border-brand-300"}`}>
@@ -67,7 +67,7 @@ export default function CategorizeGame({ config, onComplete }: { config: any; on
                     </div>
                   );
                 })}
-                {items.length === 0 && <p className="text-xs text-slate-300 text-center italic py-2">Deposez ici</p>}
+                {items.length === 0 && <p className="text-xs text-slate-300 text-center italic py-2">Drop here</p>}
               </div>
             </div>
           );

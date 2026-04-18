@@ -57,7 +57,7 @@ export default function MatchingGame({ config, onComplete }: { config: any; onCo
   return (
     <div className="bg-white rounded-2xl border border-brand-100 p-6 sm:p-8">
       {config.instruction && <p className="text-sm text-slate-400 mb-2">{config.instruction}</p>}
-      <p className="text-xs text-slate-300 mb-6">{matchedIds.size}/{pairs.length} paires</p>
+      <p className="text-xs text-slate-300 mb-6">{matchedIds.size}/{pairs.length} pairs</p>
       <div className="grid grid-cols-2 gap-4 sm:gap-6">
         <div className="space-y-2">{leftItems.map((p: any) => {
           const d = matchedIds.has(p._id);

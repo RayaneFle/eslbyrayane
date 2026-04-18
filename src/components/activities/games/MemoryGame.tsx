@@ -45,7 +45,7 @@ export default function MemoryGame({ config, onComplete }: { config: any; onComp
   return (
     <div className="bg-white rounded-2xl border border-brand-100 p-6 sm:p-8">
       <div className="flex justify-between items-center mb-6">
-        <p className="text-sm text-slate-400">{matched}/{total} paires</p>
+        <p className="text-sm text-slate-400">{matched}/{total} pairs</p>
         <span className="text-sm text-slate-400">\ud83d\udc46 {moves}</span>
       </div>
       <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
