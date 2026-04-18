@@ -202,7 +202,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
             <SubclassManager classroomId={classroom.id} members={classroom.members} subclasses={classroom.subclasses} />
           </div>
           <div className="bg-white rounded-2xl border border-brand-100 p-6">
-            <h2 className="font-heading font-bold text-lg text-slate-900 mb-4">Tous les students ({classroom.members.length})</h2>
+            <h2 className="font-heading font-bold text-lg text-slate-900 mb-4">All students ({classroom.members.length})</h2>
             <div className="space-y-2">
               {classroom.subclasses.map((sc: any) => {
                 const scMembers = classroom.members.filter((m: any) => m.subclassId === sc.id);
