@@ -101,10 +101,10 @@ export default function EditActivityPage() {
       case "QCM": return { questions: qcm };
       case "TRUE_FALSE": return { questions: tf };
       case "FILL_BLANKS": return { text: fb, caseSensitive: false };
-      case "MATCHING": return { pairs: pairs.filter(p => (p.left || p.leftImage) && (p.right || p.rightImage)), instruction: "Associez les elements" };
+      case "MATCHING": return { pairs: pairs.filter(p => (p.left || p.leftImage) && (p.right || p.rightImage)), instruction: "Match the items" };
       case "MEMORY": return { pairs: memory.filter(p => (p.front || p.frontImage) && (p.back || p.backImage)) };
       case "HANGMAN": return { words };
-      case "DRAG_DROP": return { zones: ddZones.filter(z => z.name || z.imageUrl).map(z => ({ ...z, items: ddItems.filter(i => i.zone === (z.name || z.imageUrl) && (i.text || i.imageUrl)).map(i => ({ text: i.text, imageUrl: i.imageUrl })) })), instruction: "Glissez dans la bonne zone" };
+      case "DRAG_DROP": return { zones: ddZones.filter(z => z.name || z.imageUrl).map(z => ({ ...z, items: ddItems.filter(i => i.zone === (z.name || z.imageUrl) && (i.text || i.imageUrl)).map(i => ({ text: i.text, imageUrl: i.imageUrl })) })), instruction: "Drag to the correct zone" };
       case "SORTING": return { items: sort.filter(Boolean), correctOrder: sort.filter(Boolean), instruction: sortInst };
       case "CATEGORIZE": return { categories: cats.filter(c => c.name || c.imageUrl), items: catItems.filter(i => (i.text || i.imageUrl) && i.category), instruction: catInst };
       case "WORD_ORDER": return { sentences: sentences.filter((s: any) => s.text?.trim()) };
@@ -185,8 +185,8 @@ export default function EditActivityPage() {
               <input value={p.back||""} onChange={e => { const u=[...memory]; u[i]={...u[i],back:e.target.value}; setMemory(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Back" />
             </div>
             <div className="grid grid-cols-2 gap-2">
-              <ImageUpload value={p.frontImage||""} onChange={v => { const u=[...memory]; u[i]={...u[i],frontImage:v}; setMemory(u); }} label="Image recto" />
-              <ImageUpload value={p.backImage||""} onChange={v => { const u=[...memory]; u[i]={...u[i],backImage:v}; setMemory(u); }} label="Image verso" />
+              <ImageUpload value={p.frontImage||""} onChange={v => { const u=[...memory]; u[i]={...u[i],frontImage:v}; setMemory(u); }} label="Front image" />
+              <ImageUpload value={p.backImage||""} onChange={v => { const u=[...memory]; u[i]={...u[i],backImage:v}; setMemory(u); }} label="Back image" />
             </div>
             {memory.length>1 && <button type="button" onClick={() => setMemory(memory.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}
           </div>)}<button type="button" onClick={() => setMemory([...memory, {front:"",back:"",frontImage:"",backImage:""}])} className="w-full py-3 border-2 border-dashed border-slate-200 rounded-xl text-sm text-slate-400 hover:border-brand-400">+ Pair</button></div>}
@@ -214,7 +214,7 @@ export default function EditActivityPage() {
               <ImageUpload value={c.imageUrl||""} onChange={v => { const u=[...cats]; u[i]={...u[i],imageUrl:v}; setCats(u); }} label="Image" />
               {cats.length>2 && <button type="button" onClick={() => setCats(cats.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}
             </div>)}<button onClick={() => setCats([...cats, {name:"",imageUrl:""}])} className="text-xs text-brand-600 font-medium">+ Category</button></div>
-            <div><p className="text-xs font-bold text-slate-500 mb-2">Elements:</p>{catItems.map((it, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2">
+            <div><p className="text-xs font-bold text-slate-500 mb-2">Items:</p>{catItems.map((it, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2">
               <div className="flex gap-2"><input value={it.text||""} onChange={e => { const u=[...catItems]; u[i]={...u[i],text:e.target.value}; setCatItems(u); }} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Text" /><select value={it.category||""} onChange={e => { const u=[...catItems]; u[i]={...u[i],category:e.target.value}; setCatItems(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none"><option value="">Cat...</option>{cats.filter(c=>c.name||c.imageUrl).map(c=><option key={c.name||c.imageUrl} value={c.name||c.imageUrl}>{c.name||"(image)"}</option>)}</select></div>
               <ImageUpload value={it.imageUrl||""} onChange={v => { const u=[...catItems]; u[i]={...u[i],imageUrl:v}; setCatItems(u); }} label="Image" />
               {catItems.length>1 && <button type="button" onClick={() => setCatItems(catItems.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}
@@ -227,7 +227,7 @@ export default function EditActivityPage() {
               <ImageUpload value={z.imageUrl||""} onChange={v => { const u=[...ddZones]; u[i]={...u[i],imageUrl:v}; setDdZones(u); }} label="Zone image" />
               {ddZones.length>2 && <button type="button" onClick={() => setDdZones(ddZones.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}
             </div>)}<button onClick={() => setDdZones([...ddZones, {name:"",imageUrl:""}])} className="text-xs text-brand-600 font-medium">+ Zone</button></div>
-            <div><p className="text-xs font-bold text-slate-500 mb-2">Elements:</p>{ddItems.map((it, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2">
+            <div><p className="text-xs font-bold text-slate-500 mb-2">Items:</p>{ddItems.map((it, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2">
               <div className="flex gap-2"><input value={it.text||""} onChange={e => { const u=[...ddItems]; u[i]={...u[i],text:e.target.value}; setDdItems(u); }} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Text" /><select value={it.zone||""} onChange={e => { const u=[...ddItems]; u[i]={...u[i],zone:e.target.value}; setDdItems(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none"><option value="">Zone...</option>{ddZones.filter(z=>z.name||z.imageUrl).map(z=><option key={z.name||z.imageUrl} value={z.name||z.imageUrl}>{z.name||"(image)"}</option>)}</select></div>
               <ImageUpload value={it.imageUrl||""} onChange={v => { const u=[...ddItems]; u[i]={...u[i],imageUrl:v}; setDdItems(u); }} label="Image" />
               {ddItems.length>1 && <button type="button" onClick={() => setDdItems(ddItems.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}

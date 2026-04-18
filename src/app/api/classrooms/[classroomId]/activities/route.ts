@@ -8,7 +8,7 @@ export async function POST(request: Request, { params }: { params: { classroomId
   if (!session || (session.user.role !== "admin" && session.user.role !== "teacher")) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   const { activityId } = await request.json();
   const existing = await prisma.classroomActivity.findUnique({ where: { classroomId_activityId: { classroomId: params.classroomId, activityId } } });
-  if (existing) return NextResponse.json({ message: "Deja assigne." }, { status: 409 });
+  if (existing) return NextResponse.json({ message: "Already assigned." }, { status: 409 });
   const ca = await prisma.classroomActivity.create({ data: { classroomId: params.classroomId, activityId } });
   return NextResponse.json(ca, { status: 201 });
 }

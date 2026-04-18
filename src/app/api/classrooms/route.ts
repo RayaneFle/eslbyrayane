@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
   if (body.code) {
     const classroom = await prisma.classroom.findUnique({ where: { code: body.code } });
-    if (!classroom) return NextResponse.json({ message: "Code introuvable." }, { status: 404 });
+    if (!classroom) return NextResponse.json({ message: "Code not found." }, { status: 404 });
     const existing = await prisma.classroomMember.findUnique({ where: { userId_classroomId: { userId: session.user.id, classroomId: classroom.id } } });
     if (existing) return NextResponse.json({ message: "Already enrolled." }, { status: 409 });
     await prisma.classroomMember.create({ data: { userId: session.user.id, classroomId: classroom.id } });

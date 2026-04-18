@@ -101,8 +101,8 @@ export default function ActivityPlayer({ activityId, type, config, embedded, onE
                       {d.imageUrl && <img src={d.imageUrl} alt="" className="w-16 h-16 rounded-lg object-cover mt-1" />}
                       {!d.isCorrect && (
                         <div className="mt-1">
-                          <p className="text-xs text-red-600">Your answer: <span className="font-medium">{d.userAnswer || "(vide)"}</span></p>
-                          <p className="text-xs text-green-700">Bonne reponse : <span className="font-medium">{d.correctAnswer}</span></p>
+                          <p className="text-xs text-red-600">Your answer: <span className="font-medium">{d.userAnswer || "(empty)"}</span></p>
+                          <p className="text-xs text-green-700">Correct answer: <span className="font-medium">{d.correctAnswer}</span></p>
                         </div>
                       )}
                       {d.isCorrect && <p className="text-xs text-green-700 mt-1">Your answer: <span className="font-medium">{d.userAnswer}</span></p>}
@@ -115,7 +115,7 @@ export default function ActivityPlayer({ activityId, type, config, embedded, onE
           </div>
         )}
 
-        {!session && !embedded && <p className="text-sm text-amber-600 bg-amber-50 px-4 py-2 rounded-xl mb-4">{"\ud83d\udca1"} Connectez-vous pour sauvegarder !</p>}
+        {!session && !embedded && <p className="text-sm text-amber-600 bg-amber-50 px-4 py-2 rounded-xl mb-4">{"\ud83d\udca1"} Sign in to save your progress!</p>}
 
         <div className="flex justify-center gap-3">
           <button onClick={restart} className="px-5 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">{"\ud83d\udd04"} Restart</button>

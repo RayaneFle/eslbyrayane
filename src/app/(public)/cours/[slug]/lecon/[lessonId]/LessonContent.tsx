@@ -122,12 +122,12 @@ export default function LessonContent({ blocks, lessonId, nextLessonUrl, courseU
                 {!accessible ? (
                   <div className="text-center py-8">
                     <span className="text-3xl">{"\ud83d\udd12"}</span>
-                    <p className="text-slate-400 mt-2 text-sm">Completez l exercice precedent.</p>
+                    <p className="text-slate-400 mt-2 text-sm">Complete the previous exercise.</p>
                   </div>
                 ) : needsHigher ? (
                   <div className="text-center py-4 mb-4">
                     <p className="text-amber-600 text-sm font-medium">Score: {Math.round(scores.get(block.activity.id) || 0)}% - Min: {block.minScore}%</p>
-                    <p className="text-slate-400 text-xs mt-1">Reessayez pour atteindre le minimum.</p>
+                    <p className="text-slate-400 text-xs mt-1">Retry to reach the minimum.</p>
                   </div>
                 ) : null}
                 {accessible && (

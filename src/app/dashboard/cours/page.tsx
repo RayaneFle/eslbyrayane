@@ -101,7 +101,7 @@ export default async function DashboardCoursPage() {
                   <div key={p.id} className="p-4 bg-slate-50 rounded-xl">
                     <div className="flex items-center gap-2 mb-2">
                       <span className="text-lg">{p.type==="video"?"\ud83c\udfac":p.type==="pdf"?"\ud83d\udcc4":"\ud83d\udcdd"}</span>
-                      <span className="font-medium text-slate-800 text-sm">{p.title||"Publication"}</span>
+                      <span className="font-medium text-slate-800 text-sm">{p.title||"Post"}</span>
                       <span className="text-xs text-slate-400 ml-auto">{p.classroomName}</span>
                     </div>
                     {p.content && <p className="text-sm text-slate-600 mb-3">{p.content}</p>}

@@ -20,7 +20,7 @@ export default function JoinClassPage() {
         {success && <div className="bg-green-50 border border-green-200 text-green-700 text-sm px-4 py-3 rounded-xl mb-4">{success}</div>}
         <form onSubmit={onSubmit} className="space-y-4">
           <input type="text" required value={code} onChange={e => setCode(e.target.value.toUpperCase())} maxLength={6} className="w-full border border-slate-200 rounded-xl px-4 py-3 text-center text-2xl font-mono font-bold tracking-[0.3em] focus:ring-2 focus:ring-brand-400 outline-none uppercase" placeholder="ABC123" />
-          <button type="submit" disabled={loading||code.length<4} className="w-full bg-gradient-to-r from-brand-500 to-accent-500 text-white py-2.5 rounded-xl font-semibold hover:shadow-glow disabled:opacity-50 transition-all">{loading?"Vérification…":"Join"}</button>
+          <button type="submit" disabled={loading||code.length<4} className="w-full bg-gradient-to-r from-brand-500 to-accent-500 text-white py-2.5 rounded-xl font-semibold hover:shadow-glow disabled:opacity-50 transition-all">{loading?"Verifying…":"Join"}</button>
         </form>
       </div>
     </div>

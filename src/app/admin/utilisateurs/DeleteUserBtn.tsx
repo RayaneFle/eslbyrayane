@@ -8,15 +8,15 @@ export default function DeleteUserBtn({ userId, email, currentUserEmail }: { use
   if (email === currentUserEmail) return null;
   
   async function handleDelete() {
-    const confirmed = confirm("Delete account of " + email + " ?\n\nThis action is irreversible. All data de this user will be deleted (scores, progressions, inscriptions, etc.).");
+    const confirmed = confirm("Delete account of " + email + " ?\n\nThis action is irreversible. All data of this user will be deleted (scores, progress, enrollments, etc.).");
     if (!confirmed) return;
     
-    const doubleConfirm = confirm("Derniere confirmation : voulez-vous vraiment supprimer definitivement ce compte ?");
+    const doubleConfirm = confirm("Final confirmation: do you really want to permanently delete this account?");
     if (!doubleConfirm) return;
     
     const res = await fetch("/api/admin/users/" + userId, { method: "DELETE" });
     if (res.ok) router.refresh();
-    else alert("Error during deletion.");
+    else alert("Deletion failed.");
   }
   
   return <button onClick={handleDelete} className="text-xs px-3 py-1.5 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">Delete</button>;

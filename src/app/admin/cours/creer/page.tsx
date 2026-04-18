@@ -39,7 +39,7 @@ export default function CreateCoursPage() {
           </label>
           {classrooms.length > 0 && (
             <div>
-              <label className="block text-sm font-medium text-slate-600 mb-1">Assign to a class (optionnel)</label>
+              <label className="block text-sm font-medium text-slate-600 mb-1">Assign to a class (optional)</label>
               <select value={selectedClassroom} onChange={e => setSelectedClassroom(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 outline-none">
                 <option value="">No class</option>
                 {classrooms.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -47,7 +47,7 @@ export default function CreateCoursPage() {
             </div>
           )}
         </div>
-        <button type="submit" disabled={loading} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-50 transition-all">{loading?"Création…":"📖 Create"}</button>
+        <button type="submit" disabled={loading} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-50 transition-all">{loading?"Creating…":"📖 Create"}</button>
       </form>
     </div>
   );

@@ -52,7 +52,7 @@ export default async function AdminCourseEditorPage({ params }: { params: { cour
           ))}</div>
         )}
         {availableClassrooms.length > 0 && <AssignClassForm courseId={course.id} classrooms={availableClassrooms} />}
-        {classrooms.length === 0 && <p className="text-xs text-slate-400">Aucune classe. <Link href="/admin/classes" className="text-brand-600">Create a class</Link></p>}
+        {classrooms.length === 0 && <p className="text-xs text-slate-400">No class. <Link href="/admin/classes" className="text-brand-600">Create a class</Link></p>}
       </div>
 
       <div className="space-y-4 mb-6">

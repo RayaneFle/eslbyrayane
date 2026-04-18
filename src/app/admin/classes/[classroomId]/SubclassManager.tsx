@@ -114,7 +114,7 @@ export default function SubclassManager({ classroomId, members, subclasses }: { 
       })}
 
       {unassigned.length > 0 && subclasses.length > 0 && (
-        <p className="text-[10px] text-slate-400 text-center">{unassigned.length} student{unassigned.length > 1 ? "s" : ""} non assigne{unassigned.length > 1 ? "s" : ""}</p>
+        <p className="text-[10px] text-slate-400 text-center">{unassigned.length} student{unassigned.length > 1 ? "s" : ""} unassigned</p>
       )}
     </div>
   );

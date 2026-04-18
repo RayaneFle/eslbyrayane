@@ -15,7 +15,7 @@ export default function DuplicateCourseBtn({ courseId }: { courseId: string }) {
       router.push("/admin/cours/" + data.id);
       router.refresh();
     } else {
-      alert("Error during duplication.");
+      alert("Duplication failed.");
     }
     setLoading(false);
   }

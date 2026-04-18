@@ -165,7 +165,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
                                   return (
                                     <div key={l.id} className="flex items-center justify-between py-1 px-2 bg-white rounded">
                                       <span className="text-[11px] text-slate-700 truncate flex-1">{l.title}</span>
-                                      <span className={"text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0 ml-1 " + (st === "completed" ? "bg-green-500 text-white" : st === "in_progress" ? "bg-amber-400 text-white" : "bg-slate-200 text-slate-400")}>{st === "completed" ? "Faite" : st === "in_progress" ? "En cours" : "A faire"}</span>
+                                      <span className={"text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0 ml-1 " + (st === "completed" ? "bg-green-500 text-white" : st === "in_progress" ? "bg-amber-400 text-white" : "bg-slate-200 text-slate-400")}>{st === "completed" ? "Done" : st === "in_progress" ? "In progress" : "To do"}</span>
                                     </div>
                                   );
                                 })}</div>
@@ -229,7 +229,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
                 return (
                   <details open={classroom.subclasses.length === 0} className="border border-slate-200 rounded-xl overflow-hidden">
                     <summary className="px-4 py-2.5 bg-slate-50 cursor-pointer flex items-center justify-between">
-                      <span className="text-sm font-bold text-slate-600">{classroom.subclasses.length > 0 ? "Non assignés" : "Students"}</span>
+                      <span className="text-sm font-bold text-slate-600">{classroom.subclasses.length > 0 ? "Unassigned" : "Students"}</span>
                       <span className="text-xs text-slate-400">{unassigned.length}</span>
                     </summary>
                     <div className="p-2 space-y-0.5">{unassigned.map((m: any) => (
@@ -261,7 +261,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
               classroom.posts.map((p: any) => (
                 <div key={p.id} className="p-4 bg-slate-50 rounded-xl">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="font-medium text-slate-800 text-sm">{p.title || "Publication"}</span>
+                    <span className="font-medium text-slate-800 text-sm">{p.title || "Post"}</span>
                     <span className="text-xs text-slate-400 ml-auto">{p.author.name}</span>
                     <DeletePostBtn classroomId={classroom.id} postId={p.id} />
                   </div>

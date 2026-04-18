@@ -174,7 +174,7 @@ export default async function DashboardPage() {
           {results.length === 0 ? (
             <div className="text-center py-6">
               <p className="text-sm text-slate-400 mb-3">No activity yet</p>
-              <Link href="/activites" className="text-sm font-bold text-brand-600 bg-brand-50 px-4 py-2 rounded-lg">Jouer</Link>
+              <Link href="/activites" className="text-sm font-bold text-brand-600 bg-brand-50 px-4 py-2 rounded-lg">Play</Link>
             </div>
           ) : (
             <div className="space-y-1">{results.map(r => {
@@ -184,7 +184,7 @@ export default async function DashboardPage() {
                   <span className="text-base">{t.emoji}</span>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-medium text-slate-700 truncate">{r.activity.title}</p>
-                    <p className="text-[10px] text-slate-400">{r.completed ? "Completed" : "En cours"}</p>
+                    <p className="text-[10px] text-slate-400">{r.completed ? "Completed" : "In progress"}</p>
                   </div>
                   <span className={"text-xs font-bold px-2 py-0.5 rounded-full " + ((r.score || 0) >= 80 ? "bg-green-100 text-green-700" : (r.score || 0) >= 50 ? "bg-amber-100 text-amber-700" : "bg-red-100 text-red-700")}>{Math.round(r.score || 0)}%</span>
                 </div>

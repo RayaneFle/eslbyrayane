@@ -32,7 +32,7 @@ export default function EditLessonPage() {
     { key:"MATCHING", label:"Matching", emoji:"\ud83d\udd17", def:{ pairs:[{left:"",right:""}] } },
     { key:"MEMORY", label:"Memory", emoji:"\ud83c\udccf", def:{ pairs:[{front:"",back:""}] } },
     { key:"HANGMAN", label:"Hangman", emoji:"\ud83d\udc80", def:{ words:[{word:"",hint:""}] } },
-    { key:"SORTING", label:"Classment", emoji:"\ud83d\udcca", def:{ items:["",""],correctOrder:["",""],instruction:"" } },
+    { key:"SORTING", label:"Sorting", emoji:"\ud83d\udcca", def:{ items:["",""],correctOrder:["",""],instruction:"" } },
     { key:"WORD_ORDER", label:"Word order", emoji:"\ud83d\udd24", def:{ sentences:[{text:"",hint:""}] } },
     { key:"CATEGORIZE", label:"Categorization", emoji:"\ud83d\udcc2", def:{ categories:[{name:"",imageUrl:""},{name:"",imageUrl:""}], items:[{text:"",category:"",imageUrl:""}], instruction:"" } },
     { key:"DRAG_DROP", label:"Drag and drop", emoji:"\ud83c\udfaf", def:{ zones:[{name:"",imageUrl:""},{name:"",imageUrl:""}], items:[], instruction:"" } },
@@ -44,7 +44,7 @@ export default function EditLessonPage() {
   async function createAndInsert(idx: number) {
     if(!createTitle||!createType||!createConfig) return;
     setCreating(true);
-    const res = await fetch("/api/activities", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({title:createTitle,type:createType,config: createType==="DRAG_DROP" ? { zones: (createConfig.zones||[]).filter((z:any)=>z.name||z.imageUrl).map((z:any)=>({...z, items:(createConfig.items||[]).filter((i:any)=>i.zone===(z.name||z.imageUrl)&&(i.text||i.imageUrl)).map((i:any)=>({text:i.text,imageUrl:i.imageUrl}))})), instruction:"Glissez dans la bonne zone" } : createType==="CATEGORIZE" ? { categories:(createConfig.categories||[]).filter((c:any)=>c.name||c.imageUrl), items:(createConfig.items||[]).filter((i:any)=>(i.text||i.imageUrl)&&i.category), instruction:createConfig.instruction||"" } : createConfig, isPublic:true}) });
+    const res = await fetch("/api/activities", { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({title:createTitle,type:createType,config: createType==="DRAG_DROP" ? { zones: (createConfig.zones||[]).filter((z:any)=>z.name||z.imageUrl).map((z:any)=>({...z, items:(createConfig.items||[]).filter((i:any)=>i.zone===(z.name||z.imageUrl)&&(i.text||i.imageUrl)).map((i:any)=>({text:i.text,imageUrl:i.imageUrl}))})), instruction:"Drag to the correct zone" } : createType==="CATEGORIZE" ? { categories:(createConfig.categories||[]).filter((c:any)=>c.name||c.imageUrl), items:(createConfig.items||[]).filter((i:any)=>(i.text||i.imageUrl)&&i.category), instruction:createConfig.instruction||"" } : createConfig, isPublic:true}) });
     if(res.ok) {
       const act = await res.json();
       const nb = { id:"new-"+Date.now(), type:"activity" as const, content:null, activityId:act.id, requireScore:false, minScore:60, activity:act };
@@ -121,7 +121,7 @@ export default function EditLessonPage() {
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <span className="text-lg">{activityTypeLabels[block.activity?.type]?.emoji || "🎮"}</span>
-                      <p className="text-sm font-bold text-slate-800">{block.activity?.title || "Activite"}</p>
+                      <p className="text-sm font-bold text-slate-800">{block.activity?.title || "Activity"}</p>
                     </div>
                     <div className="flex items-center gap-1">
                       <button type="button" onClick={() => moveBlock(idx, "up")} disabled={idx === 0} className="text-xs text-slate-300 disabled:opacity-20 p-1">▲</button>
@@ -168,9 +168,9 @@ export default function EditLessonPage() {
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
                         <p className="text-sm font-bold text-slate-700">{gameTypes.find(g=>g.key===createType)?.emoji} {gameTypes.find(g=>g.key===createType)?.label}</p>
-                        <button type="button" onClick={()=>setCreateType("")} className="text-xs text-slate-400">Changer</button>
+                        <button type="button" onClick={()=>setCreateType("")} className="text-xs text-slate-400">Change</button>
                       </div>
-                      <input value={createTitle} onChange={e=>setCreateTitle(e.target.value)} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Title de l activite" />
+                      <input value={createTitle} onChange={e=>setCreateTitle(e.target.value)} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Activity title" />
 
                       {createType==="QCM" && <div className="space-y-2">
                         {createConfig?.questions?.map((q:any,qi:number) => (
@@ -194,7 +194,7 @@ export default function EditLessonPage() {
                         <button type="button" onClick={()=>{const c={...createConfig};c.questions=[...c.questions,{statement:"",isTrue:true}];setCreateConfig({...c});}} className="w-full py-2 border-2 border-dashed border-slate-200 rounded-lg text-xs text-slate-400">+ Statement</button>
                       </div>}
 
-                      {createType==="FILL_BLANKS" && <textarea value={createConfig?.text||""} onChange={e=>setCreateConfig({...createConfig,text:e.target.value})} rows={3} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm font-mono outline-none" placeholder={"Je {{suis}} francais."} />}
+                      {createType==="FILL_BLANKS" && <textarea value={createConfig?.text||""} onChange={e=>setCreateConfig({...createConfig,text:e.target.value})} rows={3} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm font-mono outline-none" placeholder={"I {{am}} English."} />}
 
                       {createType==="MATCHING" && <div className="space-y-2">
                         {createConfig?.pairs?.map((p:any,i:number)=>(<div key={i} className="flex gap-2 items-center"><input value={p.left||""} onChange={e=>{const c={...createConfig};c.pairs[i]={...p,left:e.target.value};setCreateConfig({...c});}} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Left" /><input value={p.right||""} onChange={e=>{const c={...createConfig};c.pairs[i]={...p,right:e.target.value};setCreateConfig({...c});}} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Right" />{createConfig.pairs.length>1&&<button type="button" onClick={()=>{const c={...createConfig};c.pairs=c.pairs.filter((_:any,j:number)=>j!==i);setCreateConfig({...c});}} className="text-red-400 text-xs">x</button>}</div>))}
@@ -230,7 +230,7 @@ export default function EditLessonPage() {
                         <p className="text-xs font-bold text-slate-500">Categorys:</p>
                         {createConfig?.categories?.map((c:any,i:number)=>(<div key={i} className="flex gap-2 items-center"><input value={c.name||""} onChange={e=>{const cfg={...createConfig};cfg.categories[i]={...c,name:e.target.value};setCreateConfig({...cfg});}} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder={`Cat ${i+1}`} />{createConfig.categories.length>2&&<button type="button" onClick={()=>{const cfg={...createConfig};cfg.categories=cfg.categories.filter((_:any,j:number)=>j!==i);setCreateConfig({...cfg});}} className="text-red-400 text-xs">x</button>}</div>))}
                         <button type="button" onClick={()=>{const cfg={...createConfig};cfg.categories=[...cfg.categories,{name:"",imageUrl:""}];setCreateConfig({...cfg});}} className="text-xs text-brand-600">+ Category</button>
-                        <p className="text-xs font-bold text-slate-500">Elements:</p>
+                        <p className="text-xs font-bold text-slate-500">Items:</p>
                         {createConfig?.items?.map((it:any,i:number)=>(<div key={i} className="flex gap-2 items-center"><input value={it.text||""} onChange={e=>{const cfg={...createConfig};cfg.items[i]={...it,text:e.target.value};setCreateConfig({...cfg});}} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Text" /><select value={it.category||""} onChange={e=>{const cfg={...createConfig};cfg.items[i]={...it,category:e.target.value};setCreateConfig({...cfg});}} className="border border-slate-200 rounded-lg px-2 py-2 text-sm outline-none"><option value="">Cat...</option>{createConfig.categories.filter((c:any)=>c.name).map((c:any)=><option key={c.name} value={c.name}>{c.name}</option>)}</select>{createConfig.items.length>1&&<button type="button" onClick={()=>{const cfg={...createConfig};cfg.items=cfg.items.filter((_:any,j:number)=>j!==i);setCreateConfig({...cfg});}} className="text-red-400 text-xs">x</button>}</div>))}
                         <button type="button" onClick={()=>{const cfg={...createConfig};cfg.items=[...cfg.items,{text:"",category:"",imageUrl:""}];setCreateConfig({...cfg});}} className="text-xs text-brand-600">+ Element</button>
                       </div>}
@@ -239,7 +239,7 @@ export default function EditLessonPage() {
                         <p className="text-xs font-bold text-slate-500">Zones:</p>
                         {createConfig?.zones?.map((z:any,i:number)=>(<div key={i} className="flex gap-2 items-center"><input value={z.name||""} onChange={e=>{const cfg={...createConfig};cfg.zones[i]={...z,name:e.target.value};setCreateConfig({...cfg});}} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder={`Zone ${i+1}`} />{createConfig.zones.length>2&&<button type="button" onClick={()=>{const cfg={...createConfig};cfg.zones=cfg.zones.filter((_:any,j:number)=>j!==i);setCreateConfig({...cfg});}} className="text-red-400 text-xs">x</button>}</div>))}
                         <button type="button" onClick={()=>{const cfg={...createConfig};cfg.zones=[...cfg.zones,{name:"",imageUrl:""}];setCreateConfig({...cfg});}} className="text-xs text-brand-600">+ Zone</button>
-                        <p className="text-xs font-bold text-slate-500">Elements:</p>
+                        <p className="text-xs font-bold text-slate-500">Items:</p>
                         {(createConfig?.items||[]).map((it:any,i:number)=>(<div key={i} className="flex gap-2 items-center"><input value={it.text||""} onChange={e=>{const cfg={...createConfig};cfg.items[i]={...it,text:e.target.value};setCreateConfig({...cfg});}} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Text" /><select value={it.zone||""} onChange={e=>{const cfg={...createConfig};cfg.items[i]={...it,zone:e.target.value};setCreateConfig({...cfg});}} className="border border-slate-200 rounded-lg px-2 py-2 text-sm outline-none"><option value="">Zone...</option>{createConfig.zones.filter((z:any)=>z.name).map((z:any)=><option key={z.name} value={z.name}>{z.name}</option>)}</select>{(createConfig.items||[]).length>1&&<button type="button" onClick={()=>{const cfg={...createConfig};cfg.items=cfg.items.filter((_:any,j:number)=>j!==i);setCreateConfig({...cfg});}} className="text-red-400 text-xs">x</button>}</div>))}
                         <button type="button" onClick={()=>{const cfg={...createConfig};cfg.items=[...(cfg.items||[]),{text:"",zone:"",imageUrl:""}];setCreateConfig({...cfg});}} className="text-xs text-brand-600">+ Element</button>
                       </div>}

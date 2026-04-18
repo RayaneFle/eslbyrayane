@@ -61,10 +61,10 @@ export default function CreateActivityPage() {
       case "QCM": return { questions: qcm };
       case "TRUE_FALSE": return { questions: tf };
       case "FILL_BLANKS": return { text: fb, caseSensitive: false };
-      case "MATCHING": return { pairs: pairs.filter(p => (p.left || p.leftImage) && (p.right || p.rightImage)), instruction: "Associez les elements" };
+      case "MATCHING": return { pairs: pairs.filter(p => (p.left || p.leftImage) && (p.right || p.rightImage)), instruction: "Match the items" };
       case "MEMORY": return { pairs: memory.filter(p => (p.front || p.frontImage) && (p.back || p.backImage)) };
       case "HANGMAN": return { words };
-      case "DRAG_DROP": return { zones: ddZones.filter(z => z.name || z.imageUrl).map(z => ({ ...z, items: ddItems.filter(i => i.zone === (z.name || z.imageUrl) && (i.text || i.imageUrl)).map(i => ({ text: i.text, imageUrl: i.imageUrl })) })), instruction: "Glissez dans la bonne zone" };
+      case "DRAG_DROP": return { zones: ddZones.filter(z => z.name || z.imageUrl).map(z => ({ ...z, items: ddItems.filter(i => i.zone === (z.name || z.imageUrl) && (i.text || i.imageUrl)).map(i => ({ text: i.text, imageUrl: i.imageUrl })) })), instruction: "Drag to the correct zone" };
       case "SORTING": return { items: sort.filter(Boolean), correctOrder: sort.filter(Boolean), instruction: sortInst };
       case "CATEGORIZE": return { categories: cats.filter(c => c.name || c.imageUrl), items: catItems.filter(i => (i.text || i.imageUrl) && i.category), instruction: catInst };
       case "WORD_ORDER": return { sentences: sentences.filter(s => s.text.trim()) };
@@ -120,8 +120,8 @@ export default function CreateActivityPage() {
 
           {type === "MATCHING" && <div className="space-y-3">{pairs.map((p, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl space-y-2">
             <div className="grid grid-cols-2 gap-2">
-              <input value={p.left} onChange={e => { const u=[...pairs]; u[i].left=e.target.value; setPairs(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Element gauche" />
-              <input value={p.right} onChange={e => { const u=[...pairs]; u[i].right=e.target.value; setPairs(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Element droit" />
+              <input value={p.left} onChange={e => { const u=[...pairs]; u[i].left=e.target.value; setPairs(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Left element" />
+              <input value={p.right} onChange={e => { const u=[...pairs]; u[i].right=e.target.value; setPairs(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Right element" />
             </div>
             <div className="grid grid-cols-2 gap-2">
               <ImageUpload value={p.leftImage} onChange={v => { const u=[...pairs]; u[i].leftImage=v; setPairs(u); }} label="Left image" />
@@ -132,12 +132,12 @@ export default function CreateActivityPage() {
 
           {type === "MEMORY" && <div className="space-y-3">{memory.map((p, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl space-y-2">
             <div className="grid grid-cols-2 gap-2">
-              <input value={p.front} onChange={e => { const u=[...memory]; u[i].front=e.target.value; setMemory(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Front (texte)" />
-              <input value={p.back} onChange={e => { const u=[...memory]; u[i].back=e.target.value; setMemory(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Back (texte)" />
+              <input value={p.front} onChange={e => { const u=[...memory]; u[i].front=e.target.value; setMemory(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Front (text)" />
+              <input value={p.back} onChange={e => { const u=[...memory]; u[i].back=e.target.value; setMemory(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Back (text)" />
             </div>
             <div className="grid grid-cols-2 gap-2">
-              <ImageUpload value={p.frontImage} onChange={v => { const u=[...memory]; u[i].frontImage=v; setMemory(u); }} label="Image recto (remplace le texte)" />
-              <ImageUpload value={p.backImage} onChange={v => { const u=[...memory]; u[i].backImage=v; setMemory(u); }} label="Image verso" />
+              <ImageUpload value={p.frontImage} onChange={v => { const u=[...memory]; u[i].frontImage=v; setMemory(u); }} label="Front image (replaces text)" />
+              <ImageUpload value={p.backImage} onChange={v => { const u=[...memory]; u[i].backImage=v; setMemory(u); }} label="Back image" />
             </div>
             {memory.length>1 && <button type="button" onClick={() => setMemory(memory.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}
           </div>)}<button type="button" onClick={() => setMemory([...memory, {front:"",back:"",frontImage:"",backImage:""}])} className="w-full py-3 border-2 border-dashed border-slate-200 rounded-xl text-sm font-medium text-slate-400 hover:border-brand-400">+ Pair</button></div>}
@@ -151,7 +151,7 @@ export default function CreateActivityPage() {
 
           {type === "DRAG_DROP" && <div className="space-y-4">
             <div><p className="text-xs font-bold text-slate-500 mb-2">Drop zones:</p>{ddZones.map((z, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2"><input value={z.name} onChange={e => { const u=[...ddZones]; u[i].name=e.target.value; setDdZones(u); }} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder={`Zone ${i+1}`} /><ImageUpload value={z.imageUrl} onChange={v => { const u=[...ddZones]; u[i].imageUrl=v; setDdZones(u); }} label="Zone image" />{ddZones.length>2 && <button type="button" onClick={() => setDdZones(ddZones.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}</div>)}<button type="button" onClick={() => setDdZones([...ddZones, {name:"",imageUrl:""}])} className="text-xs text-brand-600 font-medium">+ Zone</button></div>
-            <div><p className="text-xs font-bold text-slate-500 mb-2">Elements to drag:</p>{ddItems.map((it, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2"><div className="flex items-center gap-2"><input value={it.text} onChange={e => { const u=[...ddItems]; u[i].text=e.target.value; setDdItems(u); }} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Text" /><select value={it.zone} onChange={e => { const u=[...ddItems]; u[i].zone=e.target.value; setDdItems(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none"><option value="">Zone...</option>{ddZones.filter(z=>z.name||z.imageUrl).map(z=><option key={z.name||z.imageUrl} value={z.name||z.imageUrl}>{z.name||"(image)"}</option>)}</select></div><ImageUpload value={it.imageUrl} onChange={v => { const u=[...ddItems]; u[i].imageUrl=v; setDdItems(u); }} label="Element image" />{ddItems.length>1 && <button type="button" onClick={() => setDdItems(ddItems.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}</div>)}<button type="button" onClick={() => setDdItems([...ddItems, {text:"",zone:"",imageUrl:""}])} className="text-xs text-brand-600 font-medium">+ Element</button></div>
+            <div><p className="text-xs font-bold text-slate-500 mb-2">Items to drag:</p>{ddItems.map((it, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2"><div className="flex items-center gap-2"><input value={it.text} onChange={e => { const u=[...ddItems]; u[i].text=e.target.value; setDdItems(u); }} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Text" /><select value={it.zone} onChange={e => { const u=[...ddItems]; u[i].zone=e.target.value; setDdItems(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none"><option value="">Zone...</option>{ddZones.filter(z=>z.name||z.imageUrl).map(z=><option key={z.name||z.imageUrl} value={z.name||z.imageUrl}>{z.name||"(image)"}</option>)}</select></div><ImageUpload value={it.imageUrl} onChange={v => { const u=[...ddItems]; u[i].imageUrl=v; setDdItems(u); }} label="Element image" />{ddItems.length>1 && <button type="button" onClick={() => setDdItems(ddItems.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}</div>)}<button type="button" onClick={() => setDdItems([...ddItems, {text:"",zone:"",imageUrl:""}])} className="text-xs text-brand-600 font-medium">+ Element</button></div>
           </div>}
 
           {type === "SORTING" && <div className="space-y-3"><input value={sortInst} onChange={e => setSortInst(e.target.value)} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Instruction" />{sort.map((s, i) => <div key={i} className="flex items-center gap-2"><span className="text-xs text-slate-300 w-6">{i+1}.</span><input value={s} onChange={e => { const u=[...sort]; u[i]=e.target.value; setSort(u); }} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" />{sort.length>1 && <button type="button" onClick={() => setSort(sort.filter((_,j)=>j!==i))} className="text-red-400 p-1">x</button>}</div>)}<button type="button" onClick={() => setSort([...sort, ""])} className="w-full py-3 border-2 border-dashed border-slate-200 rounded-xl text-sm font-medium text-slate-400 hover:border-brand-400">+ Element</button></div>}
@@ -169,10 +169,10 @@ export default function CreateActivityPage() {
           {type === "CATEGORIZE" && <div className="space-y-4"><input value={catInst} onChange={e => setCatInst(e.target.value)} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Instruction" />
             <div><p className="text-xs font-bold text-slate-500 mb-2">Categorys:</p>{cats.map((c, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2">
               <input value={c.name} onChange={e => { const u=[...cats]; u[i].name=e.target.value; setCats(u); }} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder={`Category ${i+1}`} />
-              <ImageUpload value={c.imageUrl} onChange={v => { const u=[...cats]; u[i].imageUrl=v; setCats(u); }} label="Image categorie" />
+              <ImageUpload value={c.imageUrl} onChange={v => { const u=[...cats]; u[i].imageUrl=v; setCats(u); }} label="Category image" />
               {cats.length>2 && <button type="button" onClick={() => setCats(cats.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}
             </div>)}<button type="button" onClick={() => setCats([...cats, {name:"",imageUrl:""}])} className="text-xs text-brand-600 font-medium">+ Category</button></div>
-            <div><p className="text-xs font-bold text-slate-500 mb-2">Elements:</p>{catItems.map((it, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2">
+            <div><p className="text-xs font-bold text-slate-500 mb-2">Items:</p>{catItems.map((it, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl mb-2 space-y-2">
               <div className="flex items-center gap-2"><input value={it.text} onChange={e => { const u=[...catItems]; u[i].text=e.target.value; setCatItems(u); }} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Text" /><select value={it.category} onChange={e => { const u=[...catItems]; u[i].category=e.target.value; setCatItems(u); }} className="border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none"><option value="">Cat...</option>{cats.filter(c=>c.name||c.imageUrl).map(c=><option key={c.name||c.imageUrl} value={c.name||c.imageUrl}>{c.name||"(image)"}</option>)}</select></div>
               <ImageUpload value={it.imageUrl} onChange={v => { const u=[...catItems]; u[i].imageUrl=v; setCatItems(u); }} label="Element image" />
               {catItems.length>1 && <button type="button" onClick={() => setCatItems(catItems.filter((_,j)=>j!==i))} className="text-xs text-red-500">Delete</button>}
@@ -191,7 +191,7 @@ export default function CreateActivityPage() {
         </div>
 
         <div className="flex gap-4">
-          <button type="submit" disabled={loading} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-50 transition-all">{loading ? "Publication..." : "Publish"}</button>
+          <button type="submit" disabled={loading} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-50 transition-all">{loading ? "Publishing..." : "Publish"}</button>
           <button type="button" onClick={() => router.back()} className="px-8 py-3 bg-slate-50 text-slate-600 font-semibold rounded-xl">Cancel</button>
         </div>
       </form>
