@@ -115,7 +115,7 @@ export default function LessonContent({ blocks, lessonId, nextLessonUrl, courseU
                     <p className="text-xs text-slate-400">{t.label}</p>
                   </div>
                 </div>
-                {done && <span className="text-green-600 text-sm font-semibold">{"\u2705"} Valide</span>}
+                {done && <span className="text-green-600 text-sm font-semibold">{"\u2705"} Done</span>}
                 {block.requireScore && !done && <span className="text-xs text-brand-600 bg-brand-100 px-2 py-1 rounded-lg font-medium">Min: {block.minScore}%</span>}
               </div>
               <div className="p-4 sm:p-6">
@@ -156,7 +156,7 @@ export default function LessonContent({ blocks, lessonId, nextLessonUrl, courseU
       {lessonDone && (
         <div className="bg-green-50 rounded-2xl border-2 border-green-300 p-8 text-center">
           <span className="text-5xl">{"\ud83c\udf89"}</span>
-          <h2 className="font-heading text-2xl font-bold text-green-800 mt-4">Lesson terminee !</h2>
+          <h2 className="font-heading text-2xl font-bold text-green-800 mt-4">Lesson completed!</h2>
           <p className="text-green-600 mt-2">You have completed all activities.</p>
           <div className="mt-4 space-y-2">
             {Array.from(scores.entries()).map(([actId, score]) => {
