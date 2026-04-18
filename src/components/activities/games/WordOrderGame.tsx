@@ -84,7 +84,7 @@ export default function WordOrderGame({ config, onComplete }: { config: any; onC
         {sentence.hint && <p className="text-sm text-slate-500 mb-4 italic">{"\ud83d\udca1"} {sentence.hint}</p>}
 
         <div className="min-h-[60px] p-4 mb-6 bg-brand-50 rounded-xl border-2 border-dashed border-brand-200 flex flex-wrap gap-2">
-          {selected.length === 0 && <p className="text-sm text-brand-300 m-auto">Cliquez sur les mots ci-dessous</p>}
+          {selected.length === 0 && <p className="text-sm text-brand-300 m-auto">Click on the words below</p>}
           {selected.map((word, i) => (
             <button key={i} type="button" onClick={() => removeWord(word, i)} disabled={checked}
               className={"px-3 py-2 rounded-lg font-medium text-sm transition-all " + (checked ? isCorrect ? "bg-green-100 text-green-700 border border-green-300" : "bg-red-100 text-red-700 border border-red-300" : "bg-brand-200 text-brand-800 hover:bg-brand-300 cursor-pointer")}>
