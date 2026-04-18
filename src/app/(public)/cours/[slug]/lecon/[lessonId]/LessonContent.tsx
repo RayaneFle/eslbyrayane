@@ -172,7 +172,7 @@ export default function LessonContent({ blocks, lessonId, nextLessonUrl, courseU
           <div className="mt-6 flex justify-center gap-3">
             {nextLessonUrl ? (
               <a href={nextLessonUrl} className="px-6 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">
-                Lesson suivante {"\u2192"}
+                Next lesson {"\u2192"}
               </a>
             ) : courseUrl ? (
               <a href={courseUrl} className="px-6 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">

@@ -91,7 +91,7 @@ export const translations: Record<string, Record<string, string>> = {
     // Common
     "common.loading": "Loading...",
     "common.error": "Error",
-    "common.back": "Retour",
+    "common.back": "Back",
     "common.see": "Voir",
     "common.create": "Create",
     "common.search": "Search",
