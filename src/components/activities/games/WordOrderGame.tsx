@@ -119,7 +119,7 @@ export default function WordOrderGame({ config, onComplete }: { config: any; onC
 
         {checked && !isLast && (
           <div className="text-center">
-            <button type="button" onClick={next} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">Sentence suivante</button>
+            <button type="button" onClick={next} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">Next sentence</button>
           </div>
         )}
       </div>

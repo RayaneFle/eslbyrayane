@@ -40,7 +40,7 @@ export async function GET(_r: Request, { params }: { params: { classroomId: stri
   const activityList = Array.from(actMap.entries());
 
   const wb = new ExcelJS.Workbook();
-  wb.creator = "FLEbyRayane";
+  wb.creator = "ESLbyRayane";
 
   // ===== SHEET 1: Lesson progress =====
   const ws1 = wb.addWorksheet("Progression");

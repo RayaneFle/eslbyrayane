@@ -132,7 +132,7 @@ export default function NewLessonPage() {
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-2">
                       <span className="text-lg">{activityTypeLabels[getActInfo(block.activityId)?.type]?.emoji || "\ud83c\udfae"}</span>
-                      <p className="text-sm font-bold text-slate-800">{getActInfo(block.activityId)?.title || "Activite"}</p>
+                      <p className="text-sm font-bold text-slate-800">{getActInfo(block.activityId)?.title || "Activity"}</p>
                     </div>
                     <div className="flex items-center gap-1">
                       <button type="button" onClick={()=>moveBlock(idx,"up")} disabled={idx===0} className="text-xs text-slate-300 disabled:opacity-20 p-1">\u25b2</button>

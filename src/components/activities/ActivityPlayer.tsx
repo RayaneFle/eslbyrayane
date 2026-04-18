@@ -79,7 +79,7 @@ export default function ActivityPlayer({ activityId, type, config, embedded, onE
       <div className="bg-white rounded-2xl border border-brand-100 p-6 sm:p-8 animate-fade-in-up">
         <div className="text-center mb-6">
           <div className="text-5xl mb-3">{stars === 3 ? "\ud83c\udfc6" : stars === 2 ? "\u2b50" : stars === 1 ? "\ud83d\udc4d" : "\ud83d\udcaa"}</div>
-          <h2 className="font-heading text-2xl font-bold text-slate-900 mb-1">{stars >= 2 ? "Well done!" : "Continuez !"}</h2>
+          <h2 className="font-heading text-2xl font-bold text-slate-900 mb-1">{stars >= 2 ? "Well done!" : "Keep going!"}</h2>
           <div className="flex justify-center gap-1 mb-4">{[1, 2, 3].map(i => <span key={i} className={"text-3xl " + (i <= stars ? "star-earned" : "star-empty")}>{"\u2605"}</span>)}</div>
           <div className="flex justify-center gap-8 mb-2">
             <div><p className="text-3xl font-bold text-brand-600">{Math.round(score)}%</p><p className="text-xs text-slate-400">Score</p></div>
@@ -141,7 +141,7 @@ export default function ActivityPlayer({ activityId, type, config, embedded, onE
   return (
     <div key={state}>
       {!embedded && <div className="flex justify-end mb-3"><span className="text-xs text-brand-400 bg-brand-50 px-3 py-1 rounded-full">{"\u23f1"} {formatTime(time)}</span></div>}
-      {games[type] || <div className="text-center py-12 bg-white rounded-2xl border border-brand-100"><span className="text-4xl">{"\ud83d\udea7"}</span><p className="text-brand-400 mt-4">Type {type} bientot disponible !</p></div>}
+      {games[type] || <div className="text-center py-12 bg-white rounded-2xl border border-brand-100"><span className="text-4xl">{"\ud83d\udea7"}</span><p className="text-brand-400 mt-4">Type {type} coming soon!</p></div>}
     </div>
   );
 }

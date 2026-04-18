@@ -25,11 +25,11 @@ export async function POST(_r: Request, { params }: { params: { courseId: string
   });
   if (!original) return NextResponse.json({ message: "Not found." }, { status: 404 });
 
-  const slug = original.slug + "-copie-" + Date.now().toString(36);
+  const slug = original.slug + "-copy-" + Date.now().toString(36);
 
   const newCourse = await prisma.course.create({
     data: {
-      title: original.title + " (copie)",
+      title: original.title + " (copy)",
       description: original.description,
       slug,
       imageUrl: original.imageUrl,

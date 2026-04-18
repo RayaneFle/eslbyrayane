@@ -14,7 +14,7 @@ export async function POST(_r: Request, { params }: { params: { id: string } }) 
 
   const newActivity = await prisma.activity.create({
     data: {
-      title: original.title + " (copie)",
+      title: original.title + " (copy)",
       description: original.description,
       type: original.type,
       config: original.config,

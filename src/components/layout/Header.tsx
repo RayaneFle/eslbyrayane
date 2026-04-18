@@ -88,7 +88,7 @@ export default function Header() {
             ) : (
               <>
                 <MLink href="/login" onClick={() => setMenuOpen(false)}>🔑 Login</MLink>
-                <MLink href="/register" onClick={() => setMenuOpen(false)}>✨ S'inscrire</MLink>
+                <MLink href="/register" onClick={() => setMenuOpen(false)}>✨ Sign up</MLink>
               </>
             )}
           </div>

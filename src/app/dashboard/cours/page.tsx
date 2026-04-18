@@ -95,7 +95,7 @@ export default async function DashboardCoursPage() {
 
           {allPosts.length > 0 && (
             <details className="bg-white rounded-2xl border border-brand-100 overflow-hidden">
-              <summary className="px-6 py-4 bg-gradient-to-r from-brand-50 to-accent-50 border-b border-brand-100 cursor-pointer font-heading font-bold text-slate-800 select-none">\ud83d\udccc Ressources ({allPosts.length})</summary>
+              <summary className="px-6 py-4 bg-gradient-to-r from-brand-50 to-accent-50 border-b border-brand-100 cursor-pointer font-heading font-bold text-slate-800 select-none">\ud83d\udccc Resources ({allPosts.length})</summary>
               <div className="p-6 space-y-3">
                 {allPosts.map((p: any) => (
                   <div key={p.id} className="p-4 bg-slate-50 rounded-xl">
@@ -106,7 +106,7 @@ export default async function DashboardCoursPage() {
                     </div>
                     {p.content && <p className="text-sm text-slate-600 mb-3">{p.content}</p>}
                     {p.videoUrl && <div className="rounded-xl overflow-hidden bg-black mb-3"><iframe src={p.videoUrl.replace("watch?v=","embed/")} className="w-full aspect-video" allowFullScreen /></div>}
-                    {p.fileUrl && <a href={p.fileUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-brand-600 bg-brand-50 px-4 py-2 rounded-lg">\ud83d\udcc4 {p.fileName||"Fichier"}</a>}
+                    {p.fileUrl && <a href={p.fileUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-brand-600 bg-brand-50 px-4 py-2 rounded-lg">\ud83d\udcc4 {p.fileName||"File"}</a>}
                   </div>
                 ))}
               </div>

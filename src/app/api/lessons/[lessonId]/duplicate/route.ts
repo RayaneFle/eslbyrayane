@@ -17,7 +17,7 @@ export async function POST(request: Request, { params }: { params: { lessonId: s
   const last = await prisma.lesson.findFirst({ where: { sectionId: targetSectionId }, orderBy: { position: "desc" } });
   const newLesson = await prisma.lesson.create({
     data: {
-      title: lesson.title + " (copie)",
+      title: lesson.title + " (copy)",
       content: lesson.content,
       type: lesson.type,
       position: (last?.position ?? -1) + 1,

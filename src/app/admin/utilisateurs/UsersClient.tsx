@@ -51,10 +51,10 @@ export default function UsersClient({ users, isAdmin, currentUserEmail, classroo
     if (!dateStr) return null;
     const days = Math.floor((Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24));
     if (days === 0) return "Today";
-    if (days === 1) return "Hier";
-    if (days < 7) return "Il y a " + days + " jours";
-    if (days < 30) return "Il y a " + Math.floor(days / 7) + " sem.";
-    return "Il y a " + Math.floor(days / 30) + " mois";
+    if (days === 1) return "Yesterday";
+    if (days < 7) return days + " days ago";
+    if (days < 30) return Math.floor(days / 7) + " w ago";
+    return Math.floor(days / 30) + " mo ago";
   }
 
   const inactiveCount = users.filter(u => !u.lastActivity || (Date.now() - new Date(u.lastActivity).getTime()) > 7 * 24 * 60 * 60 * 1000).length;
@@ -64,13 +64,13 @@ export default function UsersClient({ users, isAdmin, currentUserEmail, classroo
       <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-3">
         <div>
           <h1 className="font-heading text-2xl font-bold text-slate-900">{isAdmin ? "Users" : "My students"}</h1>
-          <p className="text-sm text-slate-400">{filtered.length} {isAdmin ? "user" : "student"}{filtered.length > 1 ? "s" : ""} {inactiveCount > 0 && " - " + inactiveCount + " inactif" + (inactiveCount > 1 ? "s" : "") + " (>7j)"}</p>
+          <p className="text-sm text-slate-400">{filtered.length} {isAdmin ? "user" : "student"}{filtered.length > 1 ? "s" : ""} {inactiveCount > 0 && " - " + inactiveCount + " inactive" + (inactiveCount > 1 ? "s" : "") + " (>7j)"}</p>
         </div>
       </div>
 
       <div className="bg-white rounded-2xl border border-slate-200 p-4 mb-4 space-y-3">
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-xs font-bold text-slate-500 mr-1">Trier par :</span>
+          <span className="text-xs font-bold text-slate-500 mr-1">Sort by:</span>
           <Pill active={sort === "recent"} onClick={() => setSort("recent")}>Recent activity</Pill>
           <Pill active={sort === "name"} onClick={() => setSort("name")}>Name A-Z</Pill>
           <Pill active={sort === "score"} onClick={() => setSort("score")}>Best score</Pill>
@@ -81,7 +81,7 @@ export default function UsersClient({ users, isAdmin, currentUserEmail, classroo
         {isAdmin && (
           <>
             <div className="flex items-center gap-2 flex-wrap">
-              <span className="text-xs font-bold text-slate-500 mr-1">Role :</span>
+              <span className="text-xs font-bold text-slate-500 mr-1">Role:</span>
               <Pill active={!roleFilter} onClick={() => setRoleFilter(null)}>All</Pill>
               <Pill active={roleFilter === "student"} onClick={() => setRoleFilter("student")}>Students</Pill>
               <Pill active={roleFilter === "teacher"} onClick={() => setRoleFilter("teacher")}>Teachers</Pill>
@@ -89,7 +89,7 @@ export default function UsersClient({ users, isAdmin, currentUserEmail, classroo
             </div>
             {classrooms.length > 0 && (
               <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-xs font-bold text-slate-500 mr-1">Class :</span>
+                <span className="text-xs font-bold text-slate-500 mr-1">Class:</span>
                 <Pill active={!classFilter} onClick={() => setClassFilter(null)}>All</Pill>
                 {classrooms.map(c => (
                   <Pill key={c.id} active={classFilter === c.id} onClick={() => setClassFilter(c.id)}>{c.name} ({c.memberCount})</Pill>

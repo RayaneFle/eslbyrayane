@@ -10,7 +10,7 @@ export default function JoinClassPage() {
     const res = await fetch("/api/classrooms", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({code:code.trim().toUpperCase()}) });
     const data = await res.json();
     if (!res.ok) { setError(data.message); setLoading(false); return; }
-    setSuccess(`You joined « ${data.classroom.name} » !`);
+    setSuccess(`You joined "${data.classroom.name}"!`);
     setLoading(false); setTimeout(() => window.location.href = "/dashboard", 2000);
   }
   return (

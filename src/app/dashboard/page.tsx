@@ -137,7 +137,7 @@ export default async function DashboardPage() {
           <h2 className="font-heading font-bold text-slate-800 mb-4">My courses</h2>
           {memberOf.length === 0 ? (
             <div className="text-center py-6">
-              <p className="text-sm text-slate-400 mb-3">Rejoignez une classe pour acceder aux cours</p>
+              <p className="text-sm text-slate-400 mb-3">Join a class to access courses</p>
               <Link href="/dashboard/rejoindre" className="text-sm font-bold text-brand-600 bg-brand-50 px-4 py-2 rounded-lg">Join a class</Link>
             </div>
           ) : (
