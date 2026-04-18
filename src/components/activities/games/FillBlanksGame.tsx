@@ -23,8 +23,8 @@ export default function FillBlanksGame({ config, onComplete }: { config: any; on
     const r = blanks.map((b, i) => norm(answers[i]) === norm(b.value));
     setResults(r); setChecked(true);
     const details: AnswerDetail[] = blanks.map((b, i) => ({
-      question: "Trou : ___",
-      userAnswer: answers[i] || "(vide)",
+      question: "Blank: ___",
+      userAnswer: answers[i] || "(empty)",
       correctAnswer: b.value,
       isCorrect: r[i],
     }));
@@ -42,8 +42,8 @@ export default function FillBlanksGame({ config, onComplete }: { config: any; on
             className={"inline-block w-32 border-b-2 text-center mx-1 outline-none font-medium " + (checked ? results[ri] ? "border-green-500 text-green-700 bg-green-50" : "border-red-500 text-red-700 bg-red-50" : "border-brand-300 focus:border-brand-500")} />;
         })}
       </div>
-      {checked && <div className="mt-4 space-y-1">{blanks.map((b, i) => !results[i] && <p key={i} className="text-sm text-red-600">{"\u274c"} {answers[i] || "(vide)"} {"\u2192"} <span className="text-green-700 font-medium">{b.value}</span></p>)}</div>}
-      {!checked && <div className="mt-6 text-center"><button onClick={check} disabled={answers.some(a => !a.trim())} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-40 transition-all">Verifier</button></div>}
+      {checked && <div className="mt-4 space-y-1">{blanks.map((b, i) => !results[i] && <p key={i} className="text-sm text-red-600">{"\u274c"} {answers[i] || "(empty)"} {"\u2192"} <span className="text-green-700 font-medium">{b.value}</span></p>)}</div>}
+      {!checked && <div className="mt-6 text-center"><button onClick={check} disabled={answers.some(a => !a.trim())} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-40 transition-all">Check</button></div>}
     </div>
   );
 }

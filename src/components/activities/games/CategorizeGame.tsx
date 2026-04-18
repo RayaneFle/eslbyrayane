@@ -24,7 +24,7 @@ export default function CategorizeGame({ config, onComplete }: { config: any; on
     const r = new Map<string, boolean>();
     config.items.forEach((i: any) => r.set(key(i), placements.get(key(i)) === i.category));
     setResults(r); setChecked(true);
-    const details = config.items.map((i: any) => ({ question: i.text || i.imageUrl || "?", userAnswer: placements.get(key(i)) || "(non place)", correctAnswer: i.category, isCorrect: r.get(key(i)) || false, imageUrl: i.imageUrl }));
+    const details = config.items.map((i: any) => ({ question: i.text || i.imageUrl || "?", userAnswer: placements.get(key(i)) || "(not placed)", correctAnswer: i.category, isCorrect: r.get(key(i)) || false, imageUrl: i.imageUrl }));
     onComplete((Array.from(r.values()).filter(Boolean).length / config.items.length) * 100, details);
   }
 
@@ -73,7 +73,7 @@ export default function CategorizeGame({ config, onComplete }: { config: any; on
           );
         })}
       </div>
-      {!checked && <div className="mt-6 text-center"><button onClick={check} disabled={placements.size !== config.items.length} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-40 transition-all">Verifier</button></div>}
+      {!checked && <div className="mt-6 text-center"><button onClick={check} disabled={placements.size !== config.items.length} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-40 transition-all">Check</button></div>}
     </div>
   );
 }

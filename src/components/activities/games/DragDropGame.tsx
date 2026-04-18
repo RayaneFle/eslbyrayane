@@ -34,7 +34,7 @@ export default function DragDropGame({ config, onComplete }: { config: any; onCo
     const r = new Map<string, boolean>();
     allItems.forEach((i: any) => r.set(key(i), placements.get(key(i)) === i.correctZone));
     setResults(r); setChecked(true);
-    const details = allItems.map((i: any) => ({ question: i.text || i.imageUrl || "?", userAnswer: placements.get(key(i)) || "(non place)", correctAnswer: i.correctZone, isCorrect: r.get(key(i)) || false, imageUrl: i.imageUrl }));
+    const details = allItems.map((i: any) => ({ question: i.text || i.imageUrl || "?", userAnswer: placements.get(key(i)) || "(not placed)", correctAnswer: i.correctZone, isCorrect: r.get(key(i)) || false, imageUrl: i.imageUrl }));
     onComplete((Array.from(r.values()).filter(Boolean).length / allItems.length) * 100, details);
   }
 
@@ -85,7 +85,7 @@ export default function DragDropGame({ config, onComplete }: { config: any; onCo
           );
         })}
       </div>
-      {!checked && <div className="mt-6 text-center"><button onClick={check} disabled={placements.size !== allItems.length} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-40 transition-all">Verifier</button></div>}
+      {!checked && <div className="mt-6 text-center"><button onClick={check} disabled={placements.size !== allItems.length} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-40 transition-all">Check</button></div>}
     </div>
   );
 }
