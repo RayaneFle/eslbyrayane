@@ -114,7 +114,7 @@ export default async function CourseDetailPage({ params }: { params: { slug: str
                     {s.lessons.filter((l: any) => !l.hidden).map((l, li) => {
                       const status = progressMap.get(l.id) || "not_started";
                       return (
-                        <Link key={l.id} href={"/cours/" + slug + "/lesson/" + l.id}
+                        <Link key={l.id} href={"/cours/" + slug + "/lecon/" + l.id}
                           className="flex items-center gap-4 px-6 py-3.5 hover:bg-brand-50/30 transition-colors border-b border-slate-50 last:border-0">
                           {session?.user ? (
                             <div className={"w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0 " +

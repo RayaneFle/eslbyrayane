@@ -100,7 +100,7 @@ export default async function DashboardPage() {
 
       {/* Resume Card */}
       {resumeLesson && (
-        <Link href={"/cours/" + resumeLesson.courseSlug + "/lesson/" + resumeLesson.id}
+        <Link href={"/cours/" + resumeLesson.courseSlug + "/lecon/" + resumeLesson.id}
           className="block mb-8 bg-gradient-to-r from-brand-500 to-accent-500 rounded-2xl p-6 text-white hover:shadow-lg transition-all hover:scale-[1.01]">
           <p className="text-brand-100 text-xs font-medium mb-1">Resume where you left off</p>
           <p className="font-heading text-xl font-bold">{resumeLesson.title}</p>
