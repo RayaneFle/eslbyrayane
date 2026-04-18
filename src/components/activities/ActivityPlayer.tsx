@@ -119,7 +119,7 @@ export default function ActivityPlayer({ activityId, type, config, embedded, onE
 
         <div className="flex justify-center gap-3">
           <button onClick={restart} className="px-5 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">{"\ud83d\udd04"} Restart</button>
-          {!embedded && <a href="/activites" className="px-5 py-2.5 bg-brand-50 text-brand-600 font-semibold rounded-xl hover:bg-brand-100 transition-colors">{"\u2190"} Catalogue</a>}
+          {!embedded && <a href="/activites" className="px-5 py-2.5 bg-brand-50 text-brand-600 font-semibold rounded-xl hover:bg-brand-100 transition-colors">{"\u2190"} Back</a>}
         </div>
       </div>
     );

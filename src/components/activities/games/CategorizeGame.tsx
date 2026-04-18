@@ -31,7 +31,7 @@ export default function CategorizeGame({ config, onComplete }: { config: any; on
   return (
     <div className="bg-white rounded-2xl border border-brand-100 p-6 sm:p-8">
       <p className="text-sm text-slate-400 mb-2">{config.instruction || "Triez les elements"}</p>
-      <p className="text-xs text-slate-300 mb-6">{placements.size}/{config.items.length} tries</p>
+      <p className="text-xs text-slate-300 mb-6">{placements.size}/{config.items.length} sorted</p>
       <div className="flex flex-wrap gap-3 mb-8 min-h-[60px] p-3 bg-slate-50 rounded-xl border-2 border-dashed border-slate-200">
         {unplaced.length === 0 && !checked && <p className="text-xs text-slate-300 m-auto">All sorted!</p>}
         {unplaced.map((i: any) => (

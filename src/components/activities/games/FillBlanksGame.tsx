@@ -33,7 +33,7 @@ export default function FillBlanksGame({ config, onComplete }: { config: any; on
 
   return (
     <div className="bg-white rounded-2xl border border-brand-100 p-6 sm:p-8">
-      <p className="text-sm text-brand-400 mb-6">{blanks.length} trou{blanks.length !== 1 ? "s" : ""} a completer</p>
+      <p className="text-sm text-brand-400 mb-6">{blanks.length} blank{blanks.length !== 1 ? "s" : ""} to fill</p>
       <div className="text-lg leading-loose text-slate-800">
         {segments.map((seg, i) => {
           if (seg.type === "text") return <span key={i}>{seg.value}</span>;

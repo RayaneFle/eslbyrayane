@@ -42,11 +42,11 @@ export default function DragDropGame({ config, onComplete }: { config: any; onCo
 
   return (
     <div className="bg-white rounded-2xl border border-brand-100 p-6 sm:p-8">
-      <p className="text-sm text-slate-400 mb-2">{config.instruction || "Glissez chaque element dans la bonne zone"}</p>
+      <p className="text-sm text-slate-400 mb-2">{config.instruction || "Drag each element to the correct zone"}</p>
       <p className="text-xs text-slate-300 mb-6">{placements.size}/{allItems.length} placed</p>
 
       <div className="flex flex-wrap gap-3 mb-8 min-h-[60px] p-3 bg-slate-50 rounded-xl border-2 border-dashed border-slate-200">
-        {unplaced.length === 0 && !checked && <p className="text-xs text-slate-300 m-auto">Tous placed !</p>}
+        {unplaced.length === 0 && !checked && <p className="text-xs text-slate-300 m-auto">All placed!</p>}
         {unplaced.map((i: any) => (
           <div key={key(i)} draggable onDragStart={() => dragStart(key(i))} onDragEnd={() => { setDragging(null); ref.current = null; }} onClick={() => tap(key(i))}
             className={`px-4 py-2 rounded-xl font-medium text-sm cursor-grab select-none transition-all flex items-center gap-2 ${dragging === key(i) ? "bg-brand-500 text-white scale-105 shadow-lg" : "bg-white text-slate-700 border border-slate-200 hover:border-brand-300"}`}>
