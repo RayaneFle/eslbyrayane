@@ -8,13 +8,13 @@ export default async function DashboardPage() {
   const session = await getServerSession(authOptions);
   const uid = session!.user.id;
 
-  const [enrollments, results, classrooms, lessonProgress, memberOf] = await Promise.all([
+  const [enrollments, rawResults, classrooms, lessonProgress, memberOf] = await Promise.all([
     prisma.enrollment.count({ where: { userId: uid } }),
     prisma.activityResult.findMany({
       where: { userId: uid },
       include: { activity: { select: { title: true, type: true } } },
       orderBy: { updatedAt: "desc" },
-      take: 10,
+      take: 20,
     }),
     prisma.classroomMember.findMany({
       where: { userId: uid },
@@ -43,6 +43,7 @@ export default async function DashboardPage() {
       },
     }),
   ]);
+  const results = rawResults.filter((r: any) => r.activity !== null);
 
   const avgScore = results.length > 0 ? results.reduce((a, r) => a + (r.score || 0), 0) / results.length : 0;
   const completedCount = results.filter(r => r.completed).length;
