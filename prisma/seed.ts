@@ -41,7 +41,7 @@ async function main() {
     { title: "Appariement - Verbe etre", type: "MATCHING", level: "A1", config: { pairs: [{ left:"Je", right:"suis" },{ left:"Tu", right:"es" },{ left:"Nous", right:"sommes" }] } },
     { title: "Texte a trous - Se presenter", type: "FILL_BLANKS", level: "A1", config: { text: "Je {{suis}} francais. J {{ai}} 25 ans." } },
     { title: "Glisser-deposer - Les saisons", type: "DRAG_DROP", level: "A1", config: { pairs: [{ item:"Neige", target:"Hiver" },{ item:"Soleil", target:"Ete" },{ item:"Feuilles", target:"Automne" },{ item:"Fleurs", target:"Printemps" }] } },
-    { title: "Classement - Jours", type: "SORTING", level: "A1", config: { items:["Lundi","Mardi","Mercredi","Jeudi","Vendredi"], correctOrder:["Lundi","Mardi","Mercredi","Jeudi","Vendredi"], instruction:"Remettez en ordre" } },
+    { title: "Sorting - Days", type: "SORTING", level: "A1", config: { items:["Monday","Tuesday","Wednesday","Thursday","Friday"], correctOrder:["Monday","Tuesday","Wednesday","Thursday","Friday"], instruction:"Put in order" } },
     { title: "Categorisation - Genre", type: "CATEGORIZE", level: "A1", config: { categories:["Masculin","Feminin"], items:[{ text:"Le livre", category:"Masculin" },{ text:"La table", category:"Feminin" },{ text:"Le chat", category:"Masculin" },{ text:"La maison", category:"Feminin" }] } },
   ];
 

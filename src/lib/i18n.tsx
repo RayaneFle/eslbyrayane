@@ -9,7 +9,7 @@ export const translations: Record<string, Record<string, string>> = {
     "nav.activities": "Activities",
     "nav.login": "Login",
     "nav.register": "Sign up",
-    "nav.admin": "Админ",
+    "nav.admin": "Admin",
     "nav.dashboard": "Dashboard",
     "nav.logout": "Logout",
     // Homepage
@@ -24,15 +24,15 @@ export const translations: Record<string, Record<string, string>> = {
     "auth.login": "Sign in",
     "auth.register": "Sign up",
     "auth.email": "Email",
-    "auth.password": "Word de passe",
-    "auth.name": "Nom",
-    "auth.no_account": "Pas de compte ?",
+    "auth.password": "Password",
+    "auth.name": "Name",
+    "auth.no_account": "No account?",
     "auth.has_account": "Already have an account?",
     // Courses
-    "courses.title": "Nos cours",
+    "courses.title": "Our courses",
     "courses.subtitle": "Browse our English courses",
     "courses.enroll": "Sign up",
-    "courses.enrolled": "Inscrit",
+    "courses.enrolled": "Enrolled",
     "courses.lessons": "lessons",
     "courses.level": "Level",
     "courses.free": "Open",
@@ -44,19 +44,19 @@ export const translations: Record<string, Record<string, string>> = {
     "activities.type": "Type",
     "activities.all": "All",
     "activities.level": "Level",
-    "activities.all_levels": "Tous",
+    "activities.all_levels": "All",
     // Games
     "game.check": "Check",
-    "game.retry": "Réessayer",
+    "game.retry": "Retry",
     "game.score": "Score",
     "game.congratulations": "Congratulations!",
-    "game.try_again": "Essayez encore !",
+    "game.try_again": "Try again!",
     "game.completed": "Completed",
     "game.drop_here": "Drop here",
     "game.all_sorted": "All sorted!",
     "game.all_placed": "All placed!",
     "game.pairs": "pairs",
-    "game.moves": "coups",
+    "game.moves": "moves",
     // Dashboard
     "dash.title": "Dashboard",
     "dash.my_courses": "My courses",
@@ -69,7 +69,7 @@ export const translations: Record<string, Record<string, string>> = {
     "dash.exercises_done": "Exercises completed",
     "dash.classes": "Classes",
     // Admin
-    "admin.overview": "Vue d'ensemble",
+    "admin.overview": "Overview",
     "admin.my_activities": "My activities",
     "admin.my_courses": "My courses",
     "admin.my_classes": "My classes",
@@ -92,7 +92,7 @@ export const translations: Record<string, Record<string, string>> = {
     "common.loading": "Loading...",
     "common.error": "Error",
     "common.back": "Back",
-    "common.see": "Voir",
+    "common.see": "View",
     "common.create": "Create",
     "common.search": "Search",
   },
@@ -102,10 +102,10 @@ export const translations: Record<string, Record<string, string>> = {
     "nav.activities": "Activities",
     "nav.login": "Login",
     "nav.register": "Register",
-    "nav.admin": "Админ",
+    "nav.admin": "Admin",
     "nav.dashboard": "Dashboard",
     "nav.logout": "Logout",
-    "home.title": "Learn French interactively",
+    "home.title": "Learn English interactively",
     "home.subtitle": "Structured courses, educational games and personalized tracking",
     "home.cta.courses": "Explore courses",
     "home.cta.activities": "Play activities",
@@ -120,7 +120,7 @@ export const translations: Record<string, Record<string, string>> = {
     "auth.no_account": "No account?",
     "auth.has_account": "Already have an account?",
     "courses.title": "Our courses",
-    "courses.subtitle": "Browse our French courses",
+    "courses.subtitle": "Browse our English courses",
     "courses.enroll": "Enroll",
     "courses.enrolled": "Enrolled",
     "courses.lessons": "lessons",
@@ -187,10 +187,10 @@ export const translations: Record<string, Record<string, string>> = {
     "nav.activities": "Actividades",
     "nav.login": "Iniciar sesion",
     "nav.register": "Registrarse",
-    "nav.admin": "Админ",
+    "nav.admin": "Admin",
     "nav.dashboard": "Панель",
     "nav.logout": "Cerrar sesion",
-    "home.title": "Aprende frances de manera interactiva",
+    "home.title": "Aprende ingles de manera interactiva",
     "home.subtitle": "Cursos estructurados, juegos educativos y seguimiento personalizado",
     "home.cta.courses": "Explorar cursos",
     "home.cta.activities": "Jugar actividades",
@@ -205,7 +205,7 @@ export const translations: Record<string, Record<string, string>> = {
     "auth.no_account": "Sin cuenta?",
     "auth.has_account": "Ya tienes cuenta?",
     "courses.title": "Nuestros cursos",
-    "courses.subtitle": "Explora nuestros cursos de frances",
+    "courses.subtitle": "Explora nuestros cursos de ingles",
     "courses.enroll": "Inscribirse",
     "courses.enrolled": "Inscrito",
     "courses.lessons": "lecciones",
@@ -272,10 +272,10 @@ export const translations: Record<string, Record<string, string>> = {
     "nav.activities": "Упражнения",
     "nav.login": "Войти",
     "nav.register": "Регистрация",
-    "nav.admin": "Админ",
+    "nav.admin": "Admin",
     "nav.dashboard": "Панель",
     "nav.logout": "Выйти",
-    "home.title": "Izuchayte francuzskiy interaktivno",
+    "home.title": "Izuchayte angliyskiy interaktivno",
     "home.subtitle": "Strukturirovannye kursy, obuchayushchie igry i personalizirovannoye otslezhivaniye",
     "home.cta.courses": "Smotret kursy",
     "home.cta.activities": "Igrat v uprazhneniya",
@@ -290,7 +290,7 @@ export const translations: Record<string, Record<string, string>> = {
     "auth.no_account": "Net akkaunta?",
     "auth.has_account": "Uzhe yest akkount?",
     "courses.title": "Nashi kursy",
-    "courses.subtitle": "Prosmatrivayte nashi kursy francuzskogo",
+    "courses.subtitle": "Prosmatrivayte nashi kursy angliyskogo",
     "courses.enroll": "Zapisatsya",
     "courses.enrolled": "Zapisan",
     "courses.lessons": "urokov",
@@ -362,26 +362,26 @@ interface I18nContextType {
 }
 
 const I18nContext = createContext<I18nContextType>({
-  lang: "fr",
+  lang: "en",
   setLang: () => {},
   t: (key: string) => key,
 });
 
 export function I18nProvider({ children }: { children: ReactNode }) {
-  const [lang, setLang] = useState<Lang>("fr");
+  const [lang, setLang] = useState<Lang>("en");
 
   useEffect(() => {
-    const saved = localStorage.getItem("fle-lang") as Lang;
+    const saved = localStorage.getItem("esl-lang") as Lang;
     if (saved && translations[saved]) setLang(saved);
   }, []);
 
   function changeLang(l: Lang) {
     setLang(l);
-    localStorage.setItem("fle-lang", l);
+    localStorage.setItem("esl-lang", l);
   }
 
   function t(key: string) {
-    return translations[lang]?.[key] || translations.fr[key] || key;
+    return translations[lang]?.[key] || translations.en[key] || key;
   }
 
   return (

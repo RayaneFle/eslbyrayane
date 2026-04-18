@@ -17,7 +17,7 @@ export default function CreateCoursPage() {
     e.preventDefault(); if (!title||!desc) { setError("Title and description required."); return; }
     setLoading(true); setError(null);
     const res = await fetch("/api/admin/courses", { method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({ title, description:desc, level, requiresEnrollment:requireCode }) });
-    if (!res.ok) { const d = await res.json().catch(()=>({})); setError(d.message||"Erreur"); setLoading(false); return; }
+    if (!res.ok) { const d = await res.json().catch(()=>({})); setError(d.message||"Error"); setLoading(false); return; }
     const course = await res.json();
     if (selectedClassroom) {
       await fetch(`/api/classrooms/${selectedClassroom}/courses`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ courseId: course.id }) });

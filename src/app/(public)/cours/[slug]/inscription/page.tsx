@@ -26,7 +26,7 @@ export default function CourseEnrollPage() {
       <div className="bg-white rounded-2xl border border-brand-100 p-8 text-center">
         <span className="text-5xl">🔒</span>
         <h1 className="font-heading text-2xl font-bold text-brand-900 mt-4">Protected course</h1>
-        <p className="text-brand-400 mt-2 mb-6">Entrez le code d&apos;inscription donné par votre professeur</p>
+        <p className="text-brand-400 mt-2 mb-6">Enter the enrollment code given by your teacher</p>
         {error && <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl mb-4">{error}</div>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input type="text" required value={code} onChange={e => setCode(e.target.value.toUpperCase())} maxLength={6}

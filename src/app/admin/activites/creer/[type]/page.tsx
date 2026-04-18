@@ -76,7 +76,7 @@ export default function CreateActivityPage() {
     e.preventDefault(); if (!title.trim()) { setError("Title required."); return; }
     setLoading(true); setError(null);
     const res = await fetch("/api/activities", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title, description: desc, type, config: buildConfig(), level: level || null, isPublic: pub }) });
-    if (!res.ok) { const d = await res.json().catch(() => ({})); setError(d.message || "Erreur"); setLoading(false); return; }
+    if (!res.ok) { const d = await res.json().catch(() => ({})); setError(d.message || "Error"); setLoading(false); return; }
     const created = await res.json();
     if (selectedClassroom) {
       await fetch(`/api/classrooms/${selectedClassroom}/activities`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ activityId: created.id }) });
