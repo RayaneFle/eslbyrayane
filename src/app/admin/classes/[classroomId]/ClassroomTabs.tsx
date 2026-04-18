@@ -245,7 +245,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
             </div>
           </div>
           <div className="bg-brand-50 rounded-xl p-4 text-center">
-            <p className="text-xs text-slate-500 mb-1">Code a partager aux students :</p>
+            <p className="text-xs text-slate-500 mb-1">Code to share with students:</p>
             <p className="font-mono font-bold text-2xl text-brand-700 tracking-widest">{classroom.code}</p>
           </div>
         </div>

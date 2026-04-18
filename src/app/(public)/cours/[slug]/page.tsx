@@ -61,7 +61,7 @@ export default async function CourseDetailPage({ params }: { params: { slug: str
           </div>
           <h1 className="font-heading text-2xl sm:text-3xl font-bold">{course.title}</h1>
           <p className="text-brand-100 mt-2 text-sm">{course.description}</p>
-          <p className="text-brand-200 text-xs mt-3">Par {course.author.name}</p>
+          <p className="text-brand-200 text-xs mt-3">By {course.author.name}</p>
 
           {session?.user && totalLessons > 0 && (
             <div className="mt-5">
@@ -72,7 +72,7 @@ export default async function CourseDetailPage({ params }: { params: { slug: str
               <div className="h-2 bg-white/20 rounded-full overflow-hidden">
                 <div className="h-full bg-white rounded-full transition-all duration-500" style={{width: overallProgress + "%"}} />
               </div>
-              <p className="text-[10px] text-brand-200 mt-1">{completedLessons}/{totalLessons} lessons terminees</p>
+              <p className="text-[10px] text-brand-200 mt-1">{completedLessons}/{totalLessons} lessons completed</p>
             </div>
           )}
         </div>
