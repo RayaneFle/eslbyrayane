@@ -23,12 +23,12 @@ export default function AdminFAB() {
       {open && (
         <div className="mb-2 bg-white border border-slate-200 shadow-xl rounded-2xl w-72 max-h-96 overflow-hidden animate-fade-in-up">
           <div className="p-3 border-b border-slate-100 bg-slate-50">
-            <p className="text-xs font-bold text-slate-600">Quick add</p>
+            <p className="text-xs font-bold text-slate-600">Ajouter rapidement</p>
           </div>
           <div className="p-2 max-h-64 overflow-y-auto">
-            <p className="text-[10px] font-bold text-slate-400 uppercase px-2 py-1">Add a lesson</p>
+            <p className="text-[10px] font-bold text-slate-400 uppercase px-2 py-1">Ajouter une leçon</p>
             {courses.length === 0 ? (
-              <p className="text-xs text-slate-400 px-2 py-3 text-center">Loading...</p>
+              <p className="text-xs text-slate-400 px-2 py-3 text-center">Chargement...</p>
             ) : (
               courses.map((c: any) => (
                 <details key={c.id} className="mb-0.5">
@@ -47,14 +47,14 @@ export default function AdminFAB() {
               ))
             )}
             <div className="border-t border-slate-100 mt-2 pt-2">
-              <p className="text-[10px] font-bold text-slate-400 uppercase px-2 py-1">Create</p>
+              <p className="text-[10px] font-bold text-slate-400 uppercase px-2 py-1">Créer</p>
               <Link href="/admin/activites/creer" onClick={() => setOpen(false)} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-accent-50 text-xs text-slate-700">
                 <span className="w-5 h-5 rounded bg-accent-100 flex items-center justify-center text-[10px] font-bold text-accent-600">+</span>
-                New activity
+                Nouvelle activité
               </Link>
               <Link href="/admin/cours/creer" onClick={() => setOpen(false)} className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-brand-50 text-xs text-slate-700">
                 <span className="w-5 h-5 rounded bg-brand-100 flex items-center justify-center text-[10px] font-bold text-brand-600">+</span>
-                New course
+                Nouveau cours
               </Link>
             </div>
           </div>

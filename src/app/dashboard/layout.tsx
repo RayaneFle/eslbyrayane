@@ -3,11 +3,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const NAV = [
-  { href: "/dashboard", label: "My space", icon: "🏠" },
-  { href: "/dashboard/cours", label: "My courses", icon: "📖" },
-  { href: "/dashboard/resultats", label: "Results", icon: "📈" },
-  { href: "/dashboard/rejoindre", label: "Join", icon: "🔑" },
-  { href: "/dashboard/profil", label: "Profile", icon: "👤" },
+  { href: "/dashboard", label: "Mon espace", icon: "🏠" },
+  { href: "/dashboard/cours", label: "Mes cours", icon: "📖" },
+  { href: "/dashboard/resultats", label: "Résultats", icon: "📈" },
+  { href: "/dashboard/rejoindre", label: "Rejoindre", icon: "🔑" },
+  { href: "/dashboard/profil", label: "Profil", icon: "👤" },
 ];
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -20,9 +20,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className="p-4 border-b border-slate-100">
           <Link href="/" className="flex items-center gap-2.5 mb-3 group">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center text-white font-heading font-black text-sm">R</div>
-            <span className="font-heading font-bold text-sm text-brand-800">ESL<span className="text-accent-500">by</span>Rayane</span>
+            <span className="font-heading font-bold text-sm text-brand-800">FLE<span className="text-accent-500">by</span>Rayane</span>
           </Link>
-          <p className="text-[10px] font-bold text-slate-300 uppercase tracking-wider">My space</p>
+          <p className="text-[10px] font-bold text-slate-300 uppercase tracking-wider">Mon espace</p>
         </div>
         <nav className="flex-1 p-2 space-y-0.5">
           {NAV.map(n => {
@@ -57,9 +57,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <div className="lg:hidden flex items-center justify-between mb-4">
           <Link href="/" className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center text-white font-heading font-black text-xs">R</div>
-            <span className="font-heading font-bold text-sm text-brand-800">ESL<span className="text-accent-500">by</span>Rayane</span>
+            <span className="font-heading font-bold text-sm text-brand-800">FLE<span className="text-accent-500">by</span>Rayane</span>
           </Link>
-          <span className="text-[10px] font-bold text-slate-300 uppercase">My space</span>
+          <span className="text-[10px] font-bold text-slate-300 uppercase">Mon espace</span>
         </div>
         {children}
       </main>

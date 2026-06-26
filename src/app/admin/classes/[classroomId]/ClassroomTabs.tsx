@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import Link from "next/link";
-import { activityTypeLabels } from "@/lib/utils";
+import { activityTypeLabels, getYouTubeEmbedUrl } from "@/lib/utils";
 import AssignCourseForm from "./AssignCourseForm";
 import AssignActivityForm from "./AssignActivityForm";
 import UnassignActivityBtn from "./UnassignActivityBtn";
@@ -20,256 +20,455 @@ interface Props {
   allLessonsForTracking: any[];
 }
 
-const TABS = [
-  { key: "cours", label: "Courses", icon: "📖" },
-  { key: "activites", label: "Activities", icon: "🎮" },
-  { key: "suivi", label: "Tracking", icon: "📊" },
-  { key: "students", label: "Students", icon: "👥" },
-  { key: "ressources", label: "Resources", icon: "📌" },
-];
-
 export default function ClassroomTabs({ classroom, availableCourses, availableActivities, allLessonProgress, studentResults, allLessonsForTracking }: Props) {
   const [tab, setTab] = useState("suivi");
   const [subclassFilter, setSubclassFilter] = useState<string | null>(null);
+  const [expandedMember, setExpandedMember] = useState<string | null>(null);
+  const [showSubclasses, setShowSubclasses] = useState(false);
 
   const filteredMembers = subclassFilter
     ? classroom.members.filter((m: any) => m.subclassId === subclassFilter)
     : classroom.members;
+
+  const TABS = [
+    { key: "suivi", label: "Suivi", icon: "📊", count: classroom.members.length },
+    { key: "cours", label: "Cours", icon: "📚", count: classroom.courses.length },
+    { key: "activites", label: "Activités", icon: "🎮", count: classroom.activities.length },
+    { key: "eleves", label: "Élèves", icon: "👥", count: classroom.members.length },
+    { key: "ressources", label: "Ressources", icon: "📌", count: classroom.posts.length },
+  ];
 
   return (
     <div>
       {/* Tab bar */}
       <div className="flex gap-1 mb-6 bg-slate-100 p-1 rounded-xl overflow-x-auto">
         {TABS.map(t => (
-          <button key={t.key} onClick={() => setTab(t.key)}
-            className={"flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap " +
-              (tab === t.key ? "bg-white text-brand-700 shadow-sm font-bold" : "text-slate-500 hover:text-slate-700")}>
-            <span>{t.icon}</span>{t.label}
-            {t.key === "cours" && <span className="text-xs text-slate-400 ml-1">({classroom.courses.length})</span>}
-            {t.key === "activites" && <span className="text-xs text-slate-400 ml-1">({classroom.activities.length})</span>}
-            {t.key === "students" && <span className="text-xs text-slate-400 ml-1">({classroom.members.length})</span>}
-            {t.key === "ressources" && <span className="text-xs text-slate-400 ml-1">({classroom.posts.length})</span>}
+          <button
+            key={t.key}
+            onClick={() => setTab(t.key)}
+            className={"inline-flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold transition-all whitespace-nowrap " +
+              (tab === t.key ? "bg-white text-slate-900 shadow-sm" : "text-slate-600 hover:text-slate-800")}
+          >
+            <span>{t.icon}</span>
+            <span>{t.label}</span>
+            <span className={"text-xs " + (tab === t.key ? "text-slate-400" : "text-slate-400")}>({t.count})</span>
           </button>
         ))}
       </div>
 
-      {/* COURS TAB */}
-      {tab === "cours" && (
-        <div className="bg-white rounded-2xl border border-brand-100 p-6">
-          <h2 className="font-heading font-bold text-lg text-slate-900 mb-4">Assigned courses</h2>
-          {classroom.courses.length > 0 ? (
-            <div className="space-y-2 mb-6">{classroom.courses.map((cc: any) => (
-              <div key={cc.id} className="flex items-center justify-between p-3 bg-brand-50 rounded-xl">
-                <Link href={"/cours/" + cc.course.slug} className="font-medium text-brand-700 hover:text-brand-800 text-sm">{cc.course.title}</Link>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs bg-brand-100 text-brand-600 px-2 py-0.5 rounded">{cc.course.level}</span>
-                  <UnassignCourseBtn classroomId={classroom.id} courseId={cc.course.id} />
-                </div>
-              </div>
-            ))}</div>
-          ) : <p className="text-sm text-slate-400 mb-4">No courses assigned.</p>}
-          <AssignCourseForm classroomId={classroom.id} courses={availableCourses} />
-          <a href="/admin/cours/creer" target="_blank" className="inline-block mt-3 text-xs text-brand-600 font-medium hover:text-brand-700">+ Create a course</a>
-        </div>
-      )}
-
-      {/* ACTIVITES TAB */}
-      {tab === "activites" && (
-        <div className="bg-white rounded-2xl border border-brand-100 p-6">
-          <h2 className="font-heading font-bold text-lg text-slate-900 mb-4">Assigned activities</h2>
-          {classroom.activities.length > 0 ? (
-            <div className="space-y-2 mb-6">{classroom.activities.map((ca: any) => {
-              const t = activityTypeLabels[ca.activity.type] || { emoji: "?", label: ca.activity.type };
-              return (
-                <div key={ca.id} className="flex items-center justify-between p-3 bg-brand-50 rounded-xl">
-                  <div className="flex items-center gap-2">
-                    <span>{t.emoji}</span>
-                    <Link href={"/activites/" + ca.activity.id} className="font-medium text-brand-700 hover:text-brand-800 text-sm">{ca.activity.title}</Link>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs text-slate-400">{ca.activity.level || ""}</span>
-                    <UnassignActivityBtn classroomId={classroom.id} activityId={ca.activity.id} />
-                  </div>
-                </div>
-              );
-            })}</div>
-          ) : <p className="text-sm text-slate-400 mb-4">No activities assigned.</p>}
-          <AssignActivityForm classroomId={classroom.id} activities={availableActivities} />
-          <a href="/admin/activites/creer" target="_blank" className="inline-block mt-3 text-xs text-brand-600 font-medium hover:text-brand-700">+ Create an activity</a>
-        </div>
-      )}
-
       {/* SUIVI TAB */}
       {tab === "suivi" && (
-        <div className="bg-white rounded-2xl border border-brand-100 p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="font-heading font-bold text-lg text-slate-900">Student tracking</h2>
-            {classroom.subclasses.length > 0 && (
-              <div className="flex gap-1">
-                <button onClick={() => setSubclassFilter(null)} className={"px-3 py-1 rounded-lg text-xs font-medium transition-all " + (!subclassFilter ? "bg-brand-500 text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200")}>All</button>
-                {classroom.subclasses.map((sc: any) => (
-                  <button key={sc.id} onClick={() => setSubclassFilter(sc.id)} className={"px-3 py-1 rounded-lg text-xs font-medium transition-all " + (subclassFilter === sc.id ? "bg-brand-500 text-white" : "bg-slate-100 text-slate-500 hover:bg-slate-200")}>{sc.name}</button>
+        <div>
+          {/* Filter par sous-classe */}
+          {classroom.subclasses.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2 mb-4">
+              <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider mr-1">Filtrer:</span>
+              <button
+                onClick={() => setSubclassFilter(null)}
+                className={"text-xs font-semibold px-3 py-1.5 rounded-full transition-all " + (!subclassFilter ? "bg-brand-500 text-white" : "bg-slate-100 text-slate-700 hover:bg-slate-200")}
+              >
+                Tous ({classroom.members.length})
+              </button>
+              {classroom.subclasses.map((sc: any) => {
+                const count = classroom.members.filter((m: any) => m.subclassId === sc.id).length;
+                return (
+                  <button
+                    key={sc.id}
+                    onClick={() => setSubclassFilter(sc.id)}
+                    className={"text-xs font-semibold px-3 py-1.5 rounded-full transition-all " + (subclassFilter === sc.id ? "bg-brand-500 text-white" : "bg-slate-100 text-slate-700 hover:bg-slate-200")}
+                  >
+                    {sc.name} ({count})
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {filteredMembers.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-slate-200 p-10 text-center">
+              <span className="text-4xl">👥</span>
+              <p className="text-slate-500 mt-3">Aucun élève dans cette sélection.</p>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {filteredMembers.map((m: any) => {
+                const memberProgress = allLessonProgress.filter((p: any) => p.userId === m.userId);
+                const memberResults = studentResults.filter((r: any) => r.user.id === m.userId);
+                const completedCount = allLessonsForTracking.filter((l: any) => memberProgress.find((p: any) => p.lessonId === l.id && p.status === "completed")).length;
+                const inProgressCount = allLessonsForTracking.filter((l: any) => memberProgress.find((p: any) => p.lessonId === l.id && p.status === "in_progress")).length;
+                const uniqueResults = new Map();
+                memberResults.forEach((r: any) => { const ex = uniqueResults.get(r.activityId); if (!ex || (r.score || 0) > (ex.score || 0)) uniqueResults.set(r.activityId, r); });
+                const dedupedResults = Array.from(uniqueResults.values());
+                const avgScore = dedupedResults.length > 0 ? dedupedResults.reduce((sum: number, r: any) => sum + (r.score || 0), 0) / dedupedResults.length : 0;
+                const scName = classroom.subclasses.find((sc: any) => sc.id === m.subclassId)?.name;
+                const isExpanded = expandedMember === m.id;
+                const completionPct = allLessonsForTracking.length > 0 ? Math.round((completedCount / allLessonsForTracking.length) * 100) : 0;
+
+                return (
+                  <div key={m.id} className={"bg-white rounded-2xl border transition-all " + (isExpanded ? "border-brand-300 shadow-md" : "border-slate-200 hover:border-brand-200 hover:shadow-sm")}>
+                    <div className="p-4 cursor-pointer" onClick={() => setExpandedMember(isExpanded ? null : m.id)}>
+                      <div className="flex items-center gap-3">
+                        <div className="w-11 h-11 rounded-full bg-gradient-to-br from-brand-400 to-accent-500 flex items-center justify-center text-white text-base font-bold shrink-0">
+                          {m.user.name?.charAt(0).toUpperCase() || "?"}
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <p className="font-heading font-bold text-slate-900 truncate">{m.user.name || "—"}</p>
+                            {scName && <span className="text-[10px] font-bold bg-brand-100 text-brand-700 px-2 py-0.5 rounded-full shrink-0">{scName}</span>}
+                          </div>
+                          <p className="text-[11px] text-slate-500 truncate">{m.user.email}</p>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <div className="text-right">
+                            <div className="flex items-center gap-1">
+                              <div className="w-16 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                                <div className="h-full bg-green-500 rounded-full" style={{ width: completionPct + "%" }}></div>
+                              </div>
+                              <span className="text-[11px] font-bold text-slate-700 w-8 text-right">{completedCount}/{allLessonsForTracking.length}</span>
+                            </div>
+                            <p className="text-[10px] text-slate-400 mt-0.5">Score moyen: <b className={avgScore >= 80 ? "text-green-600" : avgScore >= 50 ? "text-amber-600" : "text-red-600"}>{Math.round(avgScore)}%</b></p>
+                          </div>
+                          <svg className={"w-4 h-4 text-slate-400 shrink-0 transition-transform " + (isExpanded ? "rotate-180" : "")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Accordion */}
+                    {isExpanded && (
+                      <div className="border-t border-slate-100 bg-slate-50/50 p-4 space-y-4 animate-slide-down">
+                        {/* Leçons */}
+                        {allLessonsForTracking.length > 0 && (() => {
+                          const grouped: Record<string, any[]> = {};
+                          allLessonsForTracking.forEach((l: any) => { if (!grouped[l.sectionTitle]) grouped[l.sectionTitle] = []; grouped[l.sectionTitle].push(l); });
+                          return (
+                            <div>
+                              <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Leçons ({completedCount}/{allLessonsForTracking.length})</h4>
+                              <div className="space-y-2">
+                                {Object.entries(grouped).map(([section, lessons]) => {
+                                  const done = lessons.filter((l: any) => memberProgress.find((p: any) => p.lessonId === l.id && p.status === "completed")).length;
+                                  return (
+                                    <details key={section} className="bg-white rounded-lg border border-slate-100">
+                                      <summary className="flex items-center justify-between px-3 py-2 cursor-pointer text-xs">
+                                        <span className="font-bold text-slate-700 truncate flex-1">{section}</span>
+                                        <div className="flex items-center gap-2 shrink-0 ml-2">
+                                          <div className="w-16 h-1.5 bg-slate-200 rounded-full overflow-hidden">
+                                            <div className="h-full bg-green-500 rounded-full" style={{ width: (done / lessons.length * 100) + "%" }}></div>
+                                          </div>
+                                          <span className="text-slate-500 font-medium w-8 text-right">{done}/{lessons.length}</span>
+                                        </div>
+                                      </summary>
+                                      <div className="px-3 pb-2 space-y-1">
+                                        {lessons.map((l: any) => {
+                                          const p = memberProgress.find((p: any) => p.lessonId === l.id);
+                                          const st = p ? p.status : "not_started";
+                                          return (
+                                            <div key={l.id} className="flex items-center justify-between py-1.5 px-2 bg-slate-50 rounded">
+                                              <span className="text-[11px] text-slate-700 truncate flex-1">{l.title}</span>
+                                              <span className={"text-[9px] font-bold px-2 py-0.5 rounded-full shrink-0 ml-2 " + (st === "completed" ? "bg-green-500 text-white" : st === "in_progress" ? "bg-amber-400 text-white" : "bg-slate-200 text-slate-500")}>
+                                                {st === "completed" ? "✓ Faite" : st === "in_progress" ? "En cours" : "À faire"}
+                                              </span>
+                                            </div>
+                                          );
+                                        })}
+                                      </div>
+                                    </details>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          );
+                        })()}
+
+                        {/* Activités */}
+                        {dedupedResults.length > 0 && (
+                          <div>
+                            <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Activités ({dedupedResults.length})</h4>
+                            <div className="bg-white rounded-lg border border-slate-100 p-2 space-y-1">
+                              {dedupedResults.map((r: any) => (
+                                <div key={r.id} className="flex items-center justify-between py-1.5 px-2 bg-slate-50 rounded">
+                                  <div className="flex items-center gap-2 min-w-0 flex-1">
+                                    <span>{(activityTypeLabels[r.activity.type] || { emoji: "?" }).emoji}</span>
+                                    <span className="text-[11px] text-slate-700 truncate">{r.activity.title}</span>
+                                  </div>
+                                  <span className={"text-[10px] font-bold px-2 py-0.5 rounded-full shrink-0 ml-2 " + ((r.score || 0) >= 80 ? "bg-green-500 text-white" : (r.score || 0) >= 50 ? "bg-amber-400 text-white" : "bg-red-400 text-white")}>
+                                    {Math.round(r.score || 0)}%
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* COURS TAB */}
+      {tab === "cours" && (
+        <div className="space-y-6">
+          {/* Liste */}
+          <div>
+            <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">📚 Cours assignés ({classroom.courses.length})</h2>
+            {classroom.courses.length === 0 ? (
+              <div className="bg-white rounded-2xl border border-slate-200 p-10 text-center">
+                <span className="text-4xl">📚</span>
+                <p className="text-slate-500 mt-3">Aucun cours assigné à cette classe.</p>
+                <p className="text-xs text-slate-400 mt-1">Utilisez le formulaire ci-dessous pour en ajouter.</p>
+              </div>
+            ) : (
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                {classroom.courses.map((cc: any) => (
+                  <div key={cc.id} data-classroom-course-card className="bg-white rounded-2xl border border-slate-200 hover:border-brand-300 hover:shadow-sm transition-all p-4">
+                    <div className="flex items-start justify-between gap-2 mb-3">
+                      <Link href={"/cours/" + cc.course.slug} className="font-heading font-bold text-slate-900 hover:text-brand-700 text-sm leading-tight flex-1 line-clamp-2">
+                        {cc.course.title}
+                      </Link>
+                      <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-100 text-brand-700 shrink-0">{cc.course.level}</span>
+                    </div>
+                    <div className="flex items-center gap-2 mt-2">
+                      <Link href={"/admin/cours/" + cc.course.id} className="flex-1 text-xs font-semibold px-3 py-1.5 bg-brand-50 text-brand-700 rounded-lg hover:bg-brand-100 transition-colors text-center">
+                        ✏️ Gérer
+                      </Link>
+                      <UnassignCourseBtn classroomId={classroom.id} courseId={cc.course.id} />
+                    </div>
+                  </div>
                 ))}
               </div>
             )}
           </div>
-          {filteredMembers.length === 0 ? <p className="text-sm text-slate-400">No students.</p> :
-            <div className="space-y-3">{filteredMembers.map((m: any) => {
-              const memberProgress = allLessonProgress.filter((p: any) => p.userId === m.userId);
-              const memberResults = studentResults.filter((r: any) => r.user.id === m.userId);
-              const completedCount = allLessonsForTracking.filter((l: any) => memberProgress.find((p: any) => p.lessonId === l.id && p.status === "completed")).length;
-              const inProgressCount = allLessonsForTracking.filter((l: any) => memberProgress.find((p: any) => p.lessonId === l.id && p.status === "in_progress")).length;
-              const uniqueResults = new Map();
-              memberResults.forEach((r: any) => { const ex = uniqueResults.get(r.activityId); if (!ex || (r.score || 0) > (ex.score || 0)) uniqueResults.set(r.activityId, r); });
-              const dedupedResults = Array.from(uniqueResults.values());
-              const avgScore = dedupedResults.length > 0 ? dedupedResults.reduce((sum: number, r: any) => sum + (r.score || 0), 0) / dedupedResults.length : 0;
-              const scName = classroom.subclasses.find((sc: any) => sc.id === m.subclassId)?.name;
 
-              return (
-                <details key={m.id} className="border border-slate-200 rounded-xl overflow-hidden hover:border-brand-200 transition-colors">
-                  <summary className="px-4 py-3 cursor-pointer bg-slate-50 hover:bg-brand-50/30 flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-9 h-9 rounded-full bg-gradient-to-br from-brand-400 to-accent-500 flex items-center justify-center text-white text-sm font-bold shrink-0">{m.user.name?.charAt(0) || "?"}</div>
-                      <div className="min-w-0">
-                        <p className="text-sm font-bold text-slate-900 truncate">{m.user.name}{scName && <span className="text-[10px] bg-brand-100 text-brand-600 px-1.5 py-0.5 rounded ml-1.5 font-medium">{scName}</span>}</p>
-                        <p className="text-[11px] text-slate-400 truncate">{m.user.email}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1.5 shrink-0">
-                      <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-[10px] font-bold">{completedCount}/{allLessonsForTracking.length}</span>
-                      {inProgressCount > 0 && <span className="bg-amber-100 text-amber-700 px-2 py-0.5 rounded text-[10px] font-bold">{inProgressCount} en cours</span>}
-                      <span className="bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded text-[10px] font-bold">{Math.round(avgScore)}%</span>
-                    </div>
-                  </summary>
-                  <div className="px-4 py-4 bg-white border-t border-slate-100 space-y-4">
-                    {allLessonsForTracking.length > 0 && (() => {
-                      const grouped: Record<string, any[]> = {};
-                      allLessonsForTracking.forEach((l: any) => { if (!grouped[l.sectionTitle]) grouped[l.sectionTitle] = []; grouped[l.sectionTitle].push(l); });
-                      return (
-                        <div>
-                          <p className="text-xs font-bold text-slate-600 mb-2">Lessons</p>
-                          <div className="space-y-2">{Object.entries(grouped).map(([section, lessons]) => {
-                            const done = lessons.filter((l: any) => memberProgress.find((p: any) => p.lessonId === l.id && p.status === "completed")).length;
-                            return (
-                              <details key={section} className="bg-slate-50 rounded-lg border border-slate-100">
-                                <summary className="flex items-center justify-between px-3 py-2 cursor-pointer text-xs">
-                                  <span className="font-bold text-brand-800">{section}</span>
-                                  <div className="flex items-center gap-2">
-                                    <div className="w-14 h-1.5 bg-slate-200 rounded-full overflow-hidden"><div className="h-full bg-green-500 rounded-full transition-all" style={{width: (done/lessons.length*100)+"%"}} /></div>
-                                    <span className="text-slate-500 font-medium w-6 text-right">{done}/{lessons.length}</span>
-                                  </div>
-                                </summary>
-                                <div className="px-2 pb-2 space-y-0.5">{lessons.map((l: any) => {
-                                  const p = memberProgress.find((p: any) => p.lessonId === l.id);
-                                  const st = p ? p.status : "not_started";
-                                  return (
-                                    <div key={l.id} className="flex items-center justify-between py-1 px-2 bg-white rounded">
-                                      <span className="text-[11px] text-slate-700 truncate flex-1">{l.title}</span>
-                                      <span className={"text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0 ml-1 " + (st === "completed" ? "bg-green-500 text-white" : st === "in_progress" ? "bg-amber-400 text-white" : "bg-slate-200 text-slate-400")}>{st === "completed" ? "Done" : st === "in_progress" ? "In progress" : "To do"}</span>
-                                    </div>
-                                  );
-                                })}</div>
-                              </details>
-                            );
-                          })}</div>
-                        </div>
-                      );
-                    })()}
-                    {dedupedResults.length > 0 && (
-                      <div>
-                        <p className="text-xs font-bold text-slate-600 mb-2">Activities ({dedupedResults.length})</p>
-                        <div className="bg-slate-50 rounded-lg border border-slate-100 p-2 space-y-0.5">{dedupedResults.map((r: any) => (
-                          <div key={r.id} className="flex items-center justify-between py-1 px-2 bg-white rounded">
-                            <span className="text-[11px] text-slate-700 truncate flex-1"><span className="mr-1">{(activityTypeLabels[r.activity.type] || {emoji:"?"}).emoji}</span>{r.activity.title}</span>
-                            <span className={"text-[9px] font-bold px-1.5 py-0.5 rounded-full shrink-0 ml-1 " + ((r.score || 0) >= 80 ? "bg-green-500 text-white" : (r.score || 0) >= 50 ? "bg-amber-400 text-white" : "bg-red-400 text-white")}>{Math.round(r.score || 0)}%</span>
-                          </div>
-                        ))}</div>
-                      </div>
-                    )}
-                  </div>
-                </details>
-              );
-            })}</div>
-          }
+          {/* Assigner */}
+          <div className="bg-white rounded-2xl border border-dashed border-brand-300 p-5">
+            <h3 className="font-heading font-bold text-slate-800 mb-3">+ Assigner un cours</h3>
+            <AssignCourseForm classroomId={classroom.id} courses={availableCourses} />
+            <Link href="/admin/cours/creer" className="inline-block mt-3 text-xs text-brand-600 font-semibold hover:text-brand-800">
+              Ou créer un nouveau cours →
+            </Link>
+          </div>
         </div>
       )}
 
-      {/* ELEVES TAB */}
-      {tab === "students" && (
-        <div className="space-y-4">
-          <div className="bg-white rounded-2xl border border-brand-100 p-6">
-            <h2 className="font-heading font-bold text-lg text-slate-900 mb-4">Subclasses</h2>
-            <SubclassManager classroomId={classroom.id} members={classroom.members} subclasses={classroom.subclasses} />
+      {/* ACTIVITES TAB - Vague 2 */}
+      {tab === "activites" && (
+        <div className="space-y-6">
+          <div>
+            <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">Activités assignées ({classroom.activities.length})</h2>
+            {classroom.activities.length === 0 ? (
+              <div className="bg-white rounded-2xl border border-slate-200 p-10 text-center">
+                <span className="text-4xl">A</span>
+                <p className="text-slate-500 mt-3">Aucune activité assignée à cette classe.</p>
+                <p className="text-xs text-slate-400 mt-1">Utilisez le formulaire ci-dessous pour en ajouter.</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {classroom.activities.map((ca: any) => {
+                  const t = activityTypeLabels[ca.activity.type] || { emoji: "?", label: ca.activity.type };
+                  const activityResults = studentResults.filter((r: any) => r.activity.id === ca.activity.id);
+                  const uniqueStudents = new Set(activityResults.map((r: any) => r.user.id)).size;
+                  const totalAttempts = activityResults.length;
+                  const bestPerStudent = new Map();
+                  activityResults.forEach((r: any) => {
+                    const ex = bestPerStudent.get(r.user.id);
+                    if (!ex || (r.score || 0) > ex) bestPerStudent.set(r.user.id, r.score || 0);
+                  });
+                  const avgScore = bestPerStudent.size > 0
+                    ? Math.round(Array.from(bestPerStudent.values()).reduce((a: number, b: number) => a + b, 0) / bestPerStudent.size)
+                    : 0;
+                  return (
+                    <div key={ca.id} data-classroom-activity-card className="bg-white rounded-2xl border border-slate-200 hover:border-brand-300 hover:shadow-sm transition-all p-5">
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex flex-wrap items-center gap-2 mb-2">
+                            <span className="inline-flex items-center gap-1.5 text-xs font-bold px-2.5 py-1 rounded-lg bg-brand-50 text-brand-700">
+                              <span>{t.emoji}</span>
+                              <span>{t.label}</span>
+                            </span>
+                            {ca.activity.level && (
+                              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">{ca.activity.level}</span>
+                            )}
+                          </div>
+                          <Link href={"/activites/" + ca.activity.id} className="font-heading font-bold text-slate-900 hover:text-brand-700 text-base leading-tight block">
+                            {ca.activity.title}
+                          </Link>
+                        </div>
+                        <div className="flex items-center gap-4 shrink-0">
+                          <div className="text-center">
+                            <p className="font-heading font-bold text-lg text-slate-900">{uniqueStudents}<span className="text-xs text-slate-400">/{classroom.members.length}</span></p>
+                            <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Élèves</p>
+                          </div>
+                          <div className="text-center">
+                            <p className="font-heading font-bold text-lg text-slate-900">{totalAttempts}</p>
+                            <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Tentatives</p>
+                          </div>
+                          <div className="text-center">
+                            <p className={"font-heading font-bold text-lg " + (avgScore >= 80 ? "text-green-600" : avgScore >= 50 ? "text-amber-600" : avgScore > 0 ? "text-red-600" : "text-slate-400")}>{avgScore > 0 ? avgScore + "%" : "-"}</p>
+                            <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Score moyen</p>
+                          </div>
+                          <UnassignActivityBtn classroomId={classroom.id} activityId={ca.activity.id} />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
-          <div className="bg-white rounded-2xl border border-brand-100 p-6">
-            <h2 className="font-heading font-bold text-lg text-slate-900 mb-4">All students ({classroom.members.length})</h2>
-            <div className="space-y-2">
-              {classroom.subclasses.map((sc: any) => {
-                const scMembers = classroom.members.filter((m: any) => m.subclassId === sc.id);
-                if (scMembers.length === 0) return null;
-                return (
-                  <details key={sc.id} open className="border border-brand-100 rounded-xl overflow-hidden">
-                    <summary className="px-4 py-2.5 bg-brand-50 cursor-pointer flex items-center justify-between">
-                      <span className="text-sm font-bold text-brand-800">{sc.name}</span>
-                      <span className="text-xs text-slate-400">{scMembers.length}</span>
-                    </summary>
-                    <div className="p-2 space-y-0.5">{scMembers.map((m: any) => (
-                      <div key={m.id} className="flex items-center gap-2 py-1.5 px-3 hover:bg-slate-50 rounded-lg">
-                        <div className="w-6 h-6 rounded-full bg-brand-200 flex items-center justify-center text-brand-700 text-[10px] font-bold shrink-0">{m.user.name?.charAt(0) || "?"}</div>
-                        <div className="flex-1 min-w-0"><span className="text-xs text-slate-700">{m.user.name}</span> <span className="text-[10px] text-slate-400">{m.user.email}</span></div>
-                        <RemoveMemberBtn classroomId={classroom.id} userId={m.userId} />
-                      </div>
-                    ))}</div>
-                  </details>
-                );
-              })}
-              {(() => {
-                const unassigned = classroom.members.filter((m: any) => !classroom.subclasses.some((sc: any) => sc.id === m.subclassId));
-                if (unassigned.length === 0 && classroom.subclasses.length > 0) return null;
-                return (
-                  <details open={classroom.subclasses.length === 0} className="border border-slate-200 rounded-xl overflow-hidden">
-                    <summary className="px-4 py-2.5 bg-slate-50 cursor-pointer flex items-center justify-between">
-                      <span className="text-sm font-bold text-slate-600">{classroom.subclasses.length > 0 ? "Unassigned" : "Students"}</span>
-                      <span className="text-xs text-slate-400">{unassigned.length}</span>
-                    </summary>
-                    <div className="p-2 space-y-0.5">{unassigned.map((m: any) => (
-                      <div key={m.id} className="flex items-center gap-2 py-1.5 px-3 hover:bg-slate-50 rounded-lg">
-                        <div className="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center text-slate-500 text-[10px] font-bold shrink-0">{m.user.name?.charAt(0) || "?"}</div>
-                        <div className="flex-1 min-w-0"><span className="text-xs text-slate-700">{m.user.name}</span> <span className="text-[10px] text-slate-400">{m.user.email}</span></div>
-                        <RemoveMemberBtn classroomId={classroom.id} userId={m.userId} />
-                      </div>
-                    ))}</div>
-                  </details>
-                );
-              })()}
+          <div className="bg-white rounded-2xl border border-dashed border-brand-300 p-5">
+            <h3 className="font-heading font-bold text-slate-800 mb-3">+ Assigner une activité</h3>
+            <AssignActivityForm classroomId={classroom.id} activities={availableActivities} />
+            <Link href="/admin/activites/creer" className="inline-block mt-3 text-xs text-brand-600 font-semibold hover:text-brand-800">
+              Ou créer une nouvelle activité
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* ELEVES TAB - Vague 2 */}
+      {tab === "eleves" && (
+        <div className="space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <h2 className="font-heading text-lg font-bold text-slate-900">Élèves ({classroom.members.length})</h2>
+              <p className="text-xs text-slate-400 mt-0.5">Gérez les inscriptions et les sous-classes</p>
+            </div>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setShowSubclasses(!showSubclasses)}
+                className="text-xs font-semibold px-3 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors"
+              >
+                {showSubclasses ? "Masquer" : "Gérer les sous-classes"}
+              </button>
+              <div className="bg-slate-100 rounded-lg px-3 py-2">
+                <p className="text-[9px] uppercase tracking-wider text-slate-500 font-semibold">Code</p>
+                <p className="font-mono font-bold text-sm tracking-widest text-slate-700">{classroom.code}</p>
+              </div>
             </div>
           </div>
-          <div className="bg-brand-50 rounded-xl p-4 text-center">
-            <p className="text-xs text-slate-500 mb-1">Code to share with students:</p>
-            <p className="font-mono font-bold text-2xl text-brand-700 tracking-widest">{classroom.code}</p>
-          </div>
+
+          {showSubclasses && (
+            <div className="bg-white rounded-2xl border border-brand-200 p-5 animate-slide-down">
+              <h3 className="font-heading font-bold text-slate-800 mb-3">Gestion des sous-classes</h3>
+              <SubclassManager classroomId={classroom.id} members={classroom.members} subclasses={classroom.subclasses} />
+            </div>
+          )}
+
+          {classroom.members.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-slate-200 p-10 text-center">
+              <span className="text-4xl">EE</span>
+              <p className="text-slate-500 mt-3">Aucun élève dans cette classe.</p>
+              <p className="text-xs text-slate-400 mt-1">Partagez le code <b className="font-mono">{classroom.code}</b> à vos élèves.</p>
+            </div>
+          ) : (
+            <>
+              {classroom.subclasses.length > 0 && (
+                <>
+                  {classroom.subclasses.map((sc: any) => {
+                    const scMembers = classroom.members.filter((m: any) => m.subclassId === sc.id);
+                    if (scMembers.length === 0) return null;
+                    return (
+                      <div key={sc.id}>
+                        <h3 className="text-xs font-bold text-brand-700 uppercase tracking-wider mb-2">{sc.name} ({scMembers.length})</h3>
+                        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
+                          {scMembers.map((m: any) => (
+                            <div key={m.id} data-classroom-member-card className="bg-white rounded-xl border border-slate-200 hover:border-brand-300 hover:shadow-sm transition-all p-4">
+                              <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-400 to-accent-500 flex items-center justify-center text-white text-sm font-bold shrink-0">{m.user.name?.charAt(0).toUpperCase() || "?"}</div>
+                                <div className="flex-1 min-w-0">
+                                  <p className="font-bold text-slate-800 text-sm truncate">{m.user.name || "-"}</p>
+                                  <p className="text-[10px] text-slate-400 truncate">{m.user.email}</p>
+                                </div>
+                                <RemoveMemberBtn classroomId={classroom.id} userId={m.userId} />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </>
+              )}
+
+              {(() => {
+                const unassigned = classroom.members.filter((m: any) => !classroom.subclasses.some((sc: any) => sc.id === m.subclassId));
+                if (unassigned.length === 0) return null;
+                return (
+                  <div>
+                    {classroom.subclasses.length > 0 && (
+                      <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Non assignés ({unassigned.length})</h3>
+                    )}
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                      {unassigned.map((m: any) => (
+                        <div key={m.id} data-classroom-member-card className="bg-white rounded-xl border border-slate-200 hover:border-brand-300 hover:shadow-sm transition-all p-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-slate-400 to-slate-500 flex items-center justify-center text-white text-sm font-bold shrink-0">{m.user.name?.charAt(0).toUpperCase() || "?"}</div>
+                            <div className="flex-1 min-w-0">
+                              <p className="font-bold text-slate-800 text-sm truncate">{m.user.name || "-"}</p>
+                              <p className="text-[10px] text-slate-400 truncate">{m.user.email}</p>
+                            </div>
+                            <RemoveMemberBtn classroomId={classroom.id} userId={m.userId} />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })()}
+            </>
+          )}
         </div>
       )}
 
-      {/* RESSOURCES TAB */}
+      {/* RESSOURCES TAB - Vague 3 */}
       {tab === "ressources" && (
-        <div className="bg-white rounded-2xl border border-brand-100 p-6">
-          <h2 className="font-heading font-bold text-lg text-slate-900 mb-4">Resources</h2>
-          <AddPostForm classroomId={classroom.id} />
-          <div className="mt-4 space-y-3">
-            {classroom.posts.length === 0 ? <p className="text-sm text-slate-400">No posts.</p> :
-              classroom.posts.map((p: any) => (
-                <div key={p.id} className="p-4 bg-slate-50 rounded-xl">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="font-medium text-slate-800 text-sm">{p.title || "Post"}</span>
-                    <span className="text-xs text-slate-400 ml-auto">{p.author.name}</span>
-                    <DeletePostBtn classroomId={classroom.id} postId={p.id} />
+        <div className="space-y-6">
+          <div>
+            <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">Publications ({classroom.posts.length})</h2>
+            {classroom.posts.length === 0 ? (
+              <div className="bg-white rounded-2xl border border-slate-200 p-10 text-center">
+                <span className="text-4xl">P</span>
+                <p className="text-slate-500 mt-3">Aucune publication pour cette classe.</p>
+                <p className="text-xs text-slate-400 mt-1">Utilisez le formulaire ci-dessous pour publier votre première ressource.</p>
+              </div>
+            ) : (
+              <div className="grid lg:grid-cols-2 gap-4">
+                {classroom.posts.map((post: any) => (
+                  <div key={post.id} data-classroom-post-card className="bg-white rounded-2xl border border-slate-200 hover:border-brand-300 hover:shadow-sm transition-all overflow-hidden flex flex-col">
+                    <div className="flex items-start justify-between gap-3 px-5 py-3 border-b border-slate-100 bg-slate-50/50">
+                      <div className="min-w-0 flex-1">
+                        <p className="font-heading font-bold text-slate-900 text-sm truncate">{post.title || "Publication"}</p>
+                        <p className="text-[11px] text-slate-500 truncate">Par <b>{post.author.name}</b> - {new Date(post.createdAt).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" })}</p>
+                      </div>
+                      <DeletePostBtn classroomId={classroom.id} postId={post.id} />
+                    </div>
+                    <div className="p-5 flex-1 space-y-3">
+                      {post.content && <p className="text-sm text-slate-700 whitespace-pre-wrap">{post.content}</p>}
+                      {getYouTubeEmbedUrl(post.videoUrl) && (
+                        <div className="rounded-lg overflow-hidden bg-black">
+                          <iframe src={getYouTubeEmbedUrl(post.videoUrl) || ""} className="w-full aspect-video" allowFullScreen />
+                        </div>
+                      )}
+                      {post.fileUrl && (
+                        <a href={post.fileUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-brand-700 bg-brand-50 hover:bg-brand-100 px-4 py-2 rounded-lg transition-colors">
+                          <span>F</span>
+                          <span className="truncate">{post.fileName || "Télécharger le fichier"}</span>
+                        </a>
+                      )}
+                    </div>
                   </div>
-                  {p.content && <p className="text-sm text-slate-600 mb-2">{p.content}</p>}
-                  {p.videoUrl && <div className="rounded-lg overflow-hidden bg-black"><iframe src={p.videoUrl.replace("watch?v=","embed/")} className="w-full aspect-video" allowFullScreen /></div>}
-                  {p.fileUrl && <a href={p.fileUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm text-brand-600 bg-brand-50 px-4 py-2 rounded-lg mt-2">{p.fileName || "File"}</a>}
-                </div>
-              ))}
+                ))}
+              </div>
+            )}
+          </div>
+          <div className="bg-white rounded-2xl border border-dashed border-brand-300 p-5">
+            <h3 className="font-heading font-bold text-slate-800 mb-3">+ Nouvelle publication</h3>
+            <AddPostForm classroomId={classroom.id} />
           </div>
         </div>
       )}

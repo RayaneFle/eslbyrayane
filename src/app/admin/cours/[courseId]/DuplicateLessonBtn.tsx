@@ -29,15 +29,15 @@ export default function DuplicateLessonBtn({ lessonId, currentCourseId }: { less
   }
 
   if (!open) return (
-    <button onClick={() => setOpen(true)} className="text-xs px-2 py-1 bg-purple-50 text-purple-600 rounded-lg hover:bg-purple-100">Copy</button>
+    <button onClick={() => setOpen(true)} className="text-xs px-2 py-1 bg-purple-50 text-purple-600 rounded-lg hover:bg-purple-100">Copier</button>
   );
 
   return (
     <div className="fixed inset-0 bg-black/30 z-50 flex items-center justify-center p-4" onClick={() => setOpen(false)}>
       <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl" onClick={e => e.stopPropagation()}>
-        <h3 className="font-heading font-bold text-lg mb-4">Copy lesson to...</h3>
+        <h3 className="font-heading font-bold text-lg mb-4">Copier la lecon vers...</h3>
         {done ? (
-          <div className="text-center py-4"><p className="text-green-600 font-medium">Lesson copied!</p></div>
+          <div className="text-center py-4"><p className="text-green-600 font-medium">Lecon copiee !</p></div>
         ) : (
           <>
             <div className="space-y-2 max-h-64 overflow-y-auto mb-4">
@@ -52,11 +52,11 @@ export default function DuplicateLessonBtn({ lessonId, currentCourseId }: { less
                   ))}
                 </div>
               ))}
-              {courses.length === 0 && <p className="text-sm text-slate-400 text-center py-4">Loading...</p>}
+              {courses.length === 0 && <p className="text-sm text-slate-400 text-center py-4">Chargement...</p>}
             </div>
             <div className="flex gap-2">
-              <button onClick={dup} disabled={!sel || loading} className="flex-1 py-2 bg-brand-500 text-white text-sm font-semibold rounded-lg disabled:opacity-50">{loading ? "Copying..." : "Copy here"}</button>
-              <button onClick={() => setOpen(false)} className="px-4 py-2 bg-slate-100 text-slate-500 text-sm rounded-lg">Cancel</button>
+              <button onClick={dup} disabled={!sel || loading} className="flex-1 py-2 bg-brand-500 text-white text-sm font-semibold rounded-lg disabled:opacity-50">{loading ? "Copie..." : "Copier ici"}</button>
+              <button onClick={() => setOpen(false)} className="px-4 py-2 bg-slate-100 text-slate-500 text-sm rounded-lg">Annuler</button>
             </div>
           </>
         )}

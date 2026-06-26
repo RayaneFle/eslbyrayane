@@ -7,7 +7,7 @@ export default function DuplicateActivityBtn({ activityId }: { activityId: strin
   const [loading, setLoading] = useState(false);
 
   async function handleDuplicate() {
-    if (!confirm("Duplicate this activity?")) return;
+    if (!confirm("Dupliquer cette activité ?")) return;
     setLoading(true);
     const res = await fetch("/api/activities/" + activityId + "/duplicate", { method: "POST" });
     if (res.ok) {
@@ -15,14 +15,14 @@ export default function DuplicateActivityBtn({ activityId }: { activityId: strin
       router.push("/admin/activites/" + data.id + "/modifier");
       router.refresh();
     } else {
-      alert("Duplication failed.");
+      alert("Erreur lors de la duplication.");
     }
     setLoading(false);
   }
 
   return (
     <button onClick={handleDuplicate} disabled={loading} className="text-xs px-3 py-1.5 bg-amber-100 text-amber-700 rounded-lg hover:bg-amber-200 font-medium disabled:opacity-50">
-      {loading ? "..." : "Duplicate"}
+      {loading ? "..." : "Dupliquer"}
     </button>
   );
 }

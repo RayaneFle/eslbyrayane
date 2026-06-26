@@ -7,7 +7,7 @@ import ExcelJS from "exceljs";
 export async function GET(_r: Request, { params }: { params: { classroomId: string } }) {
   const session = await getServerSession(authOptions);
   if (!session || (session.user.role !== "admin" && session.user.role !== "teacher")) {
-    return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
+    return NextResponse.json({ message: "Non autorise." }, { status: 401 });
   }
 
   const classroom = await prisma.classroom.findUnique({
@@ -17,7 +17,8 @@ export async function GET(_r: Request, { params }: { params: { classroomId: stri
       courses: { include: { course: { select: { id: true, title: true } } } },
     },
   });
-  if (!classroom) return NextResponse.json({ message: "Not found." }, { status: 404 });
+  if (!classroom) return NextResponse.json({ message: "Non trouve." }, { status: 404 });
+  if (session.user.role !== "admin" && classroom.ownerId !== session.user.id) return NextResponse.json({ message: "Non autorise." }, { status: 403 });
 
   const lessons = await prisma.lesson.findMany({
     where: { section: { courseId: { in: classroom.courses.map(c => c.courseId) } } },
@@ -40,20 +41,20 @@ export async function GET(_r: Request, { params }: { params: { classroomId: stri
   const activityList = Array.from(actMap.entries());
 
   const wb = new ExcelJS.Workbook();
-  wb.creator = "ESLbyRayane";
+  wb.creator = "FLEbyRayane";
 
-  // ===== SHEET 1: Lesson progress =====
+  // ===== SHEET 1: Progression des lecons =====
   const ws1 = wb.addWorksheet("Progression");
 
   // Title row
   ws1.mergeCells(1, 1, 1, 3 + lessons.length);
   const titleCell = ws1.getCell(1, 1);
-  titleCell.value = classroom.name + " - Lesson progress";
+  titleCell.value = classroom.name + " - Progression des lecons";
   titleCell.font = { size: 14, bold: true, color: { argb: "FF4338CA" } };
   titleCell.alignment = { horizontal: "center" };
 
   // Header row
-  const headers1 = ["N", "Student", "Avg. score"];
+  const headers1 = ["N", "Eleve", "Score moy."];
   lessons.forEach(l => headers1.push(l.title));
   const headerRow1 = ws1.addRow(headers1);
   headerRow1.font = { bold: true, size: 10, color: { argb: "FFFFFFFF" } };
@@ -80,7 +81,7 @@ export async function GET(_r: Request, { params }: { params: { classroomId: stri
     const row = [idx + 1, m.user.name || "?", avg + "%"];
     lessons.forEach(l => {
       const p = memberProg.find(p => p.lessonId === l.id);
-      row.push(p ? (p.status === "completed" ? "Done" : "In progress") : "-");
+      row.push(p ? (p.status === "completed" ? "Faite" : "En cours") : "-");
     });
 
     const dataRow = ws1.addRow(row);
@@ -91,10 +92,10 @@ export async function GET(_r: Request, { params }: { params: { classroomId: stri
     for (let i = 4; i <= 3 + lessons.length; i++) {
       const cell = dataRow.getCell(i);
       const val = cell.value as string;
-      if (val === "Done") {
+      if (val === "Faite") {
         cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFD1FAE5" } };
         cell.font = { color: { argb: "FF059669" }, bold: true, size: 9 };
-      } else if (val === "In progress") {
+      } else if (val === "En cours") {
         cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFEF3C7" } };
         cell.font = { color: { argb: "FFD97706" }, bold: true, size: 9 };
       } else {
@@ -117,16 +118,16 @@ export async function GET(_r: Request, { params }: { params: { classroomId: stri
   ws1.getColumn(3).width = 10;
   for (let i = 4; i <= 3 + lessons.length; i++) ws1.getColumn(i).width = 12;
 
-  // ===== SHEET 2: Activity scores =====
-  const ws2 = wb.addWorksheet("Activities");
+  // ===== SHEET 2: Scores des activites =====
+  const ws2 = wb.addWorksheet("Activites");
 
   ws2.mergeCells(1, 1, 1, 2 + activityList.length);
   const titleCell2 = ws2.getCell(1, 1);
-  titleCell2.value = classroom.name + " - Activity scores";
+  titleCell2.value = classroom.name + " - Scores des activites";
   titleCell2.font = { size: 14, bold: true, color: { argb: "FF4338CA" } };
   titleCell2.alignment = { horizontal: "center" };
 
-  const headers2 = ["N", "Student"];
+  const headers2 = ["N", "Eleve"];
   activityList.forEach(([_, title]) => headers2.push(title));
   const headerRow2 = ws2.addRow(headers2);
   headerRow2.font = { bold: true, size: 10, color: { argb: "FFFFFFFF" } };

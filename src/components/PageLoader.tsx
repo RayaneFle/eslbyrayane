@@ -4,7 +4,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 
 export default function PageLoader() {
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("Loading...");
+  const [message, setMessage] = useState("Chargement...");
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -30,7 +30,7 @@ export default function PageLoader() {
       if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes("#") && !link.target && !link.hasAttribute("download")) {
         const url = new URL(link.href);
         if (url.pathname !== pathname) {
-          setMessage("Loading...");
+          setMessage("Chargement...");
           setLoading(true);
         }
       }
@@ -39,8 +39,8 @@ export default function PageLoader() {
       const button = target.closest("button");
       if (button && button.type === "submit") {
         const text = button.textContent?.toLowerCase() || "";
-        if (text.includes("save") || text.includes("create") || text.includes("publishedr")) {
-          setMessage("Saving...");
+        if (text.includes("sauvegarder") || text.includes("creer") || text.includes("publier")) {
+          setMessage("Sauvegarde...");
           setLoading(true);
         }
       }
@@ -49,7 +49,7 @@ export default function PageLoader() {
     function handleSubmit(e: Event) {
       const form = e.target as HTMLFormElement;
       if (form.tagName === "FORM") {
-        setMessage("Saving...");
+        setMessage("Sauvegarde...");
         setLoading(true);
       }
     }

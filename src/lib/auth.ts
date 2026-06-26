@@ -10,20 +10,76 @@ declare module "next-auth" {
 }
 declare module "next-auth/jwt" { interface JWT { id: string; role: string } }
 
+// Rate limiting for login attempts (in-memory)
+// Note: on Vercel serverless, each instance has its own memory.
+// This blocks basic bots and most brute-force attempts.
+const loginAttempts = new Map<string, { count: number; firstAttempt: number }>();
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+const MAX_ATTEMPTS_PER_EMAIL = 5;
+
+function isRateLimited(email: string): boolean {
+  const key = email.toLowerCase();
+  const now = Date.now();
+  const record = loginAttempts.get(key);
+
+  // Clean up old entries periodically (opportunistic)
+  if (loginAttempts.size > 500) {
+    for (const [k, v] of loginAttempts.entries()) {
+      if (now - v.firstAttempt > RATE_LIMIT_WINDOW_MS) loginAttempts.delete(k);
+    }
+  }
+
+  if (!record) return false;
+  if (now - record.firstAttempt > RATE_LIMIT_WINDOW_MS) {
+    loginAttempts.delete(key);
+    return false;
+  }
+  return record.count >= MAX_ATTEMPTS_PER_EMAIL;
+}
+
+function recordFailedAttempt(email: string) {
+  const key = email.toLowerCase();
+  const now = Date.now();
+  const record = loginAttempts.get(key);
+  if (!record || now - record.firstAttempt > RATE_LIMIT_WINDOW_MS) {
+    loginAttempts.set(key, { count: 1, firstAttempt: now });
+  } else {
+    record.count++;
+  }
+}
+
+function clearRateLimit(email: string) {
+  loginAttempts.delete(email.toLowerCase());
+}
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as any,
   session: { strategy: "jwt" },
   pages: { signIn: "/login" },
   providers: [
     CredentialsProvider({
-      name: "Credentials",
-      credentials: { email: { label: "Email", type: "email" }, password: { label: "Password", type: "password" } },
+      name: "Identifiants",
+      credentials: { email: { label: "Email", type: "email" }, password: { label: "Mot de passe", type: "password" } },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null;
+
+        // Rate limit: silently reject if blocked (no info leaked to attacker)
+        if (isRateLimited(credentials.email)) return null;
+
         const user = await prisma.user.findUnique({ where: { email: credentials.email } });
-        if (!user || !user.hashedPassword) return null;
+        if (!user || !user.hashedPassword) {
+          recordFailedAttempt(credentials.email);
+          return null;
+        }
         const valid = await bcrypt.compare(credentials.password, user.hashedPassword);
-        if (!valid) return null;
+        if (!valid) {
+          recordFailedAttempt(credentials.email);
+          return null;
+        }
+
+        // Successful login: reset the counter for this email
+        clearRateLimit(credentials.email);
+
         return { id: user.id, email: user.email, name: user.name, image: user.image, role: user.role };
       },
     }),

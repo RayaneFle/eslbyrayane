@@ -34,7 +34,7 @@ export default function DragDropGame({ config, onComplete }: { config: any; onCo
     const r = new Map<string, boolean>();
     allItems.forEach((i: any) => r.set(key(i), placements.get(key(i)) === i.correctZone));
     setResults(r); setChecked(true);
-    const details = allItems.map((i: any) => ({ question: i.text || i.imageUrl || "?", userAnswer: placements.get(key(i)) || "(not placed)", correctAnswer: i.correctZone, isCorrect: r.get(key(i)) || false, imageUrl: i.imageUrl }));
+    const details = allItems.map((i: any) => ({ question: i.text || i.imageUrl || "?", userAnswer: placements.get(key(i)) || "(non placé)", correctAnswer: i.correctZone, isCorrect: r.get(key(i)) || false, imageUrl: i.imageUrl }));
     onComplete((Array.from(r.values()).filter(Boolean).length / allItems.length) * 100, details);
   }
 
@@ -42,11 +42,11 @@ export default function DragDropGame({ config, onComplete }: { config: any; onCo
 
   return (
     <div className="bg-white rounded-2xl border border-brand-100 p-6 sm:p-8">
-      <p className="text-sm text-slate-400 mb-2">{config.instruction || "Drag each element to the correct zone"}</p>
-      <p className="text-xs text-slate-300 mb-6">{placements.size}/{allItems.length} placed</p>
+      <p className="text-sm text-slate-400 mb-2">{config.instruction || "Glissez chaque élément dans la bonne zone"}</p>
+      <p className="text-xs text-slate-300 mb-6">{placements.size}/{allItems.length} placés</p>
 
       <div className="flex flex-wrap gap-3 mb-8 min-h-[60px] p-3 bg-slate-50 rounded-xl border-2 border-dashed border-slate-200">
-        {unplaced.length === 0 && !checked && <p className="text-xs text-slate-300 m-auto">All placed!</p>}
+        {unplaced.length === 0 && !checked && <p className="text-xs text-slate-300 m-auto">Tous placés !</p>}
         {unplaced.map((i: any) => (
           <div key={key(i)} draggable onDragStart={() => dragStart(key(i))} onDragEnd={() => { setDragging(null); ref.current = null; }} onClick={() => tap(key(i))}
             className={`px-4 py-2 rounded-xl font-medium text-sm cursor-grab select-none transition-all flex items-center gap-2 ${dragging === key(i) ? "bg-brand-500 text-white scale-105 shadow-lg" : "bg-white text-slate-700 border border-slate-200 hover:border-brand-300"}`}>
@@ -79,13 +79,13 @@ export default function DragDropGame({ config, onComplete }: { config: any; onCo
                     </div>
                   );
                 })}
-                {items.length === 0 && <p className="text-xs text-slate-300 text-center italic py-2">Drop here</p>}
+                {items.length === 0 && <p className="text-xs text-slate-300 text-center italic py-2">Déposez ici</p>}
               </div>
             </div>
           );
         })}
       </div>
-      {!checked && <div className="mt-6 text-center"><button onClick={check} disabled={placements.size !== allItems.length} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-40 transition-all">Check</button></div>}
+      {!checked && <div className="mt-6 text-center"><button onClick={check} disabled={placements.size !== allItems.length} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-40 transition-all">Vérifier</button></div>}
     </div>
   );
 }

@@ -54,7 +54,7 @@ export default function WordOrderGame({ config, onComplete }: { config: any; onC
     if (isLast) {
       setTimeout(() => {
         const details: AnswerDetail[] = newResults.map(r => ({
-          question: "Word order",
+          question: "Remettre dans l’ordre",
           userAnswer: r.userAnswer,
           correctAnswer: r.sentence,
           isCorrect: r.correct,
@@ -80,11 +80,11 @@ export default function WordOrderGame({ config, onComplete }: { config: any; onC
         <div className="h-full bg-gradient-to-r from-brand-500 to-accent-500 transition-all duration-500 rounded-full" style={{ width: ((idx + (checked ? 1 : 0)) / config.sentences.length * 100) + "%" }} />
       </div>
       <div className="p-6 sm:p-8">
-        <p className="text-xs text-brand-400 mb-2 font-medium">Sentence {idx + 1}/{config.sentences.length}</p>
+        <p className="text-xs text-brand-400 mb-2 font-medium">Phrase {idx + 1}/{config.sentences.length}</p>
         {sentence.hint && <p className="text-sm text-slate-500 mb-4 italic">{"\ud83d\udca1"} {sentence.hint}</p>}
 
         <div className="min-h-[60px] p-4 mb-6 bg-brand-50 rounded-xl border-2 border-dashed border-brand-200 flex flex-wrap gap-2">
-          {selected.length === 0 && <p className="text-sm text-brand-300 m-auto">Click on the words below</p>}
+          {selected.length === 0 && <p className="text-sm text-brand-300 m-auto">Cliquez sur les mots ci-dessous</p>}
           {selected.map((word, i) => (
             <button key={i} type="button" onClick={() => removeWord(word, i)} disabled={checked}
               className={"px-3 py-2 rounded-lg font-medium text-sm transition-all " + (checked ? isCorrect ? "bg-green-100 text-green-700 border border-green-300" : "bg-red-100 text-red-700 border border-red-300" : "bg-brand-200 text-brand-800 hover:bg-brand-300 cursor-pointer")}>
@@ -113,13 +113,13 @@ export default function WordOrderGame({ config, onComplete }: { config: any; onC
 
         {!checked && selected.length > 0 && (
           <div className="text-center">
-            <button type="button" onClick={check} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">Check</button>
+            <button type="button" onClick={check} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">Vérifier</button>
           </div>
         )}
 
         {checked && !isLast && (
           <div className="text-center">
-            <button type="button" onClick={next} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">Next sentence</button>
+            <button type="button" onClick={next} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">Phrase suivante</button>
           </div>
         )}
       </div>

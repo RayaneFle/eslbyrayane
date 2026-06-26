@@ -1,14 +1,14 @@
 export const activityTypeLabels: Record<string, { emoji: string; label: string }> = {
-  QCM: { emoji: "📝", label: "MCQ" },
-  TRUE_FALSE: { emoji: "✅", label: "True or False" },
-  FILL_BLANKS: { emoji: "✏️", label: "Fill in the blanks" },
-  MATCHING: { emoji: "🔗", label: "Matching" },
+  QCM: { emoji: "📝", label: "QCM" },
+  TRUE_FALSE: { emoji: "✅", label: "Vrai ou Faux" },
+  FILL_BLANKS: { emoji: "✏️", label: "Texte à trous" },
+  MATCHING: { emoji: "🔗", label: "Appariement" },
   MEMORY: { emoji: "🃏", label: "Memory" },
-  HANGMAN: { emoji: "💀", label: "Hangman" },
-  DRAG_DROP: { emoji: "🎯", label: "Drag and drop" },
-  SORTING: { emoji: "📊", label: "Sorting" },
-  CATEGORIZE: { emoji: "📂", label: "Categorization" },
-  WORD_ORDER: { emoji: "🔤", label: "Word order" },
+  HANGMAN: { emoji: "💀", label: "Pendu" },
+  DRAG_DROP: { emoji: "🎯", label: "Glisser-déposer" },
+  SORTING: { emoji: "📊", label: "Classement" },
+  CATEGORIZE: { emoji: "📂", label: "Catégorisation" },
+  WORD_ORDER: { emoji: "🔤", label: "Remettre dans l'ordre" },
 };
 
 export const levelColors: Record<string, string> = {
@@ -34,7 +34,7 @@ export function formatTime(seconds: number): string {
 }
 
 export const levelLabels: Record<string, string> = {
-  A1: "Beginner", A2: "Elementary", B1: "Intermediate", B2: "Advanced", C1: "Proficient", C2: "Mastery",
+  A1: "Débutant", A2: "Élémentaire", B1: "Intermédiaire", B2: "Avancé", C1: "Autonome", C2: "Maîtrise",
 };
 
 export const levelEmoji: Record<string, string> = {
@@ -46,8 +46,21 @@ export function slugify(text: string): string {
 }
 
 export function generateClassCode(): string {
+  const { randomInt } = require("crypto");
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
   let code = "";
-  for (let i = 0; i < 6; i++) code += chars[Math.floor(Math.random() * chars.length)];
+  for (let i = 0; i < 6; i++) code += chars[randomInt(0, chars.length)];
   return code;
+}
+
+export function getYouTubeEmbedUrl(url: string | null | undefined): string | null {
+  if (!url) return null;
+  const patterns = [
+    /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([a-zA-Z0-9_-]{11})/,
+  ];
+  for (const p of patterns) {
+    const m = url.match(p);
+    if (m && m[1]) return "https://www.youtube.com/embed/" + m[1];
+  }
+  return null;
 }
