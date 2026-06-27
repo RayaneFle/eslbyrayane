@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/admin/", "/dashboard/", "/api/"],
       },
     ],
-    sitemap: "https://flebyrayane.vercel.app/sitemap.xml",
+    sitemap: "https://eslguliston.vercel.app/sitemap.xml",
   };
 }

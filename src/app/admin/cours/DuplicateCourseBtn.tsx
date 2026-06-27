@@ -7,7 +7,7 @@ export default function DuplicateCourseBtn({ courseId }: { courseId: string }) {
   const [loading, setLoading] = useState(false);
 
   async function handleDuplicate() {
-    if (!confirm("Duplicate ce cours ? Une copie indépendante sera créée.")) return;
+    if (!confirm("Duplicate this course? An independent copy will be created.")) return;
     setLoading(true);
     const res = await fetch("/api/admin/courses/" + courseId + "/duplicate", { method: "POST" });
     if (res.ok) {
@@ -15,7 +15,7 @@ export default function DuplicateCourseBtn({ courseId }: { courseId: string }) {
       router.push("/admin/cours/" + data.id);
       router.refresh();
     } else {
-      alert("Error lors de la duplication.");
+      alert("Error duplicating course.");
     }
     setLoading(false);
   }

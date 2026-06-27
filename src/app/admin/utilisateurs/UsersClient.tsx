@@ -91,7 +91,7 @@ export default function UsersClient({ users: initialUsers, isAdmin, currentUserE
           <input
             value={search}
             onChange={e => setSearch(e.target.value)}
-            placeholder="Rechercher par nom ou email..."
+            placeholder="Search by name or email..."
             className="w-full border border-slate-200 rounded-xl pl-10 pr-3 py-2.5 text-sm outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100"
           />
         </div>
@@ -182,11 +182,11 @@ export default function UsersClient({ users: initialUsers, isAdmin, currentUserE
                       )}
                       <span className="flex items-center gap-1">
                         <span className="text-slate-400">📝</span>
-                        <span><b className="text-slate-700">{u.counts.activityResults}</b> activité{u.counts.activityResults > 1 ? "s" : ""}</span>
+                        <span><b className="text-slate-700">{u.counts.activityResults}</b> activit{u.counts.activityResults > 1 ? "ies" : "y"}</span>
                       </span>
                       <span className="flex items-center gap-1">
                         <span className="text-slate-400">📖</span>
-                        <span><b className="text-slate-700">{u.lessonsCompleted}</b>{u.lessonsTotal > 0 ? <span className="text-slate-400">/{u.lessonsTotal}</span> : null} leçon{u.lessonsCompleted > 1 ? "s" : ""}</span>
+                        <span><b className="text-slate-700">{u.lessonsCompleted}</b>{u.lessonsTotal > 0 ? <span className="text-slate-400">/{u.lessonsTotal}</span> : null} lesson{u.lessonsCompleted > 1 ? "s" : ""}</span>
                       </span>
                       <span className="flex items-center gap-1 ml-auto">
                         <span className="text-slate-400">⏰</span>

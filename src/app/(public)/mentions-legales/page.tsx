@@ -1,48 +1,47 @@
 export const metadata = {
-  title: "Mentions légales - ESL Guliston",
-  description: "Mentions légales du site ESL Guliston.",
+  title: "Legal Notice - ESL Guliston",
+  description: "Legal notice for the ESL Guliston website.",
 };
 
 export default function MentionsLegalesPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="font-heading text-3xl font-bold text-brand-900 mb-8">Mentions légales</h1>
+      <h1 className="font-heading text-3xl font-bold text-brand-900 mb-8">Legal Notice</h1>
 
       <section className="space-y-6 text-slate-700 leading-relaxed">
         <div>
-          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">Éditeur du site</h2>
-          <p>Le site ESL Guliston est édité par Rayane, à titre personnel et non lucratif.</p>
-          <p>Localisation : France</p>
-          <p>Contact : bekhakhrayane@gmail.com</p>
+          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">Site editor</h2>
+          <p>The ESL Guliston website is edited by Rayane, on a personal and non-commercial basis.</p>
+          <p>Contact: bekhakhrayane@gmail.com</p>
         </div>
 
         <div>
-          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">Directeur de la publication</h2>
+          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">Publication director</h2>
           <p>Rayane</p>
         </div>
 
         <div>
-          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">Hébergement</h2>
-          <p>Le site est hébergé par :</p>
+          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">Hosting</h2>
+          <p>The site is hosted by:</p>
           <p>Vercel Inc.</p>
           <p>340 S Lemon Ave #4133</p>
           <p>Walnut, CA 91789, USA</p>
-          <p>Site : <a href="https://vercel.com" className="text-brand-600 underline" target="_blank" rel="noopener noreferrer">vercel.com</a></p>
+          <p>Website: <a href="https://vercel.com" className="text-brand-600 underline" target="_blank" rel="noopener noreferrer">vercel.com</a></p>
         </div>
 
         <div>
-          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">Nature de l&apos;activité</h2>
-          <p>ESL Guliston est un site éducatif personnel, proposant gratuitement des ressources d&apos;apprentissage du English langue étrangère. Le site n&apos;a aucune activité commerciale.</p>
+          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">Nature of the activity</h2>
+          <p>ESL Guliston is a personal educational website, offering free English learning resources. The site has no commercial activity.</p>
         </div>
 
         <div>
-          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">Propriété intellectuelle</h2>
-          <p>L&apos;ensemble du contenu présent sur le site (textes, exercices, images) est la propriété de l&apos;éditeur ou est utilisé avec autorisation. Toute reproduction est interdite sans autorisation préalable.</p>
+          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">Intellectual property</h2>
+          <p>All content on the site (texts, exercises, images) is the property of the editor or is used with permission. Any reproduction is prohibited without prior authorization.</p>
         </div>
 
         <div>
           <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">Contact</h2>
-          <p>Pour toute question relative aux mentions légales, à la protection des données, ou au contenu du site : <a href="mailto:bekhakhrayane@gmail.com" className="text-brand-600 underline">bekhakhrayane@gmail.com</a></p>
+          <p>For any questions regarding legal notices, data protection, or site content: <a href="mailto:bekhakhrayane@gmail.com" className="text-brand-600 underline">bekhakhrayane@gmail.com</a></p>
         </div>
       </section>
     </div>

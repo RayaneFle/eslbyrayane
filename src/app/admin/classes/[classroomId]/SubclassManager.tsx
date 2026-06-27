@@ -23,7 +23,7 @@ export default function SubclassManager({ classroomId, members, subclasss }: { c
   }
 
   async function deleteSubclass(id: string) {
-    if (!confirm("Supprimer cette sous-class ? Les students ne seront pas supprimés.")) return;
+    if (!confirm("Delete this subclass? Students will not be deleted.")) return;
     await fetch("/api/classrooms/" + classroomId + "/subclasss/" + id, { method: "DELETE" });
     router.refresh();
   }
@@ -57,7 +57,7 @@ export default function SubclassManager({ classroomId, members, subclasss }: { c
   return (
     <div className="space-y-3">
       <div className="flex gap-2">
-        <input value={newName} onChange={e => setNewName(e.target.value)} onKeyDown={e => e.key === "Enter" && createSubclass()} placeholder="Nouvelle sous-class..." className="flex-1 border border-slate-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-brand-400" />
+        <input value={newName} onChange={e => setNewName(e.target.value)} onKeyDown={e => e.key === "Enter" && createSubclass()} placeholder="New subclass..." className="flex-1 border border-slate-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-brand-400" />
         <button onClick={createSubclass} disabled={creating || !newName.trim()} className="px-3 py-1.5 bg-brand-500 text-white text-xs font-bold rounded-lg hover:bg-brand-600 disabled:opacity-50">+</button>
       </div>
 
@@ -70,7 +70,7 @@ export default function SubclassManager({ classroomId, members, subclasss }: { c
               <p className="text-sm font-bold text-brand-800">{sc.name} <span className="text-xs font-normal text-slate-400">({scMembers.length})</span></p>
               <div className="flex items-center gap-2">
                 <button onClick={() => { setAddingTo(isAdding ? null : sc.id); setSelected(new Set()); }} className={"text-[10px] px-2 py-0.5 rounded font-bold " + (isAdding ? "bg-brand-500 text-white" : "bg-white text-brand-600 border border-brand-200")}>
-                  {isAdding ? "Cancel" : "+ Ajouter"}
+                  {isAdding ? "Cancel" : "+ Add"}
                 </button>
                 <button onClick={() => deleteSubclass(sc.id)} className="text-[10px] text-red-400 hover:text-red-600">x</button>
               </div>
@@ -100,21 +100,21 @@ export default function SubclassManager({ classroomId, members, subclasss }: { c
                 </div>
                 {selected.size > 0 && (
                   <button onClick={() => assignSelected(sc.id)} className="mt-2 w-full py-1.5 bg-brand-500 text-white text-xs font-bold rounded-lg hover:bg-brand-600">
-                    Ajouter {selected.size} student{selected.size > 1 ? "s" : ""}
+                    Add {selected.size} student{selected.size > 1 ? "s" : ""}
                   </button>
                 )}
               </div>
             )}
 
             {isAdding && unassigned.length === 0 && (
-              <p className="px-3 py-2 text-[10px] text-slate-400 text-center border-t border-brand-50">Tous les students sont assignés.</p>
+              <p className="px-3 py-2 text-[10px] text-slate-400 text-center border-t border-brand-50">All students are assigned.</p>
             )}
           </div>
         );
       })}
 
       {unassigned.length > 0 && subclasss.length > 0 && (
-        <p className="text-[10px] text-slate-400 text-center">{unassigned.length} student{unassigned.length > 1 ? "s" : ""} non assigné{unassigned.length > 1 ? "s" : ""}</p>
+        <p className="text-[10px] text-slate-400 text-center">{unassigned.length} student{unassigned.length > 1 ? "s" : ""} unassigned</p>
       )}
     </div>
   );

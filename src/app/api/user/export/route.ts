@@ -46,12 +46,12 @@ export async function GET() {
     ]);
 
     if (!user) {
-      return NextResponse.json({ message: "Utilisateur introuvable." }, { status: 404 });
+      return NextResponse.json({ message: "User not found." }, { status: 404 });
     }
 
     const exportData = {
       exportedAt: new Date().toISOString(),
-      exportNote: "Export RGPD de vos donnees personnelles. Ce fichier contient toutes les donnees que FLE by Rayane detient sur vous.",
+      exportNote: "GDPR export of your personal data. This file contains all the data that ESL Guliston holds about you.",
       profile: user,
       activityResults: activityResults.map(r => ({
         activity: r.activity.title,
@@ -95,7 +95,7 @@ export async function GET() {
       })),
     };
 
-    const filename = "mes-donnees-fle-" + new Date().toISOString().split("T")[0] + ".json";
+    const filename = "my-data-esl-guliston-" + new Date().toISOString().split("T")[0] + ".json";
 
     return new NextResponse(JSON.stringify(exportData, null, 2), {
       status: 200,
@@ -106,6 +106,6 @@ export async function GET() {
     });
   } catch (e) {
     console.error("Export error:", e);
-    return NextResponse.json({ message: "Erreur lors de l'export." }, { status: 500 });
+    return NextResponse.json({ message: "Export error." }, { status: 500 });
   }
 }

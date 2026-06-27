@@ -28,14 +28,14 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session?.user) return NextResponse.json({ message: "Non autorisé." }, { status: 401 });
+    if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
     if (session.user.role !== "admin" && session.user.role !== "teacher") {
-      return NextResponse.json({ message: "Seuls les enseignants peuvent créer des activités." }, { status: 403 });
+      return NextResponse.json({ message: "Only teachers can create activities." }, { status: 403 });
     }
     const body = await request.json();
     const parsed = CreateActivitySchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json({ message: parsed.error.errors[0]?.message || "Données invalides." }, { status: 400 });
+      return NextResponse.json({ message: parsed.error.errors[0]?.message || "Invalid data." }, { status: 400 });
     }
     const { title, description, type, config, level, isPublic } = parsed.data;
     const activity = await prisma.activity.create({

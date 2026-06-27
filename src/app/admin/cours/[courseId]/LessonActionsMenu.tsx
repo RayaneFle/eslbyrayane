@@ -43,7 +43,7 @@ export default function LessonActionsMenu({ courseId, sectionId, lessonId, hidde
   }
 
   async function deleteLesson() {
-    if (!confirm("Supprimer cette leçon ?")) return;
+    if (!confirm("Delete this lesson?")) return;
     setOpen(false);
     // UI optimiste : on cache la row IMMEDIATEMENT via parent
     const row = ref.current?.closest("[data-lesson-row]") as HTMLElement | null;
@@ -54,11 +54,11 @@ export default function LessonActionsMenu({ courseId, sectionId, lessonId, hidde
       });
       if (!res.ok) {
         if (row) row.style.display = "";
-        alert("Error lors de la suppression.");
+        alert("Error deleting lesson.");
       }
     } catch {
       if (row) row.style.display = "";
-      alert("Error réseau.");
+      alert("Network error.");
     }
   }
 
@@ -82,7 +82,7 @@ export default function LessonActionsMenu({ courseId, sectionId, lessonId, hidde
               className="flex items-center gap-3 w-full px-4 py-2 text-sm text-slate-700 hover:bg-slate-50"
             >
               <span className="text-base">✏️</span>
-              <span>Modifier</span>
+              <span>Edit</span>
             </Link>
             <button
               onClick={() => { setDuplicateOpen(true); setOpen(false); }}
@@ -97,7 +97,7 @@ export default function LessonActionsMenu({ courseId, sectionId, lessonId, hidde
               className="flex items-center gap-3 w-full px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 text-left disabled:opacity-50"
             >
               <span className="text-base">{hidden ? "🔒" : "👁"}</span>
-              <span>{hidden ? "Rendre visible" : "Hide"}</span>
+              <span>{hidden ? "Make visible" : "Hide"}</span>
             </button>
             <div className="border-t border-slate-100 my-1"></div>
             <button
@@ -105,7 +105,7 @@ export default function LessonActionsMenu({ courseId, sectionId, lessonId, hidde
               className="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left"
             >
               <span className="text-base">🗑</span>
-              <span>Supprimer</span>
+              <span>Delete</span>
             </button>
           </div>
         )}
@@ -163,29 +163,29 @@ function DuplicateLessonModal({ lessonId, onClose, onSuccess }: { lessonId: stri
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div className="bg-white rounded-2xl w-full max-w-lg shadow-xl overflow-hidden" onClick={e => e.stopPropagation()}>
         <div className="px-6 py-4 border-b border-slate-100">
-          <h3 className="font-heading font-bold text-lg text-slate-900">📋 Duplicate la leçon</h3>
-          <p className="text-xs text-slate-500 mt-1">Choisissez où copier cette leçon.</p>
+          <h3 className="font-heading font-bold text-lg text-slate-900">📋 Duplicate lesson</h3>
+          <p className="text-xs text-slate-500 mt-1">Choose where to copy this lesson.</p>
         </div>
         <div className="p-6">
           {done ? (
             <div className="text-center py-6">
               <span className="text-4xl">✅</span>
-              <p className="text-green-600 font-semibold mt-2">Leçon dupliquée !</p>
+              <p className="text-green-600 font-semibold mt-2">Lesson duplicated!</p>
             </div>
           ) : loadingCourses ? (
             <div className="text-center py-8">
-              <p className="text-sm text-slate-400">Loading des cours...</p>
+              <p className="text-sm text-slate-400">Loading courses...</p>
             </div>
           ) : (
             <div className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1.5">Cours de destination</label>
+                <label className="block text-xs font-semibold text-slate-600 mb-1.5">Destination course</label>
                 <select
                   value={selectedCourseId}
                   onChange={e => { setSelectedCourseId(e.target.value); setSelectedSectionId(""); }}
                   className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-brand-400 bg-white"
                 >
-                  <option value="">-- Choisir un cours --</option>
+                  <option value="">-- Choose a course --</option>
                   {courses.map((c: any) => (
                     <option key={c.id} value={c.id}>{c.title} {c.level ? "(" + c.level + ")" : ""}</option>
                   ))}
@@ -193,16 +193,16 @@ function DuplicateLessonModal({ lessonId, onClose, onSuccess }: { lessonId: stri
               </div>
               {selectedCourseId && (
                 <div>
-                  <label className="block text-xs font-semibold text-slate-600 mb-1.5">Section de destination</label>
+                  <label className="block text-xs font-semibold text-slate-600 mb-1.5">Destination section</label>
                   {sections.length === 0 ? (
-                    <p className="text-sm text-slate-400 italic py-2">Ce cours n'a pas de section.</p>
+                    <p className="text-sm text-slate-400 italic py-2">This course has no sections.</p>
                   ) : (
                     <select
                       value={selectedSectionId}
                       onChange={e => setSelectedSectionId(e.target.value)}
                       className="w-full border border-slate-200 rounded-xl px-3 py-2.5 text-sm outline-none focus:border-brand-400 bg-white"
                     >
-                      <option value="">-- Choisir une section --</option>
+                      <option value="">-- Choose a section --</option>
                       {sections.map((s: any) => (
                         <option key={s.id} value={s.id}>{s.title}</option>
                       ))}
@@ -223,7 +223,7 @@ function DuplicateLessonModal({ lessonId, onClose, onSuccess }: { lessonId: stri
               disabled={!selectedSectionId || loading}
               className="text-sm px-5 py-2 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-50 transition-all"
             >
-              {loading ? "Duplication…" : "Duplicate ici"}
+              {loading ? "Duplicating…" : "Duplicate here"}
             </button>
           </div>
         )}

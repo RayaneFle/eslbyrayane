@@ -36,7 +36,7 @@ function checkSignature(buffer: Buffer, mimeType: string): boolean {
 export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session?.user) return NextResponse.json({ message: "Non autorisé." }, { status: 401 });
+    if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
     if (session.user.role !== "admin" && session.user.role !== "teacher") {
       return NextResponse.json({ message: "Seuls les enseignants peuvent uploader des fichiers." }, { status: 403 });
     }
@@ -45,12 +45,12 @@ export async function POST(request: Request) {
     if (!file) return NextResponse.json({ message: "Aucun fichier fourni." }, { status: 400 });
     if (file.size > MAX_SIZE) return NextResponse.json({ message: "Fichier trop volumineux (max 10 MB)." }, { status: 413 });
     if (!ALLOWED_TYPES.has(file.type)) {
-      return NextResponse.json({ message: "Type de fichier non autorisé : " + file.type }, { status: 415 });
+      return NextResponse.json({ message: "Unauthorized file type: " + file.type }, { status: 415 });
     }
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
     if (!checkSignature(buffer, file.type)) {
-      return NextResponse.json({ message: "Le contenu du fichier ne correspond pas à son extension." }, { status: 415 });
+      return NextResponse.json({ message: "File content does not match its extension." }, { status: 415 });
     }
     const safeName = file.name.replace(/[^a-zA-Z0-9.-]/g, "_").slice(0, 100);
     const uniqueName = Date.now() + "-" + session.user.id.slice(0, 8) + "-" + safeName;

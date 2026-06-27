@@ -27,13 +27,13 @@ export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);
     if (!session || (session.user.role !== "admin" && session.user.role !== "teacher")) {
-      return NextResponse.json({ message: "Non autorisé." }, { status: 401 });
+      return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
     }
 
     const body = await request.json();
     const parsed = CreateCourseSchema.safeParse(body);
     if (!parsed.success) {
-      const message = parsed.error.errors[0]?.message || "Données invalides.";
+      const message = parsed.error.errors[0]?.message || "Invalid data.";
       return NextResponse.json({ message }, { status: 400 });
     }
     const { title, description, level, requiresEnrollment } = parsed.data;

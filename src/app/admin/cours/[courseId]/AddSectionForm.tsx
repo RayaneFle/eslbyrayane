@@ -16,8 +16,8 @@ export default function AddSectionForm({ courseId }: { courseId: string }) {
 
   return (
     <form onSubmit={onSubmit} className="bg-white rounded-2xl border border-brand-100 p-5 flex gap-3">
-      <input type="text" value={title} onChange={e => setTitle(e.target.value)} autoFocus className="flex-1 border border-brand-200 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-brand-400 outline-none" placeholder="Titre de la section" />
-      <button type="submit" disabled={loading} className="px-5 py-2 bg-brand-600 text-white text-sm font-semibold rounded-xl">{loading ? "…" : "Créer"}</button>
+      <input type="text" value={title} onChange={e => setTitle(e.target.value)} autoFocus className="flex-1 border border-brand-200 rounded-xl px-4 py-2 text-sm focus:ring-2 focus:ring-brand-400 outline-none" placeholder="Section title" />
+      <button type="submit" disabled={loading} className="px-5 py-2 bg-brand-600 text-white text-sm font-semibold rounded-xl">{loading ? "…" : "Create"}</button>
       <button type="button" onClick={() => setOpen(false)} className="px-4 py-2 bg-brand-50 text-brand-500 text-sm rounded-xl">✕</button>
     </form>
   );

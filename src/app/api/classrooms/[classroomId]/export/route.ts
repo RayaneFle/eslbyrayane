@@ -41,7 +41,7 @@ export async function GET(_r: Request, { params }: { params: { classroomId: stri
   const activityList = Array.from(actMap.entries());
 
   const wb = new ExcelJS.Workbook();
-  wb.creator = "FLEbyRayane";
+  wb.creator = "ESL Guliston";
 
   // ===== SHEET 1: Progression des lecons =====
   const ws1 = wb.addWorksheet("Progression");
@@ -54,7 +54,7 @@ export async function GET(_r: Request, { params }: { params: { classroomId: stri
   titleCell.alignment = { horizontal: "center" };
 
   // Header row
-  const headers1 = ["N", "Eleve", "Score moy."];
+  const headers1 = ["N", "Student", "Avg Score"];
   lessons.forEach(l => headers1.push(l.title));
   const headerRow1 = ws1.addRow(headers1);
   headerRow1.font = { bold: true, size: 10, color: { argb: "FFFFFFFF" } };
@@ -81,7 +81,7 @@ export async function GET(_r: Request, { params }: { params: { classroomId: stri
     const row = [idx + 1, m.user.name || "?", avg + "%"];
     lessons.forEach(l => {
       const p = memberProg.find(p => p.lessonId === l.id);
-      row.push(p ? (p.status === "completed" ? "Faite" : "En cours") : "-");
+      row.push(p ? (p.status === "completed" ? "Done" : "In progress") : "-");
     });
 
     const dataRow = ws1.addRow(row);
@@ -92,10 +92,10 @@ export async function GET(_r: Request, { params }: { params: { classroomId: stri
     for (let i = 4; i <= 3 + lessons.length; i++) {
       const cell = dataRow.getCell(i);
       const val = cell.value as string;
-      if (val === "Faite") {
+      if (val === "Done") {
         cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFD1FAE5" } };
         cell.font = { color: { argb: "FF059669" }, bold: true, size: 9 };
-      } else if (val === "En cours") {
+      } else if (val === "In progress") {
         cell.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFFEF3C7" } };
         cell.font = { color: { argb: "FFD97706" }, bold: true, size: 9 };
       } else {
@@ -127,7 +127,7 @@ export async function GET(_r: Request, { params }: { params: { classroomId: stri
   titleCell2.font = { size: 14, bold: true, color: { argb: "FF4338CA" } };
   titleCell2.alignment = { horizontal: "center" };
 
-  const headers2 = ["N", "Eleve"];
+  const headers2 = ["N", "Student"];
   activityList.forEach(([_, title]) => headers2.push(title));
   const headerRow2 = ws2.addRow(headers2);
   headerRow2.font = { bold: true, size: 10, color: { argb: "FFFFFFFF" } };

@@ -7,18 +7,18 @@ import { z } from "zod";
 
 const PasswordSchema = z.object({
   currentPassword: z.string().min(1, "Mot de passe actuel requis.").max(200),
-  newPassword: z.string().min(8, "8 caractères minimum.").max(200, "Mot de passe trop long."),
+  newPassword: z.string().min(8, "Minimum 8 characters.").max(200, "Password too long."),
 });
 
 export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session?.user) return NextResponse.json({ message: "Non autorisé." }, { status: 401 });
+    if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
 
     const body = await request.json();
     const parsed = PasswordSchema.safeParse(body);
     if (!parsed.success) {
-      const message = parsed.error.errors[0]?.message || "Données invalides.";
+      const message = parsed.error.errors[0]?.message || "Invalid data.";
       return NextResponse.json({ message }, { status: 400 });
     }
     const { currentPassword, newPassword } = parsed.data;

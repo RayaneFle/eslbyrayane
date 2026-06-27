@@ -31,11 +31,11 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
     : classroom.members;
 
   const TABS = [
-    { key: "suivi", label: "Suivi", icon: "📊", count: classroom.members.length },
+    { key: "suivi", label: "Progress", icon: "📊", count: classroom.members.length },
     { key: "cours", label: "Cours", icon: "📚", count: classroom.courses.length },
-    { key: "activites", label: "Activités", icon: "🎮", count: classroom.activities.length },
+    { key: "activites", label: "Activities", icon: "🎮", count: classroom.activities.length },
     { key: "eleves", label: "Students", icon: "👥", count: classroom.members.length },
-    { key: "ressources", label: "Ressources", icon: "📌", count: classroom.posts.length },
+    { key: "ressources", label: "Resources", icon: "📌", count: classroom.posts.length },
   ];
 
   return (
@@ -67,7 +67,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
                 onClick={() => setSubclassFilter(null)}
                 className={"text-xs font-semibold px-3 py-1.5 rounded-full transition-all " + (!subclassFilter ? "bg-brand-500 text-white" : "bg-slate-100 text-slate-700 hover:bg-slate-200")}
               >
-                Tous ({classroom.members.length})
+                All ({classroom.members.length})
               </button>
               {classroom.subclasss.map((sc: any) => {
                 const count = classroom.members.filter((m: any) => m.subclassId === sc.id).length;
@@ -87,7 +87,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
           {filteredMembers.length === 0 ? (
             <div className="bg-white rounded-2xl border border-slate-200 p-10 text-center">
               <span className="text-4xl">👥</span>
-              <p className="text-slate-500 mt-3">Aucun student dans cette sélection.</p>
+              <p className="text-slate-500 mt-3">No students in this selection.</p>
             </div>
           ) : (
             <div className="space-y-2">
@@ -126,7 +126,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
                               </div>
                               <span className="text-[11px] font-bold text-slate-700 w-8 text-right">{completedCount}/{allLessonsForTracking.length}</span>
                             </div>
-                            <p className="text-[10px] text-slate-400 mt-0.5">Score moyen: <b className={avgScore >= 80 ? "text-green-600" : avgScore >= 50 ? "text-amber-600" : "text-red-600"}>{Math.round(avgScore)}%</b></p>
+                            <p className="text-[10px] text-slate-400 mt-0.5">Avg score: <b className={avgScore >= 80 ? "text-green-600" : avgScore >= 50 ? "text-amber-600" : "text-red-600"}>{Math.round(avgScore)}%</b></p>
                           </div>
                           <svg className={"w-4 h-4 text-slate-400 shrink-0 transition-transform " + (isExpanded ? "rotate-180" : "")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -138,13 +138,13 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
                     {/* Accordion */}
                     {isExpanded && (
                       <div className="border-t border-slate-100 bg-slate-50/50 p-4 space-y-4 animate-slide-down">
-                        {/* Leçons */}
+                        {/* Lessons */}
                         {allLessonsForTracking.length > 0 && (() => {
                           const grouped: Record<string, any[]> = {};
                           allLessonsForTracking.forEach((l: any) => { if (!grouped[l.sectionTitle]) grouped[l.sectionTitle] = []; grouped[l.sectionTitle].push(l); });
                           return (
                             <div>
-                              <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Leçons ({completedCount}/{allLessonsForTracking.length})</h4>
+                              <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Lessons ({completedCount}/{allLessonsForTracking.length})</h4>
                               <div className="space-y-2">
                                 {Object.entries(grouped).map(([section, lessons]) => {
                                   const done = lessons.filter((l: any) => memberProgress.find((p: any) => p.lessonId === l.id && p.status === "completed")).length;
@@ -167,7 +167,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
                                             <div key={l.id} className="flex items-center justify-between py-1.5 px-2 bg-slate-50 rounded">
                                               <span className="text-[11px] text-slate-700 truncate flex-1">{l.title}</span>
                                               <span className={"text-[9px] font-bold px-2 py-0.5 rounded-full shrink-0 ml-2 " + (st === "completed" ? "bg-green-500 text-white" : st === "in_progress" ? "bg-amber-400 text-white" : "bg-slate-200 text-slate-500")}>
-                                                {st === "completed" ? "✓ Faite" : st === "in_progress" ? "En cours" : "À faire"}
+                                                {st === "completed" ? "✓ Done" : st === "in_progress" ? "In progress" : "To do"}
                                               </span>
                                             </div>
                                           );
@@ -181,10 +181,10 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
                           );
                         })()}
 
-                        {/* Activités */}
+                        {/* Activities */}
                         {dedupedResults.length > 0 && (
                           <div>
-                            <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Activités ({dedupedResults.length})</h4>
+                            <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Activities ({dedupedResults.length})</h4>
                             <div className="bg-white rounded-lg border border-slate-100 p-2 space-y-1">
                               {dedupedResults.map((r: any) => (
                                 <div key={r.id} className="flex items-center justify-between py-1.5 px-2 bg-slate-50 rounded">
@@ -215,12 +215,12 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
         <div className="space-y-6">
           {/* Liste */}
           <div>
-            <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">📚 Cours assignés ({classroom.courses.length})</h2>
+            <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">📚 Assigned courses ({classroom.courses.length})</h2>
             {classroom.courses.length === 0 ? (
               <div className="bg-white rounded-2xl border border-slate-200 p-10 text-center">
                 <span className="text-4xl">📚</span>
-                <p className="text-slate-500 mt-3">Aucun cours assigné à cette class.</p>
-                <p className="text-xs text-slate-400 mt-1">Utilisez le formulaire ci-dessous pour en ajouter.</p>
+                <p className="text-slate-500 mt-3">No course assigned to this class.</p>
+                <p className="text-xs text-slate-400 mt-1">Use the form below to add one.</p>
               </div>
             ) : (
               <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
@@ -234,7 +234,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
                     </div>
                     <div className="flex items-center gap-2 mt-2">
                       <Link href={"/admin/cours/" + cc.course.id} className="flex-1 text-xs font-semibold px-3 py-1.5 bg-brand-50 text-brand-700 rounded-lg hover:bg-brand-100 transition-colors text-center">
-                        ✏️ Gérer
+                        ✏️ Manage
                       </Link>
                       <UnassignCourseBtn classroomId={classroom.id} courseId={cc.course.id} />
                     </div>
@@ -249,7 +249,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
             <h3 className="font-heading font-bold text-slate-800 mb-3">+ Assign un cours</h3>
             <AssignCourseForm classroomId={classroom.id} courses={availableCourses} />
             <Link href="/admin/cours/creer" className="inline-block mt-3 text-xs text-brand-600 font-semibold hover:text-brand-800">
-              Ou créer un nouveau cours →
+              Or create a new course →
             </Link>
           </div>
         </div>
@@ -259,12 +259,12 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
       {tab === "activites" && (
         <div className="space-y-6">
           <div>
-            <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">Activités assignées ({classroom.activities.length})</h2>
+            <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">Assigned activities ({classroom.activities.length})</h2>
             {classroom.activities.length === 0 ? (
               <div className="bg-white rounded-2xl border border-slate-200 p-10 text-center">
                 <span className="text-4xl">A</span>
-                <p className="text-slate-500 mt-3">Aucune activité assignée à cette class.</p>
-                <p className="text-xs text-slate-400 mt-1">Utilisez le formulaire ci-dessous pour en ajouter.</p>
+                <p className="text-slate-500 mt-3">No activity assigned to this class.</p>
+                <p className="text-xs text-slate-400 mt-1">Use the form below to add one.</p>
               </div>
             ) : (
               <div className="space-y-3">
@@ -305,7 +305,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
                           </div>
                           <div className="text-center">
                             <p className="font-heading font-bold text-lg text-slate-900">{totalAttempts}</p>
-                            <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Tentatives</p>
+                            <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Attempts</p>
                           </div>
                           <div className="text-center">
                             <p className={"font-heading font-bold text-lg " + (avgScore >= 80 ? "text-green-600" : avgScore >= 50 ? "text-amber-600" : avgScore > 0 ? "text-red-600" : "text-slate-400")}>{avgScore > 0 ? avgScore + "%" : "-"}</p>
@@ -321,10 +321,10 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
             )}
           </div>
           <div className="bg-white rounded-2xl border border-dashed border-brand-300 p-5">
-            <h3 className="font-heading font-bold text-slate-800 mb-3">+ Assign une activité</h3>
+            <h3 className="font-heading font-bold text-slate-800 mb-3">+ Assign an activity</h3>
             <AssignActivityForm classroomId={classroom.id} activities={availableActivities} />
             <Link href="/admin/activites/creer" className="inline-block mt-3 text-xs text-brand-600 font-semibold hover:text-brand-800">
-              Ou créer une nouvelle activité
+              Or create a new activity
             </Link>
           </div>
         </div>
@@ -336,14 +336,14 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
               <h2 className="font-heading text-lg font-bold text-slate-900">Students ({classroom.members.length})</h2>
-              <p className="text-xs text-slate-400 mt-0.5">Gérez les inscriptions et les sous-classs</p>
+              <p className="text-xs text-slate-400 mt-0.5">Manage enrollments and subclasses</p>
             </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setShowSubclasss(!showSubclasss)}
                 className="text-xs font-semibold px-3 py-2 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors"
               >
-                {showSubclasss ? "Hide" : "Gérer les sous-classs"}
+                {showSubclasss ? "Hide" : "Manage subclasses"}
               </button>
               <div className="bg-slate-100 rounded-lg px-3 py-2">
                 <p className="text-[9px] uppercase tracking-wider text-slate-500 font-semibold">Code</p>
@@ -354,7 +354,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
 
           {showSubclasss && (
             <div className="bg-white rounded-2xl border border-brand-200 p-5 animate-slide-down">
-              <h3 className="font-heading font-bold text-slate-800 mb-3">Gestion des sous-classs</h3>
+              <h3 className="font-heading font-bold text-slate-800 mb-3">Subclass management</h3>
               <SubclassManager classroomId={classroom.id} members={classroom.members} subclasss={classroom.subclasss} />
             </div>
           )}
@@ -362,8 +362,8 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
           {classroom.members.length === 0 ? (
             <div className="bg-white rounded-2xl border border-slate-200 p-10 text-center">
               <span className="text-4xl">EE</span>
-              <p className="text-slate-500 mt-3">Aucun student dans cette class.</p>
-              <p className="text-xs text-slate-400 mt-1">Partagez le code <b className="font-mono">{classroom.code}</b> à vos students.</p>
+              <p className="text-slate-500 mt-3">No students in this class.</p>
+              <p className="text-xs text-slate-400 mt-1">Share the code <b className="font-mono">{classroom.code}</b> with your students.</p>
             </div>
           ) : (
             <>
@@ -401,7 +401,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
                 return (
                   <div>
                     {classroom.subclasss.length > 0 && (
-                      <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Non assignés ({unassigned.length})</h3>
+                      <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Unassigned ({unassigned.length})</h3>
                     )}
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
                       {unassigned.map((m: any) => (
@@ -429,12 +429,12 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
       {tab === "ressources" && (
         <div className="space-y-6">
           <div>
-            <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">Publications ({classroom.posts.length})</h2>
+            <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">Posts ({classroom.posts.length})</h2>
             {classroom.posts.length === 0 ? (
               <div className="bg-white rounded-2xl border border-slate-200 p-10 text-center">
                 <span className="text-4xl">P</span>
-                <p className="text-slate-500 mt-3">Aucune publication pour cette class.</p>
-                <p className="text-xs text-slate-400 mt-1">Utilisez le formulaire ci-dessous pour publier votre première ressource.</p>
+                <p className="text-slate-500 mt-3">No posts in this class.</p>
+                <p className="text-xs text-slate-400 mt-1">Use the form below to publish your first resource.</p>
               </div>
             ) : (
               <div className="grid lg:grid-cols-2 gap-4">
@@ -443,7 +443,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
                     <div className="flex items-start justify-between gap-3 px-5 py-3 border-b border-slate-100 bg-slate-50/50">
                       <div className="min-w-0 flex-1">
                         <p className="font-heading font-bold text-slate-900 text-sm truncate">{post.title || "Publication"}</p>
-                        <p className="text-[11px] text-slate-500 truncate">Par <b>{post.author.name}</b> - {new Date(post.createdAt).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" })}</p>
+                        <p className="text-[11px] text-slate-500 truncate">By <b>{post.author.name}</b> - {new Date(post.createdAt).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" })}</p>
                       </div>
                       <DeletePostBtn classroomId={classroom.id} postId={post.id} />
                     </div>
@@ -457,7 +457,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
                       {post.fileUrl && (
                         <a href={post.fileUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-semibold text-brand-700 bg-brand-50 hover:bg-brand-100 px-4 py-2 rounded-lg transition-colors">
                           <span>F</span>
-                          <span className="truncate">{post.fileName || "Télécharger le fichier"}</span>
+                          <span className="truncate">{post.fileName || "Download file"}</span>
                         </a>
                       )}
                     </div>

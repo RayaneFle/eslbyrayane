@@ -9,7 +9,7 @@ export async function GET(_r: Request, { params }: { params: { courseId: string;
     where: { id: params.lessonId },
     include: { blocks: { orderBy: { position: "asc" }, include: { activity: { select: { id: true, title: true, type: true, config: true } } } } },
   });
-  if (!lesson) return NextResponse.json({ message: "Non trouvé." }, { status: 404 });
+  if (!lesson) return NextResponse.json({ message: "Not found." }, { status: 404 });
   return NextResponse.json({
     ...lesson,
     blocks: lesson.blocks.map(b => ({
@@ -21,12 +21,12 @@ export async function GET(_r: Request, { params }: { params: { courseId: string;
 
 export async function PUT(request: Request, { params }: { params: { courseId: string; sectionId: string; lessonId: string } }) {
   const session = await getServerSession(authOptions);
-  if (!session?.user) return NextResponse.json({ message: "Non autorisé." }, { status: 401 });
+  if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   if (session.user.role !== "admin" && session.user.role !== "teacher") {
-    return NextResponse.json({ message: "Non autorisé." }, { status: 403 });
+    return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
   }
   const allowed = await canEditLesson(params.lessonId, session.user.id, session.user.role);
-  if (!allowed) return NextResponse.json({ message: "Non autorisé." }, { status: 403 });
+  if (!allowed) return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
   const { title, blocks } = await request.json();
   if (blocks && !Array.isArray(blocks)) {
     return NextResponse.json({ message: "Format invalide." }, { status: 400 });
@@ -51,12 +51,12 @@ export async function PUT(request: Request, { params }: { params: { courseId: st
 
 export async function DELETE(_r: Request, { params }: { params: { courseId: string; sectionId: string; lessonId: string } }) {
   const session = await getServerSession(authOptions);
-  if (!session?.user) return NextResponse.json({ message: "Non autorisé." }, { status: 401 });
+  if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   if (session.user.role !== "admin" && session.user.role !== "teacher") {
-    return NextResponse.json({ message: "Non autorisé." }, { status: 403 });
+    return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
   }
   const allowed = await canEditLesson(params.lessonId, session.user.id, session.user.role);
-  if (!allowed) return NextResponse.json({ message: "Non autorisé." }, { status: 403 });
+  if (!allowed) return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
   await prisma.lesson.delete({ where: { id: params.lessonId } });
   return NextResponse.json({ success: true });
 }

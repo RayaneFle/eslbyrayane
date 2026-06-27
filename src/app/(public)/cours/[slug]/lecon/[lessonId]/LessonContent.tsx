@@ -117,19 +117,19 @@ export default function LessonContent({ blocks, lessonId, nextLessonUrl, courseU
                     <p className="text-xs text-slate-400">{t.label}</p>
                   </div>
                 </div>
-                {done && <span className="text-green-600 text-sm font-semibold">{"\u2705"} Valide</span>}
+                {done && <span className="text-green-600 text-sm font-semibold">{"\u2705"} Done</span>}
                 {block.requireScore && !done && <span className="text-xs text-brand-600 bg-brand-100 px-2 py-1 rounded-lg font-medium">Min: {block.minScore}%</span>}
               </div>
               <div className="p-4 sm:p-6">
                 {!accessible ? (
                   <div className="text-center py-8">
                     <span className="text-3xl">{"\ud83d\udd12"}</span>
-                    <p className="text-slate-400 mt-2 text-sm">Complétez l’exercice précédent.</p>
+                    <p className="text-slate-400 mt-2 text-sm">Complete the previous exercise.</p>
                   </div>
                 ) : needsHigher ? (
                   <div className="text-center py-4 mb-4">
                     <p className="text-amber-600 text-sm font-medium">Score: {Math.round(scores.get(block.activity.id) || 0)}% - Min: {block.minScore}%</p>
-                    <p className="text-slate-400 text-xs mt-1">Réessayez pour atteindre le minimum.</p>
+                    <p className="text-slate-400 text-xs mt-1">Try again to reach the minimum score.</p>
                   </div>
                 ) : null}
                 {accessible && (
@@ -144,7 +144,7 @@ export default function LessonContent({ blocks, lessonId, nextLessonUrl, courseU
                 {accessible && done && nextIdx >= 0 && (
                   <div className="mt-4 text-center">
                     <button onClick={() => scrollToBlock(nextIdx)} className="px-6 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all text-sm">
-                      Partie suivante {"\u2192"}
+                      Next part {"\u2192"}
                     </button>
                   </div>
                 )}
@@ -158,8 +158,8 @@ export default function LessonContent({ blocks, lessonId, nextLessonUrl, courseU
       {lessonDone && (
         <div className="bg-green-50 rounded-2xl border-2 border-green-300 p-8 text-center">
           <span className="text-5xl">{"\ud83c\udf89"}</span>
-          <h2 className="font-heading text-2xl font-bold text-green-800 mt-4">Leçon terminée !</h2>
-          <p className="text-green-600 mt-2">Vous avez complété toutes les activités.</p>
+          <h2 className="font-heading text-2xl font-bold text-green-800 mt-4">Lesson complete!</h2>
+          <p className="text-green-600 mt-2">You have completed all activities.</p>
           <div className="mt-4 space-y-2">
             {Array.from(scores.entries()).map(([actId, score]) => {
               const block = blocks.find(b => b.activity?.id === actId);
@@ -178,7 +178,7 @@ export default function LessonContent({ blocks, lessonId, nextLessonUrl, courseU
               </a>
             ) : courseUrl ? (
               <a href={courseUrl} className="px-6 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">
-                {"\u2705"} Back au cours
+                {"\u2705"} Back to course
               </a>
             ) : null}
           </div>
@@ -188,7 +188,7 @@ export default function LessonContent({ blocks, lessonId, nextLessonUrl, courseU
       {blocks.length === 0 && (
         <div className="bg-white rounded-2xl border border-brand-100 p-12 text-center">
           <span className="text-4xl">{"\ud83d\udcdd"}</span>
-          <p className="text-slate-400 mt-4">Pas encore de contenu.</p>
+          <p className="text-slate-400 mt-4">No content yet.</p>
         </div>
       )}
     </div>

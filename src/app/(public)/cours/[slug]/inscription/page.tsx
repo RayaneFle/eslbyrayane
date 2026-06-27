@@ -25,7 +25,7 @@ export default function CourseEnrollPage() {
     e.preventDefault();
     setLoading(true); setError(null); setSuccess(null);
     if (!course) {
-      setError("Cours non trouvé.");
+      setError("Course not found.");
       setLoading(false);
       return;
     }
@@ -37,17 +37,17 @@ export default function CourseEnrollPage() {
       });
       const data = await res.json();
       if (!res.ok) {
-        setError(data.message || "Code incorrect.");
+        setError(data.message || "Incorrect code.");
         setLoading(false);
         return;
       }
-      setSuccess("Inscription validée ! Redirection...");
+      setSuccess("Enrollment confirmed! Redirecting...");
       setTimeout(() => {
         router.push("/cours/" + slug);
         router.refresh();
       }, 1500);
     } catch {
-      setError("Error réseau.");
+      setError("Network error.");
       setLoading(false);
     }
   }
@@ -60,7 +60,7 @@ export default function CourseEnrollPage() {
         <span className="text-slate-300">/</span>
         {course && <Link href={"/cours/" + slug} className="hover:text-brand-600 transition-colors truncate max-w-[200px]">{course.title}</Link>}
         {course && <span className="text-slate-300">/</span>}
-        <span className="text-slate-700 font-medium">Inscription</span>
+        <span className="text-slate-700 font-medium">Enrollment</span>
       </div>
 
       <div className="grid lg:grid-cols-[1fr_320px] gap-6">
@@ -68,10 +68,10 @@ export default function CourseEnrollPage() {
         <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8">
           <div className="text-center mb-6">
             <span className="text-5xl">&#128274;</span>
-            <h1 className="font-heading text-2xl font-bold text-slate-900 mt-3">Cours protégé</h1>
+            <h1 className="font-heading text-2xl font-bold text-slate-900 mt-3">Protected course</h1>
             {course ? (
               <>
-                <p className="text-sm text-slate-600 mt-2">Pour accéder au cours</p>
+                <p className="text-sm text-slate-600 mt-2">To access the course</p>
                 <p className="font-heading font-bold text-lg text-brand-700 mt-1">{course.title}</p>
                 {course.level && <span className="inline-block mt-2 text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-100 text-brand-700">{course.level}</span>}
               </>
@@ -89,7 +89,7 @@ export default function CourseEnrollPage() {
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-2 text-center">Code d'inscription</label>
+              <label className="block text-sm font-medium text-slate-700 mb-2 text-center">Enrollment code</label>
               <input
                 type="text"
                 required
@@ -106,7 +106,7 @@ export default function CourseEnrollPage() {
               disabled={loading || !!success || code.length < 4 || !course}
               className="w-full bg-gradient-to-r from-brand-500 to-accent-500 text-white py-3 rounded-xl font-semibold hover:shadow-glow disabled:opacity-50 transition-all"
             >
-              {loading ? "Vérification..." : success ? "Redirection..." : "S’inscrire au cours"}
+              {loading ? "Verifying..." : success ? "Redirecting..." : "S’inscrire au cours"}
             </button>
           </form>
         </div>
@@ -114,14 +114,14 @@ export default function CourseEnrollPage() {
         {/* Help sidebar */}
         <div className="space-y-4">
           <div className="bg-white rounded-2xl border border-slate-200 p-5">
-            <h3 className="font-heading font-bold text-slate-900 text-sm mb-2">&#128161; Pas de code ?</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">Demande à ton teacher le code d’inscription. Il l’a défini lors de la création du cours.</p>
+            <h3 className="font-heading font-bold text-slate-900 text-sm mb-2">&#128161; No code?</h3>
+            <p className="text-xs text-slate-500 leading-relaxed">Ask your teacher for the enrollment code. They set it when creating the course.</p>
           </div>
           <div className="bg-brand-50 rounded-2xl border border-brand-200 p-5">
-            <h3 className="font-heading font-bold text-brand-900 text-sm mb-2">&#127919; Cours libres</h3>
-            <p className="text-xs text-slate-600 leading-relaxed mb-3">Tu peux accéder à d’autres cours sans inscription :</p>
+            <h3 className="font-heading font-bold text-brand-900 text-sm mb-2">&#127919; Open courses</h3>
+            <p className="text-xs text-slate-600 leading-relaxed mb-3">You can access other courses without enrolling:</p>
             <Link href="/cours" className="block text-center text-xs font-semibold text-white bg-gradient-to-r from-brand-500 to-accent-500 py-2 rounded-lg hover:shadow-md transition-all">
-              Voir tous les cours &rarr;
+              View all courses &rarr;
             </Link>
           </div>
         </div>

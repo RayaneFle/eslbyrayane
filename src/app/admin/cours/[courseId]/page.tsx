@@ -54,7 +54,7 @@ export default async function AdminCourseEditorPage({ params }: { params: { cour
       {/* Breadcrumb */}
       <div className="mb-4">
         <Link href="/admin/cours" className="text-sm text-slate-500 hover:text-brand-600 transition-colors">
-          ← Back aux cours
+          ← Back to courses
         </Link>
       </div>
 
@@ -65,9 +65,9 @@ export default async function AdminCourseEditorPage({ params }: { params: { cour
             <div className="flex flex-wrap items-center gap-2 mb-2">
               <span className={"px-2.5 py-0.5 rounded-md text-xs font-bold " + (levelColors[course.level] || "")}>{course.level}</span>
               {course.published ? (
-                <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-green-100 text-green-700">Publié</span>
+                <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-green-100 text-green-700">Published</span>
               ) : (
-                <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-amber-100 text-amber-700">Brouillon</span>
+                <span className="px-2 py-0.5 rounded-md text-[11px] font-bold bg-amber-100 text-amber-700">Draft</span>
               )}
               {course.enrollmentCode && (
                 <span className="font-mono text-xs bg-brand-100 text-brand-700 px-2 py-0.5 rounded">🔑 {course.enrollmentCode}</span>
@@ -77,8 +77,8 @@ export default async function AdminCourseEditorPage({ params }: { params: { cour
             {course.description && <p className="text-sm text-slate-500 mt-1 line-clamp-2">{course.description}</p>}
             <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mt-3 text-xs text-slate-500">
               <span>📑 <b className="text-slate-700">{course.sections.length}</b> section{course.sections.length > 1 ? "s" : ""}</span>
-              <span>🎓 <b className="text-slate-700">{totalLessons}</b> leçon{totalLessons > 1 ? "s" : ""}</span>
-              <span>👥 <b className="text-slate-700">{totalEnrollments}</b> inscrit{totalEnrollments > 1 ? "s" : ""}</span>
+              <span>🎓 <b className="text-slate-700">{totalLessons}</b> lesson{totalLessons !== 1 ? "s" : ""}</span>
+              <span>👥 <b className="text-slate-700">{totalEnrollments}</b> enrolled</span>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 shrink-0">
@@ -102,17 +102,17 @@ export default async function AdminCourseEditorPage({ params }: { params: { cour
         </div>
       </div>
 
-      {/* Sections + Leçons */}
+      {/* Sections + Lessons */}
       <div className="mb-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-heading text-lg font-bold text-slate-900">📑 Sections et leçons</h2>
+          <h2 className="font-heading text-lg font-bold text-slate-900">📑 Sections and lessons</h2>
         </div>
 
         {course.sections.length === 0 ? (
           <div className="bg-white rounded-2xl border border-slate-200 p-10 text-center">
             <span className="text-4xl">📑</span>
-            <p className="text-slate-500 mt-3">Aucune section pour l'instant.</p>
-            <p className="text-xs text-slate-400 mt-1">Commencez par créer une section ci-dessous.</p>
+            <p className="text-slate-500 mt-3">No sections yet.</p>
+            <p className="text-xs text-slate-400 mt-1">Start by creating a section below.</p>
           </div>
         ) : (
           <div className="space-y-3">
@@ -124,7 +124,7 @@ export default async function AdminCourseEditorPage({ params }: { params: { cour
                   <div className="flex-1 min-w-0">
                     <p className="text-[11px] font-semibold text-brand-600 uppercase tracking-wider">Section {si + 1}</p>
                     <h3 className="font-heading font-bold text-slate-800 truncate">{s.title}</h3>
-                    <p className="text-[11px] text-slate-400">{s.lessons.length} leçon{s.lessons.length > 1 ? "s" : ""}</p>
+                    <p className="text-[11px] text-slate-400">{s.lessons.length} lesson{s.lessons.length !== 1 ? "s" : ""}</p>
                   </div>
                   <DeleteSectionBtn courseId={course.id} sectionId={s.id} />
                 </div>
@@ -132,7 +132,7 @@ export default async function AdminCourseEditorPage({ params }: { params: { cour
                 {/* Lessons */}
                 {s.lessons.length === 0 ? (
                   <div className="px-5 py-6 text-center">
-                    <p className="text-sm text-slate-400">Aucune leçon dans cette section</p>
+                    <p className="text-sm text-slate-400">No lessons in this section</p>
                   </div>
                 ) : (
                   <div className="divide-y divide-slate-50">
@@ -159,7 +159,7 @@ export default async function AdminCourseEditorPage({ params }: { params: { cour
                 <div className="border-t border-slate-100 px-5 py-3 bg-slate-50/50 rounded-b-2xl">
                   <Link href={"/admin/cours/" + course.id + "/sections/" + s.id + "/lessons/new"} className="inline-flex items-center gap-2 text-sm font-semibold text-brand-600 hover:text-brand-800 transition-colors">
                     <span>+</span>
-                    <span>New lesson dans cette section</span>
+                    <span>New lesson in this section</span>
                   </Link>
                 </div>
               </div>
@@ -173,9 +173,9 @@ export default async function AdminCourseEditorPage({ params }: { params: { cour
         </div>
       </div>
 
-      {/* Classs assignées (à la fin) */}
+      {/* Assigned classes */}
       <div className="bg-white rounded-2xl border border-slate-200 p-5">
-        <h2 className="font-heading font-bold text-slate-800 mb-3">🏫 Classs assignées ({assignedClassrooms.length})</h2>
+        <h2 className="font-heading font-bold text-slate-800 mb-3">🏫 Assigned classes ({assignedClassrooms.length})</h2>
         {assignedClassrooms.length > 0 && (
           <div className="space-y-2 mb-4">
             {assignedClassrooms.map(c => (
@@ -193,11 +193,11 @@ export default async function AdminCourseEditorPage({ params }: { params: { cour
           <AssignClassForm courseId={course.id} classrooms={availableClassrooms} />
         ) : assignedClassrooms.length === 0 ? (
           <div className="text-center py-4">
-            <p className="text-sm text-slate-400">Aucune class disponible</p>
-            <Link href="/admin/classs" className="inline-block mt-2 text-xs text-brand-600 font-semibold">Créer une class →</Link>
+            <p className="text-sm text-slate-400">No class available</p>
+            <Link href="/admin/classs" className="inline-block mt-2 text-xs text-brand-600 font-semibold">Create a class →</Link>
           </div>
         ) : (
-          <p className="text-xs text-slate-400">Ce cours est assigné à toutes vos classs.</p>
+          <p className="text-xs text-slate-400">This course is assigned to all your classes.</p>
         )}
       </div>
     </div>

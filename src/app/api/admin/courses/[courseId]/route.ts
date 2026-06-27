@@ -6,10 +6,10 @@ import { supabase } from "@/lib/supabase";
 
 export async function PUT(request: Request, { params }: { params: { courseId: string } }) {
   const session = await getServerSession(authOptions);
-  if (!session?.user) return NextResponse.json({ message: "Non autorisé." }, { status: 401 });
+  if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   const course = await prisma.course.findUnique({ where: { id: params.courseId } });
-  if (!course) return NextResponse.json({ message: "Non trouvé." }, { status: 404 });
-  if (course.authorId !== session.user.id && session.user.role !== "admin") return NextResponse.json({ message: "Non autorisé." }, { status: 403 });
+  if (!course) return NextResponse.json({ message: "Not found." }, { status: 404 });
+  if (course.authorId !== session.user.id && session.user.role !== "admin") return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
 
   const { title, description, level, published, requiresEnrollment } = await request.json();
 
@@ -47,10 +47,10 @@ export async function PUT(request: Request, { params }: { params: { courseId: st
 
 export async function DELETE(_r: Request, { params }: { params: { courseId: string } }) {
   const session = await getServerSession(authOptions);
-  if (!session?.user) return NextResponse.json({ message: "Non autorisé." }, { status: 401 });
+  if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   const course = await prisma.course.findUnique({ where: { id: params.courseId } });
-  if (!course) return NextResponse.json({ message: "Non trouvé." }, { status: 404 });
-  if (course.authorId !== session.user.id && session.user.role !== "admin") return NextResponse.json({ message: "Non autorisé." }, { status: 403 });
+  if (!course) return NextResponse.json({ message: "Not found." }, { status: 404 });
+  if (course.authorId !== session.user.id && session.user.role !== "admin") return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
   try {
     const sections = await prisma.section.findMany({ where: { courseId: params.courseId }, include: { lessons: { include: { blocks: true } } } });
     const urls: string[] = [];

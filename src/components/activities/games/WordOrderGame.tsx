@@ -113,7 +113,7 @@ export default function WordOrderGame({ config, onComplete }: { config: any; onC
 
         {!checked && selected.length > 0 && (
           <div className="text-center">
-            <button type="button" onClick={check} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">Vérifier</button>
+            <button type="button" onClick={check} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">Check</button>
           </div>
         )}
 

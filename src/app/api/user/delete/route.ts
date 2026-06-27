@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     });
 
     if (!user || !user.hashedPassword) {
-      return NextResponse.json({ message: "Utilisateur introuvable." }, { status: 404 });
+      return NextResponse.json({ message: "User not found." }, { status: 404 });
     }
 
     const valid = await bcrypt.compare(password, user.hashedPassword);

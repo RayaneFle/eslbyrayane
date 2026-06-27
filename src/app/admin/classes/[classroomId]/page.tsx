@@ -80,7 +80,7 @@ export default async function ClassroomDetailPage({ params }: { params: { classr
       {/* Breadcrumb */}
       <div className="mb-4">
         <Link href="/admin/classs" className="text-sm text-slate-500 hover:text-brand-600 transition-colors">
-          ← Mes classs
+          ← My classes
         </Link>
       </div>
 
@@ -106,9 +106,9 @@ export default async function ClassroomDetailPage({ params }: { params: { classr
         {/* Stats */}
         <div className="mt-5 pt-5 border-t border-slate-100 grid grid-cols-2 md:grid-cols-4 gap-3">
           <StatCard icon="👥" label="Students" value={totalStudents} gradient="from-brand-50 to-brand-100/50" />
-          <StatCard icon="📚" label="Cours" value={classroom.courses.length} gradient="from-accent-50 to-accent-100/50" />
-          <StatCard icon="🎮" label="Activités" value={classroom.activities.length} gradient="from-green-50 to-green-100/50" />
-          <StatCard icon="📈" label="Progression" value={completionRate + "%"} gradient="from-amber-50 to-amber-100/50" subtitle={"Score moyen: " + globalAvg + "%"} />
+          <StatCard icon="📚" label="Courses" value={classroom.courses.length} gradient="from-accent-50 to-accent-100/50" />
+          <StatCard icon="🎮" label="Activities" value={classroom.activities.length} gradient="from-green-50 to-green-100/50" />
+          <StatCard icon="📈" label="Progress" value={completionRate + "%"} gradient="from-amber-50 to-amber-100/50" subtitle={"Avg score: " + globalAvg + "%"} />
         </div>
       </div>
 

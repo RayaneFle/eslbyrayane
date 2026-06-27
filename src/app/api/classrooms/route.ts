@@ -7,7 +7,7 @@ import { rateLimit, getClientKey } from "@/lib/ratelimit";
 import { z } from "zod";
 
 const JoinSchema = z.object({
-  code: z.string().trim().length(6, "Code invalide (6 caractères attendus)."),
+  code: z.string().trim().length(6, "Invalid code (6 characters expected)."),
 });
 
 const CreateSchema = z.object({
@@ -17,7 +17,7 @@ const CreateSchema = z.object({
 
 export async function GET() {
   const session = await getServerSession(authOptions);
-  if (!session?.user) return NextResponse.json({ message: "Non autorisé." }, { status: 401 });
+  if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   const isTeacher = session.user.role === "admin" || session.user.role === "teacher";
   if (isTeacher) {
     const classrooms = await prisma.classroom.findMany({
@@ -38,13 +38,13 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session?.user) return NextResponse.json({ message: "Non autorisé." }, { status: 401 });
+    if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
     const body = await request.json();
 
     if (body && typeof body.code !== "undefined") {
       const key = getClientKey(request, "join:" + session.user.id);
       if (rateLimit(key, { windowMs: 15 * 60 * 1000, max: 10 })) {
-        return NextResponse.json({ message: "Trop de tentatives. Réessayez plus tard." }, { status: 429 });
+        return NextResponse.json({ message: "Too many attempts. Please try again later." }, { status: 429 });
       }
       const parsed = JoinSchema.safeParse(body);
       if (!parsed.success) {
@@ -56,17 +56,17 @@ export async function POST(request: Request) {
       const existing = await prisma.classroomMember.findUnique({
         where: { userId_classroomId: { userId: session.user.id, classroomId: classroom.id } },
       });
-      if (existing) return NextResponse.json({ message: "Déjà inscrit." }, { status: 409 });
+      if (existing) return NextResponse.json({ message: "Already enrolled." }, { status: 409 });
       await prisma.classroomMember.create({ data: { userId: session.user.id, classroomId: classroom.id } });
       return NextResponse.json({ message: "OK", classroom });
     }
 
     if (session.user.role !== "admin" && session.user.role !== "teacher") {
-      return NextResponse.json({ message: "Non autorisé." }, { status: 403 });
+      return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
     }
     const parsed = CreateSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json({ message: parsed.error.errors[0]?.message || "Données invalides." }, { status: 400 });
+      return NextResponse.json({ message: parsed.error.errors[0]?.message || "Invalid data." }, { status: 400 });
     }
     const { name, description } = parsed.data;
     let code = generateClassCode();

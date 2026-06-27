@@ -12,26 +12,26 @@ const EnrollSchema = z.object({
 
 export async function POST(request: Request) {
   const session = await getServerSession(authOptions);
-  if (!session?.user) return NextResponse.json({ message: "Non autorisé." }, { status: 401 });
+  if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   const key = getClientKey(request, "enroll:" + session.user.id);
   if (rateLimit(key, { windowMs: 15 * 60 * 1000, max: 10 })) {
-    return NextResponse.json({ message: "Trop de tentatives. Réessayez plus tard." }, { status: 429 });
+    return NextResponse.json({ message: "Too many attempts. Please try again later." }, { status: 429 });
   }
   const body = await request.json();
   const parsed = EnrollSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ message: parsed.error.errors[0]?.message || "Données invalides." }, { status: 400 });
+    return NextResponse.json({ message: parsed.error.errors[0]?.message || "Invalid data." }, { status: 400 });
   }
   const { courseId, enrollmentCode } = parsed.data;
   const course = await prisma.course.findUnique({ where: { id: courseId } });
-  if (!course) return NextResponse.json({ message: "Cours non trouvé." }, { status: 404 });
+  if (!course) return NextResponse.json({ message: "Course not found." }, { status: 404 });
   if (course.requiresEnrollment && course.enrollmentCode !== enrollmentCode) {
     return NextResponse.json({ message: "Code d'inscription incorrect." }, { status: 403 });
   }
   const existing = await prisma.enrollment.findUnique({
     where: { userId_courseId: { userId: session.user.id, courseId } },
   });
-  if (existing) return NextResponse.json({ message: "Déjà inscrit." }, { status: 409 });
+  if (existing) return NextResponse.json({ message: "Already enrolled." }, { status: 409 });
   await prisma.enrollment.create({ data: { userId: session.user.id, courseId } });
   return NextResponse.json({ success: true }, { status: 201 });
 }

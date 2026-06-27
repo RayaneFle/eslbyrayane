@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 export async function GET(_req: Request, { params }: { params: { lessonId: string } }) {
   try {
     const session = await getServerSession(authOptions);
-    if (!session?.user) return NextResponse.json({ message: "Non autorisé." }, { status: 401 });
+    if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
 
     const lesson = await prisma.lesson.findUnique({
       where: { id: params.lessonId },
@@ -28,7 +28,7 @@ export async function GET(_req: Request, { params }: { params: { lessonId: strin
       },
     });
 
-    if (!lesson) return NextResponse.json({ message: "Leçon introuvable." }, { status: 404 });
+    if (!lesson) return NextResponse.json({ message: "Lesson not found." }, { status: 404 });
 
     return NextResponse.json({
       ...lesson,

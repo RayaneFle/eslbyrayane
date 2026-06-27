@@ -62,7 +62,7 @@ export default async function UserDetailPage({ params }: { params: { userId: str
 
   return (
     <div className="max-w-5xl mx-auto">
-      <Link href="/admin/utilisateurs" className="text-sm text-brand-600 hover:text-brand-700 mb-4 inline-block">&#8592; Tous les utilisateurs</Link>
+      <Link href="/admin/utilisateurs" className="text-sm text-brand-600 hover:text-brand-700 mb-4 inline-block">&#8592; All users</Link>
       
       <div className="bg-gradient-to-br from-brand-500 to-accent-500 rounded-2xl p-6 mb-6 text-white">
         <div className="flex items-center gap-4">
@@ -70,13 +70,13 @@ export default async function UserDetailPage({ params }: { params: { userId: str
             {user.name?.charAt(0) || "?"}
           </div>
           <div className="flex-1">
-            <h1 className="font-heading text-2xl font-bold">{user.name || "Sans nom"}</h1>
+            <h1 className="font-heading text-2xl font-bold">{user.name || "Unnamed"}</h1>
             <p className="text-brand-100 text-sm">{user.email}</p>
             <div className="flex flex-wrap gap-2 mt-2">
               <span className="text-xs bg-white/20 px-2 py-0.5 rounded capitalize">{user.role}</span>
-              <span className="text-xs bg-white/20 px-2 py-0.5 rounded">Inscrit le {new Date(user.createdAt).toLocaleDateString("fr-FR")}</span>
+              <span className="text-xs bg-white/20 px-2 py-0.5 rounded">Registered on {new Date(user.createdAt).toLocaleDateString("en-US")}</span>
               {lastActivityDate && (
-                <span className="text-xs bg-white/20 px-2 py-0.5 rounded">Dernière activité : {lastActivityDate.toLocaleDateString("fr-FR")}</span>
+                <span className="text-xs bg-white/20 px-2 py-0.5 rounded">Last activity: {lastActivityDate.toLocaleDateString("en-US")}</span>
               )}
             </div>
           </div>
@@ -86,15 +86,15 @@ export default async function UserDetailPage({ params }: { params: { userId: str
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
         <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
           <p className="text-2xl font-bold text-brand-600">{completedLessons}</p>
-          <p className="text-xs text-slate-400">Leçons terminées</p>
+          <p className="text-xs text-slate-400">Lessons completed</p>
         </div>
         <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
           <p className="text-2xl font-bold text-accent-600">{completed.length}</p>
-          <p className="text-xs text-slate-400">Activités faites</p>
+          <p className="text-xs text-slate-400">Activities done</p>
         </div>
         <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
           <p className={"text-2xl font-bold " + (avgScore >= 60 ? "text-green-600" : "text-amber-500")}>{avgScore}%</p>
-          <p className="text-xs text-slate-400">Score moyen</p>
+          <p className="text-xs text-slate-400">Avg score</p>
         </div>
         <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
           <p className="text-2xl font-bold text-slate-700">{memberships.length}</p>
@@ -104,7 +104,7 @@ export default async function UserDetailPage({ params }: { params: { userId: str
 
       {memberships.length > 0 && (
         <div className="bg-white rounded-xl border border-slate-200 p-5 mb-6">
-          <h2 className="font-heading font-bold text-slate-800 mb-3">Classs ({memberships.length})</h2>
+          <h2 className="font-heading font-bold text-slate-800 mb-3">Classes ({memberships.length})</h2>
           <div className="grid sm:grid-cols-2 gap-2">
             {memberships.map((m: any) => (
               <Link key={m.id} href={"/admin/classs/" + m.classroom.id}
@@ -112,7 +112,7 @@ export default async function UserDetailPage({ params }: { params: { userId: str
                 <div className="min-w-0 flex-1">
                   <p className="font-bold text-sm text-slate-900 truncate">{m.classroom.name}</p>
                   {m.subclass && (
-                    <p className="text-[11px] text-brand-600 font-semibold">Groupe : {m.subclass.name}</p>
+                    <p className="text-[11px] text-brand-600 font-semibold">Group: {m.subclass.name}</p>
                   )}
                 </div>
                 <span className="text-[10px] bg-brand-100 text-brand-700 px-2 py-0.5 rounded font-mono font-bold tracking-widest shrink-0">{m.classroom.code}</span>
@@ -124,7 +124,7 @@ export default async function UserDetailPage({ params }: { params: { userId: str
 
       {enrollments.length > 0 && (
         <div className="bg-white rounded-xl border border-slate-200 p-5 mb-6">
-          <h2 className="font-heading font-bold text-slate-800 mb-3">Inscriptions aux cours</h2>
+          <h2 className="font-heading font-bold text-slate-800 mb-3">Course enrollments</h2>
           <div className="space-y-2">
             {enrollments.map((e: any) => (
               <div key={e.id} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg">
@@ -138,7 +138,7 @@ export default async function UserDetailPage({ params }: { params: { userId: str
 
       {lessonProgress.length > 0 && (
         <div className="bg-white rounded-xl border border-slate-200 p-5 mb-6">
-          <h2 className="font-heading font-bold text-slate-800 mb-3">Progression des leçons ({lessonProgress.length}) {lessonProgress.length > 30 && <span className="text-xs text-slate-400 font-normal">- 30 plus récentes</span>}</h2>
+          <h2 className="font-heading font-bold text-slate-800 mb-3">Lesson progress ({lessonProgress.length}) {lessonProgress.length > 30 && <span className="text-xs text-slate-400 font-normal">- 30 most recent</span>}</h2>
           <div className="space-y-1">
             {lessonProgress.slice(0, 30).map((p: any) => (
               <div key={p.id} className="flex items-center justify-between py-2 px-3 border-b border-slate-50 last:border-0">
@@ -150,7 +150,7 @@ export default async function UserDetailPage({ params }: { params: { userId: str
                   (p.status === "completed" ? "bg-green-100 text-green-700" :
                    p.status === "in_progress" ? "bg-amber-100 text-amber-700" :
                    "bg-slate-100 text-slate-400")}>
-                  {p.status === "completed" ? "Terminée" : p.status === "in_progress" ? "En cours" : "À faire"}
+                  {p.status === "completed" ? "Done" : p.status === "in_progress" ? "In progress" : "To do"}
                 </span>
               </div>
             ))}
@@ -160,7 +160,7 @@ export default async function UserDetailPage({ params }: { params: { userId: str
 
       {results.length > 0 && (
         <div className="bg-white rounded-xl border border-slate-200 p-5 mb-6">
-          <h2 className="font-heading font-bold text-slate-800 mb-3">Activités faites ({results.length}) {results.length > 20 && <span className="text-xs text-slate-400 font-normal">- 20 plus récentes</span>}</h2>
+          <h2 className="font-heading font-bold text-slate-800 mb-3">Activities ({results.length}) {results.length > 20 && <span className="text-xs text-slate-400 font-normal">- 20 most recent</span>}</h2>
           <div className="space-y-1">
             {results.slice(0, 20).map((r: any) => {
               const t = activityTypeLabels[r.activity.type] || { emoji: "?", label: r.activity.type };
@@ -170,7 +170,7 @@ export default async function UserDetailPage({ params }: { params: { userId: str
                     <span>{t.emoji}</span>
                     <div className="min-w-0">
                       <p className="text-sm font-medium text-slate-700 truncate">{r.activity.title}</p>
-                      <p className="text-[10px] text-slate-400">{t.label} &middot; {r.attempts} tentative{r.attempts > 1 ? "s" : ""} &middot; {new Date(r.updatedAt).toLocaleDateString("fr-FR")}</p>
+                      <p className="text-[10px] text-slate-400">{t.label} &middot; {r.attempts} attempt{r.attempts > 1 ? "s" : ""} &middot; {new Date(r.updatedAt).toLocaleDateString("en-US")}</p>
                     </div>
                   </div>
                   <span className={"text-xs font-bold px-2 py-0.5 rounded-full shrink-0 ml-2 " +
@@ -188,7 +188,7 @@ export default async function UserDetailPage({ params }: { params: { userId: str
 
       {results.length === 0 && lessonProgress.length === 0 && (
         <div className="bg-white rounded-xl border border-slate-200 p-8 text-center">
-          <p className="text-slate-400">Cet utilisateur n'a pas encore utilisé la plateforme.</p>
+          <p className="text-slate-400">This user hasn't used the platform yet.</p>
         </div>
       )}
     </div>

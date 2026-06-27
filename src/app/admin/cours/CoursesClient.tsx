@@ -28,8 +28,8 @@ export default function CoursesClient({ myCourses, otherCourses, isAdmin, curren
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div>
-          <h1 className="font-heading text-2xl font-bold text-slate-900">Cours</h1>
-          <p className="text-sm text-slate-400 mt-1">{list.length} cours {tab === "mine" ? "créé" + (list.length > 1 ? "s" : "") + " par vous" : "d'autres enseignants"}</p>
+          <h1 className="font-heading text-2xl font-bold text-slate-900">Courses</h1>
+          <p className="text-sm text-slate-400 mt-1">{list.length} course{list.length !== 1 ? "s" : ""} {tab === "mine" ? "created by you" : "by other teachers"}</p>
         </div>
         <Link href="/admin/cours/creer" className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all text-sm">
           + New course
@@ -43,13 +43,13 @@ export default function CoursesClient({ myCourses, otherCourses, isAdmin, curren
             onClick={() => setTab("mine")}
             className={"px-4 py-2 rounded-lg text-sm font-semibold transition-all " + (tab === "mine" ? "bg-white text-slate-900 shadow-sm" : "text-slate-600 hover:text-slate-800")}
           >
-            Mes cours <span className="text-xs text-slate-400 ml-1">({myCourses.length})</span>
+            My courses <span className="text-xs text-slate-400 ml-1">({myCourses.length})</span>
           </button>
           <button
             onClick={() => setTab("others")}
             className={"px-4 py-2 rounded-lg text-sm font-semibold transition-all " + (tab === "others" ? "bg-white text-slate-900 shadow-sm" : "text-slate-600 hover:text-slate-800")}
           >
-            Autres profs <span className="text-xs text-slate-400 ml-1">({otherCourses.length})</span>
+            Other teachers <span className="text-xs text-slate-400 ml-1">({otherCourses.length})</span>
           </button>
         </div>
       )}
@@ -59,11 +59,11 @@ export default function CoursesClient({ myCourses, otherCourses, isAdmin, curren
         <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
           <span className="text-5xl">📖</span>
           <p className="text-slate-500 mt-4">
-            {tab === "mine" ? "Vous n'avez pas encore créé de cours." : "Aucun cours d'autres enseignants."}
+            {tab === "mine" ? "You haven't created any courses yet." : "No courses from other teachers."}
           </p>
           {tab === "mine" && (
             <Link href="/admin/cours/creer" className="inline-block mt-4 text-brand-600 font-semibold">
-              Créer votre premier cours →
+              Create your first course →
             </Link>
           )}
         </div>
@@ -76,7 +76,7 @@ export default function CoursesClient({ myCourses, otherCourses, isAdmin, curren
               {showAuthor && (
                 <div className="bg-gradient-to-r from-slate-50 to-brand-50/30 px-5 py-2 border-b border-slate-100">
                   <p className="text-[11px] text-slate-500">
-                    Par <span className="font-semibold text-slate-700">{c.author.name || "Inconnu"}</span>
+                    By <span className="font-semibold text-slate-700">{c.author.name || "Unknown"}</span>
                   </p>
                 </div>
               )}
@@ -106,7 +106,7 @@ export default function CoursesClient({ myCourses, otherCourses, isAdmin, curren
                       <span className="font-mono bg-brand-50 text-brand-700 px-1.5 py-0.5 rounded text-[10px]">{c.enrollmentCode}</span>
                     </span>
                   ) : (
-                    <span className="text-[11px] text-slate-400">Accès libre</span>
+                    <span className="text-[11px] text-slate-400">Open access</span>
                   )}
                 </div>
               </div>
@@ -114,8 +114,8 @@ export default function CoursesClient({ myCourses, otherCourses, isAdmin, curren
               {/* Actions bar */}
               <div className="border-t border-slate-100 px-3 py-2 flex items-center justify-between gap-1 bg-slate-50/50">
                 <div className="flex items-center gap-1">
-                  <Link href={"/admin/cours/" + c.id} className="text-xs font-semibold px-3 py-1.5 bg-brand-50 text-brand-700 rounded-lg hover:bg-brand-100 transition-colors" title="Éditer">
-                    ✏️ Éditer
+                  <Link href={"/admin/cours/" + c.id} className="text-xs font-semibold px-3 py-1.5 bg-brand-50 text-brand-700 rounded-lg hover:bg-brand-100 transition-colors" title="Edit">
+                    ✏️ Edit
                   </Link>
                   <Link href={"/cours/" + c.slug} className="text-xs font-semibold px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors" title="Voir le cours">
                     👁

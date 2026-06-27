@@ -31,7 +31,7 @@ export async function GET(request: Request) {
         },
       });
       if (!course || !course.published) {
-        return NextResponse.json({ message: "Non trouvé." }, { status: 404 });
+        return NextResponse.json({ message: "Not found." }, { status: 404 });
       }
       return NextResponse.json(course);
     }

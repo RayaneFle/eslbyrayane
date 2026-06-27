@@ -3,22 +3,22 @@ import { activityTypeLabels } from "@/lib/utils";
 
 const CATS: Record<string, string[]> = {
   "Quiz": ["QCM", "TRUE_FALSE", "FILL_BLANKS"],
-  "Vocabulaire": ["MATCHING", "MEMORY", "HANGMAN"],
-  "Organisation": ["DRAG_DROP", "SORTING", "CATEGORIZE", "WORD_ORDER"],
+  "Vocabulary": ["MATCHING", "MEMORY", "HANGMAN"],
+  "Organization": ["DRAG_DROP", "SORTING", "CATEGORIZE", "WORD_ORDER"],
 };
-const DESC: Record<string, string> = { QCM: "Choix multiples avec feedback", TRUE_FALSE: "Vrai ou faux", FILL_BLANKS: "Texte avec trous", MATCHING: "Associer des paires", MEMORY: "Retrouver les paires", HANGMAN: "Deviner lettre par lettre", DRAG_DROP: "Glisser vers la zone", SORTING: "Remettre en ordre", CATEGORIZE: "Trier dans des catégories", WORD_ORDER: "Remettre les mots dans l'ordre" };
+const DESC: Record<string, string> = { QCM: "Multiple choice with feedback", TRUE_FALSE: "True or false", FILL_BLANKS: "Text with blanks", MATCHING: "Match pairs", MEMORY: "Find matching pairs", HANGMAN: "Guess letter by letter", DRAG_DROP: "Drag to the correct zone", SORTING: "Put in the right order", CATEGORIZE: "Sort into categories", WORD_ORDER: "Put the words in order" };
 
 export default function CreerActivitePage() {
   return (
     <div className="max-w-5xl">
       <div className="flex items-center gap-2 text-xs text-slate-500 mb-4">
-        <a href="/admin/activites" className="hover:text-brand-600 transition-colors">Mes activités</a>
+        <a href="/admin/activites" className="hover:text-brand-600 transition-colors">My activities</a>
         <span className="text-slate-300">/</span>
         <span className="text-slate-700 font-medium">New activity</span>
       </div>
       <div className="mb-8">
         <h1 className="font-heading text-2xl font-bold text-slate-900">Create an activity</h1>
-        <p className="text-sm text-slate-500 mt-1">Choisis le type de jeu que tu veux créer pour tes students.</p>
+        <p className="text-sm text-slate-500 mt-1">Choose the type of game you want to create for your students.</p>
       </div>
       {Object.entries(CATS).map(([cat, types]) => (
         <div key={cat} className="mb-8">

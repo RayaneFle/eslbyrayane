@@ -1,74 +1,74 @@
 export const metadata = {
-  title: "Conditions générales d'utilisation - ESL Guliston",
-  description: "Conditions d'utilisation du site ESL Guliston.",
+  title: "Terms of Use - ESL Guliston",
+  description: "Terms of use for the ESL Guliston website.",
 };
 
 export default function CGUPage() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="font-heading text-3xl font-bold text-brand-900 mb-8">Conditions générales d&apos;utilisation</h1>
+      <h1 className="font-heading text-3xl font-bold text-brand-900 mb-8">Terms of Use</h1>
 
       <section className="space-y-6 text-slate-700 leading-relaxed">
         <div>
-          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">1. Objet</h2>
-          <p>Les présentes conditions régissent l&apos;utilisation du site ESL Guliston, plateforme éducative gratuite d&apos;apprentissage du English langue étrangère.</p>
+          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">1. Purpose</h2>
+          <p>These terms govern the use of ESL Guliston, a free educational platform for learning English as a foreign language.</p>
         </div>
 
         <div>
-          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">2. Accès au service</h2>
-          <p>L&apos;accès au contenu pédagogique est libre et gratuit. Certaines fonctionnalités (suivi de progression, activités, classs) nécessitent la création d&apos;un compte.</p>
+          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">2. Access to the service</h2>
+          <p>Access to educational content is free and open. Certain features (progress tracking, activities, classes) require creating an account.</p>
         </div>
 
         <div>
-          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">3. Création de compte</h2>
-          <p>Lors de l&apos;inscription, l&apos;utilisateur s&apos;engage à :</p>
+          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">3. Account creation</h2>
+          <p>When registering, the user agrees to:</p>
           <ul className="list-disc pl-6 mt-2 space-y-1">
-            <li>Fournir des informations exactes</li>
-            <li>Choisir un mot de passe suffisamment sécurisé (8 caractères minimum)</li>
-            <li>Ne pas partager ses identifiants avec des tiers</li>
+            <li>Provide accurate information</li>
+            <li>Choose a sufficiently secure password (minimum 8 characters)</li>
+            <li>Not share their credentials with third parties</li>
           </ul>
-          <p className="mt-3">L&apos;éditeur se réserve le droit de suspendre tout compte en cas de manquement aux présentes conditions.</p>
+          <p className="mt-3">The editor reserves the right to suspend any account in case of breach of these terms.</p>
         </div>
 
         <div>
-          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">4. Utilisation du service</h2>
-          <p>L&apos;utilisateur s&apos;engage à utiliser le site dans le respect des lois en vigueur. Sont notamment interdits :</p>
+          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">4. Use of the service</h2>
+          <p>The user agrees to use the site in compliance with applicable laws. The following are prohibited:</p>
           <ul className="list-disc pl-6 mt-2 space-y-1">
-            <li>Toute tentative d&apos;accès non autorisé</li>
-            <li>Toute activité pouvant perturber le service</li>
-            <li>Toute publication de contenu illicite, offensant ou inapproprié</li>
-            <li>L&apos;usurpation d&apos;identité</li>
+            <li>Any attempt at unauthorized access</li>
+            <li>Any activity that may disrupt the service</li>
+            <li>Any publication of illegal, offensive, or inappropriate content</li>
+            <li>Identity theft</li>
           </ul>
         </div>
 
         <div>
-          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">5. Propriété intellectuelle</h2>
-          <p>Le contenu pédagogique (cours, exercices, textes) est la propriété de l&apos;éditeur. Toute reproduction ou utilisation à des fins commerciales est interdite sans autorisation écrite.</p>
+          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">5. Intellectual property</h2>
+          <p>Educational content (courses, exercises, texts) is the property of the editor. Any reproduction or use for commercial purposes is prohibited without written authorization.</p>
         </div>
 
         <div>
-          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">6. Responsabilité</h2>
-          <p>Le service est fourni « en l&apos;état ». L&apos;éditeur ne garantit pas une disponibilité continue et ne saurait être tenu responsable d&apos;éventuelles interruptions. Le contenu pédagogique est fourni à titre indicatif ; l&apos;éditeur ne garantit pas de résultats d&apos;apprentissage spécifiques.</p>
+          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">6. Liability</h2>
+          <p>The service is provided &quot;as is&quot;. The editor does not guarantee continuous availability and cannot be held responsible for any interruptions. Educational content is provided for informational purposes; the editor does not guarantee specific learning outcomes.</p>
         </div>
 
         <div>
-          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">7. Données personnelles</h2>
-          <p>Le traitement des données personnelles est détaillé dans la <a href="/confidentialite" className="text-brand-600 underline">politique de confidentialité</a>.</p>
+          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">7. Personal data</h2>
+          <p>The processing of personal data is detailed in the <a href="/confidentialite" className="text-brand-600 underline">privacy policy</a>.</p>
         </div>
 
         <div>
-          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">8. Résiliation</h2>
-          <p>L&apos;utilisateur peut supprimer son compte à tout moment via son profil. Toutes ses données personnelles sont alors effacées.</p>
+          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">8. Termination</h2>
+          <p>The user may delete their account at any time via their profile. All personal data is then erased.</p>
         </div>
 
         <div>
           <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">9. Modifications</h2>
-          <p>Les présentes conditions peuvent être mises à jour. La version en vigueur est celle publiée sur cette page.</p>
+          <p>These terms may be updated. The version in force is the one published on this page.</p>
         </div>
 
         <div>
-          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">10. Droit applicable</h2>
-          <p>Les présentes conditions sont soumises au droit English. En cas de litige, les tribunaux English sont compétents.</p>
+          <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">10. Applicable law</h2>
+          <p>These terms are governed by applicable law. In case of dispute, competent courts shall have jurisdiction.</p>
         </div>
       </section>
     </div>

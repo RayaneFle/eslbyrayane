@@ -11,16 +11,16 @@ const CreateSectionSchema = z.object({
 
 export async function POST(request: Request, { params }: { params: { courseId: string } }) {
   const session = await getServerSession(authOptions);
-  if (!session?.user) return NextResponse.json({ message: "Non autorisé." }, { status: 401 });
+  if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   if (session.user.role !== "admin" && session.user.role !== "teacher") {
-    return NextResponse.json({ message: "Non autorisé." }, { status: 403 });
+    return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
   }
   const course = await canEditCourse(params.courseId, session.user.id, session.user.role);
-  if (!course) return NextResponse.json({ message: "Non autorisé." }, { status: 403 });
+  if (!course) return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
   const body = await request.json();
   const parsed = CreateSectionSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ message: parsed.error.errors[0]?.message || "Données invalides." }, { status: 400 });
+    return NextResponse.json({ message: parsed.error.errors[0]?.message || "Invalid data." }, { status: 400 });
   }
   const last = await prisma.section.findFirst({
     where: { courseId: params.courseId }, orderBy: { position: "desc" },

@@ -48,10 +48,10 @@ export default function ActivitiesClient({ myActivities, otherActivities, isAdmi
     <div>
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
         <div>
-          <h1 className="font-heading text-2xl font-bold text-slate-900">Activités</h1>
+          <h1 className="font-heading text-2xl font-bold text-slate-900">Activities</h1>
           <p className="text-sm text-slate-400 mt-1">
-            {list.length} {list.length > 1 ? "activités" : "activité"}
-            {typeFilter !== "all" && <span className="text-slate-500"> (filtré)</span>}
+            {list.length} {list.length > 1 ? "activities" : "activity"}
+            {typeFilter !== "all" && <span className="text-slate-500"> (filtered)</span>}
           </p>
         </div>
         <Link href="/admin/activites/creer" className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all text-sm">
@@ -62,10 +62,10 @@ export default function ActivitiesClient({ myActivities, otherActivities, isAdmi
       {isAdmin && (
         <div className="inline-flex bg-slate-100 rounded-xl p-1 mb-4">
           <button onClick={() => { setTab("mine"); setTypeFilter("all"); }} className={"px-4 py-2 rounded-lg text-sm font-semibold transition-all " + (tab === "mine" ? "bg-white text-slate-900 shadow-sm" : "text-slate-600 hover:text-slate-800")}>
-            Mes activités <span className="text-xs text-slate-400 ml-1">({myActivities.length})</span>
+            My activities <span className="text-xs text-slate-400 ml-1">({myActivities.length})</span>
           </button>
           <button onClick={() => { setTab("others"); setTypeFilter("all"); }} className={"px-4 py-2 rounded-lg text-sm font-semibold transition-all " + (tab === "others" ? "bg-white text-slate-900 shadow-sm" : "text-slate-600 hover:text-slate-800")}>
-            Autres profs <span className="text-xs text-slate-400 ml-1">({otherActivities.length})</span>
+            Other teachers <span className="text-xs text-slate-400 ml-1">({otherActivities.length})</span>
           </button>
         </div>
       )}
@@ -73,7 +73,7 @@ export default function ActivitiesClient({ myActivities, otherActivities, isAdmi
       {baseList.length > 0 && (
         <div className="flex flex-wrap gap-2 mb-6">
           <button onClick={() => setTypeFilter("all")} className={"text-xs font-semibold px-3 py-1.5 rounded-full transition-all " + (typeFilter === "all" ? "bg-brand-500 text-white" : "bg-slate-100 text-slate-700 hover:bg-slate-200")}>
-            Tous ({baseList.length})
+            All ({baseList.length})
           </button>
           {typesWithCounts.map(([type, count]) => {
             const t = activityTypeLabels[type] || { emoji: "📝", label: type };
@@ -91,10 +91,10 @@ export default function ActivitiesClient({ myActivities, otherActivities, isAdmi
         <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
           <span className="text-5xl">🎮</span>
           <p className="text-slate-500 mt-4">
-            {typeFilter !== "all" ? "Aucune activité de ce type." : tab === "mine" ? "Vous n'avez pas encore créé d'activité." : "Aucune activité d'autres enseignants."}
+            {typeFilter !== "all" ? "No activity of this type." : tab === "mine" ? "You haven't created any activity yet." : "No activities from other teachers."}
           </p>
           {tab === "mine" && typeFilter === "all" && (
-            <Link href="/admin/activites/creer" className="inline-block mt-4 text-brand-600 font-semibold">Créer votre première activité →</Link>
+            <Link href="/admin/activites/creer" className="inline-block mt-4 text-brand-600 font-semibold">Create your first activity →</Link>
           )}
         </div>
       ) : (
@@ -106,7 +106,7 @@ export default function ActivitiesClient({ myActivities, otherActivities, isAdmi
               <div key={a.id} className="bg-white rounded-2xl border border-slate-200 hover:border-brand-300 hover:shadow-md transition-all flex flex-col">
                 {showAuthor && (
                   <div className="bg-gradient-to-r from-slate-50 to-brand-50/30 px-5 py-2 border-b border-slate-100 rounded-t-2xl">
-                    <p className="text-[11px] text-slate-500">Par <span className="font-semibold text-slate-700">{a.createdBy.name || "Inconnu"}</span></p>
+                    <p className="text-[11px] text-slate-500">By <span className="font-semibold text-slate-700">{a.createdBy.name || "Unknown"}</span></p>
                   </div>
                 )}
                 <div className="p-5 flex-1">
@@ -120,12 +120,12 @@ export default function ActivitiesClient({ myActivities, otherActivities, isAdmi
                   </div>
                   <Link href={"/admin/activites/" + a.id + "/modifier"} className="font-heading font-bold text-slate-900 hover:text-brand-700 text-base leading-tight block mb-2">{a.title}</Link>
                   <p className="text-xs text-slate-500">
-                    <span className="text-slate-400">🎯</span> <b className="text-slate-700">{a.resultsCount}</b> partie{a.resultsCount > 1 ? "s" : ""} jouée{a.resultsCount > 1 ? "s" : ""}
+                    <span className="text-slate-400">🎯</span> <b className="text-slate-700">{a.resultsCount}</b> game{a.resultsCount > 1 ? "s" : ""} played
                   </p>
                 </div>
                 <div className="border-t border-slate-100 px-3 py-2 flex items-center justify-between gap-1 bg-slate-50/50 rounded-b-2xl">
                   <div className="flex items-center gap-1">
-                    <Link href={"/admin/activites/" + a.id + "/modifier"} className="text-xs font-semibold px-3 py-1.5 bg-brand-50 text-brand-700 rounded-lg hover:bg-brand-100 transition-colors">✏️ Modifier</Link>
+                    <Link href={"/admin/activites/" + a.id + "/modifier"} className="text-xs font-semibold px-3 py-1.5 bg-brand-50 text-brand-700 rounded-lg hover:bg-brand-100 transition-colors">✏️ Edit</Link>
                     <Link href={"/activites/" + a.id} className="text-xs font-semibold px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors" title="Voir">👁</Link>
                   </div>
                   <ActivityActionsMenu
@@ -169,13 +169,13 @@ function ActivityActionsMenu({ activityId, isPublic, canDelete, onDeleted, onTog
       body: JSON.stringify({ isPublic: newValue }),
     });
     if (res.ok) onTogglePublic?.(newValue);
-    else alert("Error lors de la mise à jour.");
+    else alert("Error updating activity.");
     setLoading(false);
   }
 
   async function duplicate() {
     if (loading) return;
-    if (!confirm("Duplicate cette activité ?")) return;
+    if (!confirm("Duplicate this activity?")) return;
     setLoading(true);
     const res = await fetch("/api/activities/" + activityId + "/duplicate", { method: "POST" });
     if (res.ok) {
@@ -183,21 +183,21 @@ function ActivityActionsMenu({ activityId, isPublic, canDelete, onDeleted, onTog
       router.push("/admin/activites/" + data.id + "/modifier");
       router.refresh();
     } else {
-      alert("Error lors de la duplication.");
+      alert("Error duplicating activity.");
     }
     setLoading(false);
     setOpen(false);
   }
 
   async function deleteActivity() {
-    if (!confirm("Supprimer cette activité ? Cette action est irréversible.")) return;
+    if (!confirm("Delete this activity? This action is irreversible.")) return;
     setOpen(false);
     if (onDeleted) onDeleted();
     try {
       const res = await fetch("/api/activities/" + activityId, { method: "DELETE" });
-      if (!res.ok) alert("Error lors de la suppression. Rechargez la page.");
+      if (!res.ok) alert("Error deleting activity. Please reload the page.");
     } catch {
-      alert("Error réseau. Rechargez la page.");
+      alert("Network error. Please reload the page.");
     }
   }
 
@@ -223,7 +223,7 @@ function ActivityActionsMenu({ activityId, isPublic, canDelete, onDeleted, onTog
               <div className="border-t border-slate-100 my-1"></div>
               <button onClick={deleteActivity} className="flex items-center gap-3 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 text-left">
                 <span className="text-base">🗑</span>
-                <span>Supprimer</span>
+                <span>Delete</span>
               </button>
             </>
           )}

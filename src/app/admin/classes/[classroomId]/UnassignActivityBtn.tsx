@@ -7,7 +7,7 @@ export default function UnassignActivityBtn({ classroomId, activityId }: { class
 
   async function handle() {
     if (loading) return;
-    if (!confirm("Remove cette activité ?")) return;
+    if (!confirm("Remove this activity?")) return;
     setLoading(true);
     const row = ref.current?.closest("[data-classroom-activity-card]") as HTMLElement | null;
     if (row) row.style.display = "none";
@@ -19,11 +19,11 @@ export default function UnassignActivityBtn({ classroomId, activityId }: { class
       });
       if (!res.ok) {
         if (row) row.style.display = "";
-        alert("Error lors du retrait.");
+        alert("Error removing activity.");
       }
     } catch {
       if (row) row.style.display = "";
-      alert("Error réseau.");
+      alert("Network error.");
     }
     setLoading(false);
   }

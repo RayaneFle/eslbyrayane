@@ -79,18 +79,18 @@ export default function ActivityPlayer({ activityId, type, config, embedded, onE
       <div className="bg-white rounded-2xl border border-brand-100 p-6 sm:p-8 animate-fade-in-up">
         <div className="text-center mb-6">
           <div className="text-5xl mb-3">{stars === 3 ? "\ud83c\udfc6" : stars === 2 ? "\u2b50" : stars === 1 ? "\ud83d\udc4d" : "\ud83d\udcaa"}</div>
-          <h2 className="font-heading text-2xl font-bold text-slate-900 mb-1">{stars >= 2 ? "Bravo !" : "Continuez !"}</h2>
+          <h2 className="font-heading text-2xl font-bold text-slate-900 mb-1">{stars >= 2 ? "Well done!" : "Keep going!"}</h2>
           <div className="flex justify-center gap-1 mb-4">{[1, 2, 3].map(i => <span key={i} className={"text-3xl " + (i <= stars ? "star-earned" : "star-empty")}>{"\u2605"}</span>)}</div>
           <div className="flex justify-center gap-8 mb-2">
             <div><p className="text-3xl font-bold text-brand-600">{Math.round(score)}%</p><p className="text-xs text-slate-400">Score</p></div>
-            <div><p className="text-3xl font-bold text-brand-600">{formatTime(time)}</p><p className="text-xs text-slate-400">Temps</p></div>
+            <div><p className="text-3xl font-bold text-brand-600">{formatTime(time)}</p><p className="text-xs text-slate-400">Time</p></div>
             {total > 0 && <div><p className="text-3xl font-bold text-green-600">{correct}/{total}</p><p className="text-xs text-slate-400">Correct</p></div>}
           </div>
         </div>
 
         {details.length > 0 && (
           <div className="mb-6">
-            <h3 className="font-heading font-bold text-slate-800 mb-3 text-sm">Détail des réponses :</h3>
+            <h3 className="font-heading font-bold text-slate-800 mb-3 text-sm">Answer details:</h3>
             <div className="space-y-2 max-h-80 overflow-y-auto">
               {details.map((d, i) => (
                 <div key={i} className={"p-3 rounded-xl border " + (d.isCorrect ? "bg-green-50 border-green-200" : "bg-red-50 border-red-200")}>
@@ -101,11 +101,11 @@ export default function ActivityPlayer({ activityId, type, config, embedded, onE
                       {d.imageUrl && <img src={d.imageUrl} alt="" className="w-16 h-16 rounded-lg object-cover mt-1" />}
                       {!d.isCorrect && (
                         <div className="mt-1">
-                          <p className="text-xs text-red-600">Votre réponse : <span className="font-medium">{d.userAnswer || "(vide)"}</span></p>
-                          <p className="text-xs text-green-700">Bonne réponse : <span className="font-medium">{d.correctAnswer}</span></p>
+                          <p className="text-xs text-red-600">Your answer: <span className="font-medium">{d.userAnswer || "(empty)"}</span></p>
+                          <p className="text-xs text-green-700">Correct answer: <span className="font-medium">{d.correctAnswer}</span></p>
                         </div>
                       )}
-                      {d.isCorrect && <p className="text-xs text-green-700 mt-1">Votre réponse : <span className="font-medium">{d.userAnswer}</span></p>}
+                      {d.isCorrect && <p className="text-xs text-green-700 mt-1">Your answer: <span className="font-medium">{d.userAnswer}</span></p>}
                       {d.explanation && <p className="text-xs text-slate-500 mt-1 italic">{"\ud83d\udca1"} {d.explanation}</p>}
                     </div>
                   </div>
@@ -115,11 +115,11 @@ export default function ActivityPlayer({ activityId, type, config, embedded, onE
           </div>
         )}
 
-        {!session && !embedded && <p className="text-sm text-amber-600 bg-amber-50 px-4 py-2 rounded-xl mb-4">{"\ud83d\udca1"} Connectez-vous pour sauvegarder !</p>}
+        {!session && !embedded && <p className="text-sm text-amber-600 bg-amber-50 px-4 py-2 rounded-xl mb-4">{"\ud83d\udca1"} Sign in to save your score!</p>}
 
         <div className="flex justify-center gap-3">
-          <button onClick={restart} className="px-5 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">{"\ud83d\udd04"} Recommencer</button>
-          {!embedded && <a href="/activites" className="px-5 py-2.5 bg-brand-50 text-brand-600 font-semibold rounded-xl hover:bg-brand-100 transition-colors">{"\u2190"} Catalogue</a>}
+          <button onClick={restart} className="px-5 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">{"\ud83d\udd04"} Play again</button>
+          {!embedded && <a href="/activites" className="px-5 py-2.5 bg-brand-50 text-brand-600 font-semibold rounded-xl hover:bg-brand-100 transition-colors">{"\u2190"} Catalog</a>}
         </div>
       </div>
     );
@@ -141,7 +141,7 @@ export default function ActivityPlayer({ activityId, type, config, embedded, onE
   return (
     <div key={state}>
       {!embedded && <div className="flex justify-end mb-3"><span className="text-xs text-brand-400 bg-brand-50 px-3 py-1 rounded-full">{"\u23f1"} {formatTime(time)}</span></div>}
-      {games[type] || <div className="text-center py-12 bg-white rounded-2xl border border-brand-100"><span className="text-4xl">{"\ud83d\udea7"}</span><p className="text-brand-400 mt-4">Type {type} bientôt disponible !</p></div>}
+      {games[type] || <div className="text-center py-12 bg-white rounded-2xl border border-brand-100"><span className="text-4xl">{"\ud83d\udea7"}</span><p className="text-brand-400 mt-4">Type {type} coming soon!</p></div>}
     </div>
   );
 }
