@@ -62,11 +62,11 @@ export default function UsersClient({ users: initialUsers, isAdmin, currentUserE
   function daysSince(dateStr: string | null) {
     if (!dateStr) return null;
     const days = Math.floor((Date.now() - new Date(dateStr).getTime()) / (1000 * 60 * 60 * 24));
-    if (days === 0) return "aujourd'hui";
-    if (days === 1) return "hier";
-    if (days < 7) return "il y a " + days + "j";
-    if (days < 30) return "il y a " + Math.floor(days / 7) + " sem.";
-    return "il y a " + Math.floor(days / 30) + " mois";
+    if (days === 0) return "today";
+    if (days === 1) return "yesterday";
+    if (days < 7) return "ago " + days + "j";
+    if (days < 30) return "ago " + Math.floor(days / 7) + " wk";
+    return "ago " + Math.floor(days / 30) + " mo";
   }
 
   const inactiveCount = users.filter(u => !u.lastActivity || (Date.now() - new Date(u.lastActivity).getTime()) > 7 * 24 * 60 * 60 * 1000).length;
@@ -76,10 +76,10 @@ export default function UsersClient({ users: initialUsers, isAdmin, currentUserE
   return (
     <div>
       <div className="mb-6">
-        <h1 className="font-heading text-2xl font-bold text-slate-900">{isAdmin ? "Utilisateurs" : "Mes élèves"}</h1>
+        <h1 className="font-heading text-2xl font-bold text-slate-900">{isAdmin ? "Users" : "Mes élèves"}</h1>
         <p className="text-sm text-slate-400 mt-1">
-          {filtered.length} {isAdmin ? "utilisateur" : "élève"}{filtered.length > 1 ? "s" : ""}
-          {inactiveCount > 0 && <span className="text-amber-600"> · {inactiveCount} inactif{inactiveCount > 1 ? "s" : ""}</span>}
+          {filtered.length} {isAdmin ? "user" : "élève"}{filtered.length > 1 ? "s" : ""}
+          {inactiveCount > 0 && <span className="text-amber-600"> · {inactiveCount} inactive{inactiveCount > 1 ? "s" : ""}</span>}
         </p>
       </div>
 
@@ -98,32 +98,32 @@ export default function UsersClient({ users: initialUsers, isAdmin, currentUserE
         <div className="flex flex-wrap gap-2">
           {isAdmin && (
             <select value={roleFilter} onChange={e => setRoleFilter(e.target.value)} className="text-sm border border-slate-200 rounded-xl px-3 py-2 outline-none focus:border-brand-400 bg-white">
-              <option value="all">👤 Tous les rôles</option>
-              <option value="student">👤 Élèves</option>
-              <option value="teacher">👤 Professeurs</option>
+              <option value="all">👤 All roles</option>
+              <option value="student">👤 Students</option>
+              <option value="teacher">👤 Teachers</option>
               <option value="admin">👤 Admins</option>
             </select>
           )}
           {isAdmin && classrooms.length > 0 && (
             <select value={classFilter} onChange={e => setClassFilter(e.target.value)} className="text-sm border border-slate-200 rounded-xl px-3 py-2 outline-none focus:border-brand-400 bg-white">
-              <option value="all">🎓 Toutes les classes</option>
+              <option value="all">🎓 All classs</option>
               {classrooms.map(c => (
                 <option key={c.id} value={c.id}>{c.name} ({c.memberCount})</option>
               ))}
             </select>
           )}
           <select value={sort} onChange={e => setSort(e.target.value)} className="text-sm border border-slate-200 rounded-xl px-3 py-2 outline-none focus:border-brand-400 bg-white ml-auto">
-            <option value="recent">↕ Activité récente</option>
-            <option value="name">↕ Nom A-Z</option>
-            <option value="score">↕ Meilleur score</option>
-            <option value="lessons">↕ Leçons terminées</option>
+            <option value="recent">↕ Recent activity</option>
+            <option value="name">↕ Name A-Z</option>
+            <option value="score">↕ Best score</option>
+            <option value="lessons">↕ Lessons completed</option>
           </select>
         </div>
       </div>
 
       {filtered.length === 0 ? (
         <div className="bg-white rounded-2xl border border-slate-200 p-12 text-center">
-          <p className="text-slate-400">Aucun utilisateur trouvé.</p>
+          <p className="text-slate-400">No users found.</p>
         </div>
       ) : (
         <div className="grid gap-3">
@@ -159,12 +159,12 @@ export default function UsersClient({ users: initialUsers, isAdmin, currentUserE
                       </span>
                       {u.counts.classroomMemberships > 0 && (
                         <span className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">
-                          🎓 {u.counts.classroomMemberships} classe{u.counts.classroomMemberships > 1 ? "s" : ""}
+                          🎓 {u.counts.classroomMemberships} class{u.counts.classroomMemberships > 1 ? "s" : ""}
                         </span>
                       )}
                       {isInactive && (
                         <span className="text-[11px] font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">
-                          Inactif
+                          Inactive
                         </span>
                       )}
                     </div>
@@ -190,7 +190,7 @@ export default function UsersClient({ users: initialUsers, isAdmin, currentUserE
                       </span>
                       <span className="flex items-center gap-1 ml-auto">
                         <span className="text-slate-400">⏰</span>
-                        <span className={isInactive ? "text-amber-600 font-medium" : ""}>{ago || "jamais"}</span>
+                        <span className={isInactive ? "text-amber-600 font-medium" : ""}>{ago || "never"}</span>
                       </span>
                     </div>
                   </div>
@@ -199,9 +199,9 @@ export default function UsersClient({ users: initialUsers, isAdmin, currentUserE
                 {isExpanded && (
                   <div className="border-t border-slate-100 bg-slate-50/50 px-5 py-4 space-y-4 animate-slide-down">
                     <div>
-                      <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Cours accessibles ({u.courses.length})</h4>
+                      <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Accessible courses ({u.courses.length})</h4>
                       {u.courses.length === 0 ? (
-                        <p className="text-sm text-slate-400 italic">Aucun cours.</p>
+                        <p className="text-sm text-slate-400 italic">No courses.</p>
                       ) : (
                         <div className="grid sm:grid-cols-2 gap-2">
                           {u.courses.map(cc => (
@@ -217,9 +217,9 @@ export default function UsersClient({ users: initialUsers, isAdmin, currentUserE
                       )}
                     </div>
                     <div>
-                      <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Dernières activités ({u.recentActivities.length})</h4>
+                      <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Recent activities ({u.recentActivities.length})</h4>
                       {u.recentActivities.length === 0 ? (
-                        <p className="text-sm text-slate-400 italic">Aucune activité.</p>
+                        <p className="text-sm text-slate-400 italic">No activity.</p>
                       ) : (
                         <div className="space-y-1.5">
                           {u.recentActivities.map((a, i) => (
@@ -231,7 +231,7 @@ export default function UsersClient({ users: initialUsers, isAdmin, currentUserE
                               {a.completed && a.score !== null ? (
                                 <span className={"text-[11px] font-bold px-2 py-0.5 rounded-full shrink-0 " + (a.score >= 80 ? "bg-green-100 text-green-700" : a.score >= 50 ? "bg-amber-100 text-amber-700" : "bg-red-100 text-red-700")}>{Math.round(a.score)}%</span>
                               ) : (
-                                <span className="text-[10px] text-slate-400 shrink-0">En cours</span>
+                                <span className="text-[10px] text-slate-400 shrink-0">In progress</span>
                               )}
                             </div>
                           ))}
@@ -239,8 +239,8 @@ export default function UsersClient({ users: initialUsers, isAdmin, currentUserE
                       )}
                     </div>
                     <div className="pt-2 flex justify-end">
-                      <Link href={"/admin/utilisateurs/" + u.id} className="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-800 transition-colors" onClick={e => e.stopPropagation()}>
-                        Voir la page complète
+                      <Link href={"/admin/users/" + u.id} className="inline-flex items-center gap-1 text-xs font-semibold text-brand-600 hover:text-brand-800 transition-colors" onClick={e => e.stopPropagation()}>
+                        View full profile
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
                       </Link>
                     </div>
@@ -276,11 +276,11 @@ function ActionMenu({ user, currentUserEmail, onDeleted, onRoleChanged }: { user
       </button>
       {open && (
         <div className="absolute right-0 top-full mt-1 w-56 bg-white rounded-xl shadow-lg border border-slate-200 py-2 z-20 animate-slide-down">
-          <Link href={"/admin/utilisateurs/" + user.id} onClick={() => setOpen(false)} className="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">
-            <span>👁</span><span>Voir les détails</span>
+          <Link href={"/admin/users/" + user.id} onClick={() => setOpen(false)} className="flex items-center gap-3 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50">
+            <span>👁</span><span>View details</span>
           </Link>
           <div className="px-4 py-2 border-t border-slate-100 mt-1 pt-2">
-            <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Changer le rôle</p>
+            <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider mb-1.5">Change role</p>
             <RoleChanger userId={user.id} currentRole={user.role} onChanged={(role) => { onRoleChanged(role); setOpen(false); }} />
           </div>
           <div className="border-t border-slate-100 mt-1 pt-1 px-2">

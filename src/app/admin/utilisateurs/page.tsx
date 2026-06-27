@@ -112,7 +112,7 @@ export default async function AdminUsersPage() {
     for (const e of u.enrollments) {
       if (!seen.has(e.course.id)) {
         seen.add(e.course.id);
-        courses.push({ ...e.course, source: "Inscrit" });
+        courses.push({ ...e.course, source: "Enrolled" });
       }
     }
     for (const m of u.classroomMemberships) {
