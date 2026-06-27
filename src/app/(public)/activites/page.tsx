@@ -8,11 +8,11 @@ import type { Metadata } from "next";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "Activités FLE interactives",
-  description: "Exercices interactifs pour apprendre le français : QCM, memory, texte à trous, remise en ordre, pendu et plus. Tous niveaux, du A1 au C2.",
+  title: "Interactive ESL Activities",
+  description: "Interactive exercises to learn English: MCQ, memory, fill in the blanks, word order, hangman and more. All levels, from A1 to C2.",
   openGraph: {
-    title: "Activités FLE interactives | FLE by Rayane",
-    description: "Exercices interactifs pour pratiquer le français langue étrangère.",
+    title: "Interactive ESL Activities | ESL Guliston",
+    description: "Interactive exercises to practice English as a second language.",
   },
 };
 
@@ -28,7 +28,6 @@ export default async function ActivitesPage({ searchParams }: { searchParams: { 
     orderBy: { createdAt: "desc" },
   });
 
-  // Get all public activities for counters (regardless of current filters)
   const allActivities = await prisma.activity.findMany({ where: { isPublic: true }, select: { type: true, level: true } });
   const countByType = new Map<string, number>();
   const countByLevel = new Map<string, number>();
@@ -44,42 +43,38 @@ export default async function ActivitesPage({ searchParams }: { searchParams: { 
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="flex items-center justify-between mb-10 flex-wrap gap-3">
         <div>
-          <h1 className="font-heading text-4xl font-bold text-brand-900">Activités interactives</h1>
-          <p className="text-brand-400 mt-2 text-lg">Pratique le français en t'amusant</p>
-          <p className="text-sm text-slate-500 mt-1">{allActivities.length} activité{allActivities.length > 1 ? "s" : ""} disponible{allActivities.length > 1 ? "s" : ""}</p>
+          <h1 className="font-heading text-4xl font-bold text-brand-900">Interactive activities</h1>
+          <p className="text-brand-400 mt-2 text-lg">Practice English while having fun</p>
+          <p className="text-sm text-slate-500 mt-1">{allActivities.length} activit{allActivities.length > 1 ? "ies" : "y"} available</p>
         </div>
-        {isTeacher && <Link href="/admin/activites/creer" className="px-5 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all text-sm">+ Créer une activité</Link>}
+        {isTeacher && <Link href="/admin/activites/creer" className="px-5 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all text-sm">+ Create an activity</Link>}
       </div>
 
       <div className="mb-4">
-        <p className="text-sm font-medium text-brand-500 mb-2">Type :</p>
+        <p className="text-sm font-medium text-brand-500 mb-2">Type:</p>
         <div className="flex flex-wrap gap-2">
-          <Pill href={`/activites${level ? `?level=${level}` : ""}`} active={!type}>Toutes ({allActivities.length})</Pill>
+          <Pill href={`/activites${level ? `?level=${level}` : ""}`} active={!type}>All ({allActivities.length})</Pill>
           {types.map(([k, v]) => {
             const count = countByType.get(k) || 0;
             if (count === 0) return null;
-            return (
-              <Pill key={k} href={`/activites?type=${k}${level ? `&level=${level}` : ""}`} active={type === k}>{v.emoji} {v.label} ({count})</Pill>
-            );
+            return <Pill key={k} href={`/activites?type=${k}${level ? `&level=${level}` : ""}`} active={type === k}>{v.emoji} {v.label} ({count})</Pill>;
           })}
         </div>
       </div>
       <div className="mb-8">
-        <p className="text-sm font-medium text-brand-500 mb-2">Niveau :</p>
+        <p className="text-sm font-medium text-brand-500 mb-2">Level:</p>
         <div className="flex flex-wrap gap-2">
-          <Pill href={`/activites${type ? `?type=${type}` : ""}`} active={!level}>Tous</Pill>
+          <Pill href={`/activites${type ? `?type=${type}` : ""}`} active={!level}>All</Pill>
           {levels.map(l => {
             const count = countByLevel.get(l) || 0;
             if (count === 0) return null;
-            return (
-              <Pill key={l} href={`/activites?${type ? `type=${type}&` : ""}level=${l}`} active={level === l}>{l} ({count})</Pill>
-            );
+            return <Pill key={l} href={`/activites?${type ? `type=${type}&` : ""}level=${l}`} active={level === l}>{l} ({count})</Pill>;
           })}
         </div>
       </div>
 
       {activities.length === 0 ? (
-        <div className="text-center py-20 bg-white rounded-2xl border border-brand-100"><span className="text-5xl">🎮</span><p className="text-brand-400 mt-4 text-lg">Aucune activité.</p></div>
+        <div className="text-center py-20 bg-white rounded-2xl border border-brand-100"><span className="text-5xl">🎮</span><p className="text-brand-400 mt-4 text-lg">No activities yet.</p></div>
       ) : (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 stagger-children">
           {activities.map(a => {
@@ -94,8 +89,8 @@ export default async function ActivitesPage({ searchParams }: { searchParams: { 
                 <h3 className="font-heading font-bold text-lg text-brand-900 group-hover:text-brand-600 transition-colors">{a.title}</h3>
                 {a.description && <p className="text-sm text-brand-400 mt-2 line-clamp-2">{a.description}</p>}
                 <div className="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                  <span className="text-slate-500">{a._count.results > 0 ? <>&#127919; <b className="text-slate-700">{a._count.results}</b> partie{a._count.results > 1 ? "s" : ""}</> : <span className="text-slate-400 italic">Sois le premier !</span>}</span>
-                  <span className="font-semibold text-brand-600 group-hover:text-brand-800 transition-colors">Jouer &rarr;</span>
+                  <span className="text-slate-500">{a._count.results > 0 ? <><b className="text-slate-700">{a._count.results}</b> game{a._count.results > 1 ? "s" : ""}</> : <span className="text-slate-400 italic">Be the first!</span>}</span>
+                  <span className="font-semibold text-brand-600 group-hover:text-brand-800 transition-colors">Play →</span>
                 </div>
               </Link>
             );
