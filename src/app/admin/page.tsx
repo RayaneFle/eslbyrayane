@@ -47,33 +47,28 @@ export default async function AdminPage() {
 
   return (
     <div className="max-w-6xl mx-auto">
-      {/* Header */}
       <div className="mb-6">
-        <h1 className="font-heading text-2xl font-bold text-slate-900">Tableau de bord</h1>
-        <p className="text-sm text-slate-400 mt-1">Bienvenue, {session?.user?.name} 👋</p>
+        <h1 className="font-heading text-2xl font-bold text-slate-900">Dashboard</h1>
+        <p className="text-sm text-slate-400 mt-1">Welcome, {session?.user?.name} 👋</p>
       </div>
 
-      {/* KPI compacts stylés */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-        <KPICard icon="📚" label="Cours" value={myCourses} gradient="from-brand-500 to-brand-600" />
-        <KPICard icon="🎮" label="Activités" value={myActivities} gradient="from-accent-500 to-accent-600" />
-        <KPICard icon="👥" label="Élèves" value={totalStudents} gradient="from-green-500 to-emerald-600" />
-        <KPICard icon="📈" label="Score moyen" value={avgScore + "%"} gradient="from-amber-500 to-orange-600" />
+        <KPICard icon="📚" label="Courses" value={myCourses} gradient="from-brand-500 to-brand-600" />
+        <KPICard icon="🎮" label="Activities" value={myActivities} gradient="from-accent-500 to-accent-600" />
+        <KPICard icon="👥" label="Students" value={totalStudents} gradient="from-green-500 to-emerald-600" />
+        <KPICard icon="📈" label="Avg score" value={avgScore + "%"} gradient="from-amber-500 to-orange-600" />
       </div>
 
-      {/* Mes cours - SECTION PRINCIPALE */}
       <section className="mb-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-heading text-lg font-bold text-slate-900">📚 Mes cours</h2>
-          <Link href="/admin/cours/creer" className="text-sm font-semibold bg-brand-500 text-white px-4 py-2 rounded-xl hover:bg-brand-600 hover:shadow-glow transition-all">
-            + Nouveau cours
-          </Link>
+          <h2 className="font-heading text-lg font-bold text-slate-900">📚 My courses</h2>
+          <Link href="/admin/cours/creer" className="text-sm font-semibold bg-brand-500 text-white px-4 py-2 rounded-xl hover:bg-brand-600 hover:shadow-glow transition-all">+ New course</Link>
         </div>
         {recentCourses.length === 0 ? (
           <div className="bg-white rounded-2xl border border-slate-200 p-10 text-center">
             <span className="text-4xl">📖</span>
-            <p className="text-slate-500 mt-3">Aucun cours pour l'instant.</p>
-            <Link href="/admin/cours/creer" className="inline-block mt-4 text-brand-600 font-semibold">Créer votre premier cours →</Link>
+            <p className="text-slate-500 mt-3">No courses yet.</p>
+            <Link href="/admin/cours/creer" className="inline-block mt-4 text-brand-600 font-semibold">Create your first course →</Link>
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -81,9 +76,7 @@ export default async function AdminPage() {
               <div key={c.id} className="bg-white rounded-2xl border border-slate-200 hover:border-brand-300 hover:shadow-md transition-all flex flex-col overflow-hidden">
                 <div className="p-5 flex-1">
                   <div className="flex items-start justify-between gap-2 mb-3">
-                    <Link href={"/admin/cours/" + c.id} className="font-heading font-bold text-slate-900 hover:text-brand-700 text-base leading-tight flex-1">
-                      {c.title}
-                    </Link>
+                    <Link href={"/admin/cours/" + c.id} className="font-heading font-bold text-slate-900 hover:text-brand-700 text-base leading-tight flex-1">{c.title}</Link>
                     {c.level && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-100 text-brand-700 shrink-0">{c.level}</span>}
                   </div>
                   <p className="text-[11px] text-slate-400 mb-3">{c.sections.length} section{c.sections.length > 1 ? "s" : ""}</p>
@@ -93,44 +86,40 @@ export default async function AdminPage() {
                         <Link key={s.id} href={"/admin/cours/" + c.id + "/sections/" + s.id + "/lessons/new"}
                           className="flex items-center justify-between gap-2 text-xs py-2 px-3 rounded-lg bg-slate-50 hover:bg-brand-50 transition-colors group">
                           <span className="text-slate-600 truncate flex-1">{s.title}</span>
-                          <span className="text-brand-600 font-bold shrink-0 text-[11px] bg-white px-2 py-0.5 rounded group-hover:bg-brand-500 group-hover:text-white transition-colors">+ Leçon</span>
+                          <span className="text-brand-600 font-bold shrink-0 text-[11px] bg-white px-2 py-0.5 rounded group-hover:bg-brand-500 group-hover:text-white transition-colors">+ Lesson</span>
                         </Link>
                       ))}
-                      {c.sections.length > 3 && <p className="text-[10px] text-slate-400 text-center pt-1">+ {c.sections.length - 3} autres</p>}
+                      {c.sections.length > 3 && <p className="text-[10px] text-slate-400 text-center pt-1">+ {c.sections.length - 3} more</p>}
                     </div>
                   ) : (
-                    <p className="text-[11px] text-slate-400 italic">Pas encore de sections</p>
+                    <p className="text-[11px] text-slate-400 italic">No sections yet</p>
                   )}
                 </div>
-                <Link href={"/admin/cours/" + c.id} className="border-t border-slate-100 px-5 py-3 text-center text-xs font-semibold text-brand-600 hover:bg-brand-50 transition-colors">
-                  Ouvrir le cours →
-                </Link>
+                <Link href={"/admin/cours/" + c.id} className="border-t border-slate-100 px-5 py-3 text-center text-xs font-semibold text-brand-600 hover:bg-brand-50 transition-colors">Open course →</Link>
               </div>
             ))}
           </div>
         )}
       </section>
 
-      {/* Actions rapides */}
       <section className="mb-6">
-        <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">⚡ Actions rapides</h2>
+        <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">⚡ Quick actions</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <ActionButton href="/admin/cours/creer" icon="📚" label="Nouveau cours" color="brand" />
-          <ActionButton href="/admin/activites/creer" icon="🎮" label="Nouvelle activité" color="accent" />
-          <ActionButton href="/admin/classes" icon="🏫" label="Gérer classes" color="green" />
-          {isAdmin && <ActionButton href="/admin/utilisateurs" icon="👥" label="Utilisateurs" color="slate" />}
+          <ActionButton href="/admin/cours/creer" icon="📚" label="New course" color="brand" />
+          <ActionButton href="/admin/activites/creer" icon="🎮" label="New activity" color="accent" />
+          <ActionButton href="/admin/classes" icon="🏫" label="Manage classes" color="green" />
+          {isAdmin && <ActionButton href="/admin/utilisateurs" icon="👥" label="Users" color="slate" />}
         </div>
       </section>
 
-      {/* Mes classes + Activité récente côte à côte */}
       <div className="grid lg:grid-cols-2 gap-6">
         <section>
-          <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">🏫 Mes classes ({myClassrooms.length})</h2>
+          <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">🏫 My classes ({myClassrooms.length})</h2>
           <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
             {myClassrooms.length === 0 ? (
               <div className="p-8 text-center">
-                <p className="text-sm text-slate-400">Aucune classe</p>
-                <Link href="/admin/classes" className="inline-block mt-3 text-sm text-brand-600 font-semibold">Créer une classe →</Link>
+                <p className="text-sm text-slate-400">No classes</p>
+                <Link href="/admin/classes" className="inline-block mt-3 text-sm text-brand-600 font-semibold">Create a class →</Link>
               </div>
             ) : (
               <div className="divide-y divide-slate-100">
@@ -139,10 +128,10 @@ export default async function AdminPage() {
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-bold text-slate-800 truncate">{cls.name}</p>
                       <p className="text-[11px] text-slate-400 mt-0.5">
-                        <span>{cls.members.length} élève{cls.members.length > 1 ? "s" : ""}</span>
+                        <span>{cls.members.length} student{cls.members.length > 1 ? "s" : ""}</span>
                         <span className="mx-1.5">·</span>
-                        <span>{cls.courses.length} cours</span>
-                        {cls.subclasses.length > 0 && (<><span className="mx-1.5">·</span><span>{cls.subclasses.length} sous-classe{cls.subclasses.length > 1 ? "s" : ""}</span></>)}
+                        <span>{cls.courses.length} course{cls.courses.length > 1 ? "s" : ""}</span>
+                        {cls.subclasses.length > 0 && (<><span className="mx-1.5">·</span><span>{cls.subclasses.length} subclass{cls.subclasses.length > 1 ? "es" : ""}</span></>)}
                       </p>
                     </div>
                     <span className="text-xs font-mono text-slate-400 bg-slate-100 px-2 py-1 rounded shrink-0">{cls.code}</span>
@@ -154,12 +143,10 @@ export default async function AdminPage() {
         </section>
 
         <section>
-          <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">📈 Activité récente</h2>
+          <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">📈 Recent activity</h2>
           <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
             {recentResults.length === 0 ? (
-              <div className="p-8 text-center">
-                <p className="text-sm text-slate-400">Aucune activité récente</p>
-              </div>
+              <div className="p-8 text-center"><p className="text-sm text-slate-400">No recent activity</p></div>
             ) : (
               <div className="divide-y divide-slate-100">
                 {recentResults.map((r, i) => (
