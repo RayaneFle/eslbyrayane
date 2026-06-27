@@ -7,7 +7,7 @@ export default function UnassignActivityBtn({ classroomId, activityId }: { class
 
   async function handle() {
     if (loading) return;
-    if (!confirm("Retirer cette activité ?")) return;
+    if (!confirm("Remove cette activité ?")) return;
     setLoading(true);
     const row = ref.current?.closest("[data-classroom-activity-card]") as HTMLElement | null;
     if (row) row.style.display = "none";
@@ -19,18 +19,18 @@ export default function UnassignActivityBtn({ classroomId, activityId }: { class
       });
       if (!res.ok) {
         if (row) row.style.display = "";
-        alert("Erreur lors du retrait.");
+        alert("Error lors du retrait.");
       }
     } catch {
       if (row) row.style.display = "";
-      alert("Erreur réseau.");
+      alert("Error réseau.");
     }
     setLoading(false);
   }
 
   return (
     <button ref={ref} onClick={handle} disabled={loading} className="text-xs font-semibold px-3 py-1.5 bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors disabled:opacity-50">
-      Retirer
+      Remove
     </button>
   );
 }

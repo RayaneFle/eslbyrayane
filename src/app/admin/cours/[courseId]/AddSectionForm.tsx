@@ -12,7 +12,7 @@ export default function AddSectionForm({ courseId }: { courseId: string }) {
     setTitle(""); setOpen(false); setLoading(false); router.refresh();
   }
 
-  if (!open) return <button onClick={() => setOpen(true)} className="w-full py-4 border-2 border-dashed border-brand-200 rounded-2xl text-sm font-medium text-brand-400 hover:border-brand-400 hover:text-brand-600">+ Ajouter une section</button>;
+  if (!open) return <button onClick={() => setOpen(true)} className="w-full py-4 border-2 border-dashed border-brand-200 rounded-2xl text-sm font-medium text-brand-400 hover:border-brand-400 hover:text-brand-600">+ Add a section</button>;
 
   return (
     <form onSubmit={onSubmit} className="bg-white rounded-2xl border border-brand-100 p-5 flex gap-3">

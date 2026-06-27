@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Mentions légales - FLE by Rayane",
-  description: "Mentions légales du site FLE by Rayane.",
+  title: "Mentions légales - ESL Guliston",
+  description: "Mentions légales du site ESL Guliston.",
 };
 
 export default function MentionsLegalesPage() {
@@ -11,7 +11,7 @@ export default function MentionsLegalesPage() {
       <section className="space-y-6 text-slate-700 leading-relaxed">
         <div>
           <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">Éditeur du site</h2>
-          <p>Le site FLE by Rayane est édité par Rayane, à titre personnel et non lucratif.</p>
+          <p>Le site ESL Guliston est édité par Rayane, à titre personnel et non lucratif.</p>
           <p>Localisation : France</p>
           <p>Contact : bekhakhrayane@gmail.com</p>
         </div>
@@ -32,7 +32,7 @@ export default function MentionsLegalesPage() {
 
         <div>
           <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">Nature de l&apos;activité</h2>
-          <p>FLE by Rayane est un site éducatif personnel, proposant gratuitement des ressources d&apos;apprentissage du français langue étrangère. Le site n&apos;a aucune activité commerciale.</p>
+          <p>ESL Guliston est un site éducatif personnel, proposant gratuitement des ressources d&apos;apprentissage du English langue étrangère. Le site n&apos;a aucune activité commerciale.</p>
         </div>
 
         <div>

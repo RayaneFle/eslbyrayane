@@ -70,15 +70,15 @@ export default function UsersClient({ users: initialUsers, isAdmin, currentUserE
   }
 
   const inactiveCount = users.filter(u => !u.lastActivity || (Date.now() - new Date(u.lastActivity).getTime()) > 7 * 24 * 60 * 60 * 1000).length;
-  const roleLabels: Record<string, string> = { student: "Élève", teacher: "Professeur", admin: "Admin" };
+  const roleLabels: Record<string, string> = { student: "Student", teacher: "Teacher", admin: "Admin" };
   const roleColors: Record<string, string> = { student: "bg-brand-100 text-brand-700", teacher: "bg-accent-100 text-accent-700", admin: "bg-purple-100 text-purple-700" };
 
   return (
     <div>
       <div className="mb-6">
-        <h1 className="font-heading text-2xl font-bold text-slate-900">{isAdmin ? "Users" : "Mes élèves"}</h1>
+        <h1 className="font-heading text-2xl font-bold text-slate-900">{isAdmin ? "Users" : "Mes students"}</h1>
         <p className="text-sm text-slate-400 mt-1">
-          {filtered.length} {isAdmin ? "user" : "élève"}{filtered.length > 1 ? "s" : ""}
+          {filtered.length} {isAdmin ? "user" : "student"}{filtered.length > 1 ? "s" : ""}
           {inactiveCount > 0 && <span className="text-amber-600"> · {inactiveCount} inactive{inactiveCount > 1 ? "s" : ""}</span>}
         </p>
       </div>

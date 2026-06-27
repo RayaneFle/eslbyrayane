@@ -32,7 +32,7 @@ export default function CoursesClient({ myCourses, otherCourses, isAdmin, curren
           <p className="text-sm text-slate-400 mt-1">{list.length} cours {tab === "mine" ? "créé" + (list.length > 1 ? "s" : "") + " par vous" : "d'autres enseignants"}</p>
         </div>
         <Link href="/admin/cours/creer" className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all text-sm">
-          + Nouveau cours
+          + New course
         </Link>
       </div>
 

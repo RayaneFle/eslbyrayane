@@ -46,7 +46,7 @@ export default function LoginForm() {
         </div>
         <button type="submit" disabled={loading}
           className="w-full bg-gradient-to-r from-brand-500 to-accent-500 text-white py-3 rounded-xl font-semibold hover:shadow-lg disabled:opacity-50 transition-all text-sm">
-          {loading ? "Connexion..." : "Se connecter"}
+          {loading ? "Sign in..." : "Se connecter"}
         </button>
       </form>
       <p className="text-center text-sm text-slate-400 mt-8">Pas encore de compte ? <Link href="/register" className="text-brand-600 font-semibold hover:text-brand-700">Creer un compte</Link></p>

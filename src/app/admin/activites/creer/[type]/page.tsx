@@ -76,7 +76,7 @@ export default function CreateActivityPage() {
     e.preventDefault(); if (!title.trim()) { setError("Titre requis."); return; }
     setLoading(true); setError(null);
     const res = await fetch("/api/activities", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ title, description: desc, type, config: buildConfig(), level: level || null, isPublic: pub }) });
-    if (!res.ok) { const d = await res.json().catch(() => ({})); setError(d.message || "Erreur"); setLoading(false); return; }
+    if (!res.ok) { const d = await res.json().catch(() => ({})); setError(d.message || "Error"); setLoading(false); return; }
     const created = await res.json();
     if (selectedClassroom) {
       await fetch(`/api/classrooms/${selectedClassroom}/activities`, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ activityId: created.id }) });
@@ -160,7 +160,7 @@ export default function CreateActivityPage() {
             <p className="text-xs text-slate-400 mb-2">Écrivez les phrases dans le bon ordre. Les mots seront mélangés automatiquement.</p>
             {sentences.map((s, i) => <div key={i} className="p-3 bg-slate-50 rounded-xl space-y-2">
               <div className="flex justify-between"><span className="text-xs font-bold text-slate-400">Phrase {i+1}</span>{sentences.length>1 && <button type="button" onClick={() => setSentences(sentences.filter((_,j)=>j!==i))} className="text-xs text-red-500">x</button>}</div>
-              <input value={s.text} onChange={e => { const u=[...sentences]; u[i]={...u[i], text:e.target.value}; setSentences(u); }} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ex: Je suis français" />
+              <input value={s.text} onChange={e => { const u=[...sentences]; u[i]={...u[i], text:e.target.value}; setSentences(u); }} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Ex: Je suis English" />
               <input value={s.hint} onChange={e => { const u=[...sentences]; u[i]={...u[i], hint:e.target.value}; setSentences(u); }} className="w-full border border-slate-100 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Indice (optionnel)" />
             </div>)}
             <button type="button" onClick={() => setSentences([...sentences, {text:"",hint:""}])} className="w-full py-3 border-2 border-dashed border-slate-200 rounded-xl text-sm font-medium text-slate-400 hover:border-brand-400">+ Phrase</button>
@@ -181,18 +181,18 @@ export default function CreateActivityPage() {
         </div>
 
         <div className="bg-white rounded-2xl border border-brand-100 p-6">
-          <h2 className="font-heading font-bold text-slate-800 mb-3">Assigner a une classe (optionnel)</h2>
+          <h2 className="font-heading font-bold text-slate-800 mb-3">Assign a une class (optionnel)</h2>
           {classrooms.length > 0 ? (
             <select value={selectedClassroom} onChange={e => setSelectedClassroom(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 outline-none">
-              <option value="">Aucune classe</option>
+              <option value="">Aucune class</option>
               {classrooms.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
-          ) : <p className="text-xs text-slate-400">Aucune classe. Créez-en une d’abord.</p>}
+          ) : <p className="text-xs text-slate-400">Aucune class. Créez-en une d’abord.</p>}
         </div>
 
         <div className="flex gap-4">
-          <button type="submit" disabled={loading} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-50 transition-all">{loading ? "Publication..." : "Publier"}</button>
-          <button type="button" onClick={() => router.back()} className="px-8 py-3 bg-slate-50 text-slate-600 font-semibold rounded-xl">Annuler</button>
+          <button type="submit" disabled={loading} className="px-8 py-3 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-50 transition-all">{loading ? "Publication..." : "Publish"}</button>
+          <button type="button" onClick={() => router.back()} className="px-8 py-3 bg-slate-50 text-slate-600 font-semibold rounded-xl">Cancel</button>
         </div>
       </form>
     </div>

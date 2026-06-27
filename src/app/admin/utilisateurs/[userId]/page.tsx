@@ -98,16 +98,16 @@ export default async function UserDetailPage({ params }: { params: { userId: str
         </div>
         <div className="bg-white rounded-xl border border-slate-200 p-4 text-center">
           <p className="text-2xl font-bold text-slate-700">{memberships.length}</p>
-          <p className="text-xs text-slate-400">Classes</p>
+          <p className="text-xs text-slate-400">Classs</p>
         </div>
       </div>
 
       {memberships.length > 0 && (
         <div className="bg-white rounded-xl border border-slate-200 p-5 mb-6">
-          <h2 className="font-heading font-bold text-slate-800 mb-3">Classes ({memberships.length})</h2>
+          <h2 className="font-heading font-bold text-slate-800 mb-3">Classs ({memberships.length})</h2>
           <div className="grid sm:grid-cols-2 gap-2">
             {memberships.map((m: any) => (
-              <Link key={m.id} href={"/admin/classes/" + m.classroom.id}
+              <Link key={m.id} href={"/admin/classs/" + m.classroom.id}
                 className="bg-slate-50 rounded-xl p-3 hover:bg-brand-50 hover:border-brand-200 border border-transparent transition-all flex items-center justify-between gap-3">
                 <div className="min-w-0 flex-1">
                   <p className="font-bold text-sm text-slate-900 truncate">{m.classroom.name}</p>

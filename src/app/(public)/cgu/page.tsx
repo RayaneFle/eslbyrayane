@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Conditions générales d'utilisation - FLE by Rayane",
-  description: "Conditions d'utilisation du site FLE by Rayane.",
+  title: "Conditions générales d'utilisation - ESL Guliston",
+  description: "Conditions d'utilisation du site ESL Guliston.",
 };
 
 export default function CGUPage() {
@@ -11,12 +11,12 @@ export default function CGUPage() {
       <section className="space-y-6 text-slate-700 leading-relaxed">
         <div>
           <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">1. Objet</h2>
-          <p>Les présentes conditions régissent l&apos;utilisation du site FLE by Rayane, plateforme éducative gratuite d&apos;apprentissage du français langue étrangère.</p>
+          <p>Les présentes conditions régissent l&apos;utilisation du site ESL Guliston, plateforme éducative gratuite d&apos;apprentissage du English langue étrangère.</p>
         </div>
 
         <div>
           <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">2. Accès au service</h2>
-          <p>L&apos;accès au contenu pédagogique est libre et gratuit. Certaines fonctionnalités (suivi de progression, activités, classes) nécessitent la création d&apos;un compte.</p>
+          <p>L&apos;accès au contenu pédagogique est libre et gratuit. Certaines fonctionnalités (suivi de progression, activités, classs) nécessitent la création d&apos;un compte.</p>
         </div>
 
         <div>
@@ -68,7 +68,7 @@ export default function CGUPage() {
 
         <div>
           <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">10. Droit applicable</h2>
-          <p>Les présentes conditions sont soumises au droit français. En cas de litige, les tribunaux français sont compétents.</p>
+          <p>Les présentes conditions sont soumises au droit English. En cas de litige, les tribunaux English sont compétents.</p>
         </div>
       </section>
     </div>

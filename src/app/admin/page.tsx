@@ -16,7 +16,7 @@ export default async function AdminPage() {
       select: {
         id: true, name: true, code: true,
         members: { select: { userId: true } },
-        subclasses: { select: { id: true, name: true } },
+        subclasss: { select: { id: true, name: true } },
         courses: { select: { courseId: true } },
       },
       orderBy: { createdAt: "desc" },
@@ -107,31 +107,31 @@ export default async function AdminPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <ActionButton href="/admin/cours/creer" icon="📚" label="New course" color="brand" />
           <ActionButton href="/admin/activites/creer" icon="🎮" label="New activity" color="accent" />
-          <ActionButton href="/admin/classes" icon="🏫" label="Manage classes" color="green" />
+          <ActionButton href="/admin/classs" icon="🏫" label="Manage classs" color="green" />
           {isAdmin && <ActionButton href="/admin/utilisateurs" icon="👥" label="Users" color="slate" />}
         </div>
       </section>
 
       <div className="grid lg:grid-cols-2 gap-6">
         <section>
-          <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">🏫 My classes ({myClassrooms.length})</h2>
+          <h2 className="font-heading text-lg font-bold text-slate-900 mb-4">🏫 My classs ({myClassrooms.length})</h2>
           <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden">
             {myClassrooms.length === 0 ? (
               <div className="p-8 text-center">
-                <p className="text-sm text-slate-400">No classes</p>
-                <Link href="/admin/classes" className="inline-block mt-3 text-sm text-brand-600 font-semibold">Create a class →</Link>
+                <p className="text-sm text-slate-400">No classs</p>
+                <Link href="/admin/classs" className="inline-block mt-3 text-sm text-brand-600 font-semibold">Create a class →</Link>
               </div>
             ) : (
               <div className="divide-y divide-slate-100">
                 {myClassrooms.map(cls => (
-                  <Link key={cls.id} href={"/admin/classes/" + cls.id} className="flex items-center justify-between gap-3 p-4 hover:bg-brand-50/50 transition-colors">
+                  <Link key={cls.id} href={"/admin/classs/" + cls.id} className="flex items-center justify-between gap-3 p-4 hover:bg-brand-50/50 transition-colors">
                     <div className="min-w-0 flex-1">
                       <p className="text-sm font-bold text-slate-800 truncate">{cls.name}</p>
                       <p className="text-[11px] text-slate-400 mt-0.5">
                         <span>{cls.members.length} student{cls.members.length > 1 ? "s" : ""}</span>
                         <span className="mx-1.5">·</span>
                         <span>{cls.courses.length} course{cls.courses.length > 1 ? "s" : ""}</span>
-                        {cls.subclasses.length > 0 && (<><span className="mx-1.5">·</span><span>{cls.subclasses.length} subclass{cls.subclasses.length > 1 ? "es" : ""}</span></>)}
+                        {cls.subclasss.length > 0 && (<><span className="mx-1.5">·</span><span>{cls.subclasss.length} subclass{cls.subclasss.length > 1 ? "es" : ""}</span></>)}
                       </p>
                     </div>
                     <span className="text-xs font-mono text-slate-400 bg-slate-100 px-2 py-1 rounded shrink-0">{cls.code}</span>

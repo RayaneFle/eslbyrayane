@@ -47,7 +47,7 @@ export default function CourseEnrollPage() {
         router.refresh();
       }, 1500);
     } catch {
-      setError("Erreur réseau.");
+      setError("Error réseau.");
       setLoading(false);
     }
   }
@@ -76,7 +76,7 @@ export default function CourseEnrollPage() {
                 {course.level && <span className="inline-block mt-2 text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-100 text-brand-700">{course.level}</span>}
               </>
             ) : (
-              <p className="text-sm text-slate-500 mt-2">Chargement...</p>
+              <p className="text-sm text-slate-500 mt-2">Loading...</p>
             )}
           </div>
 
@@ -115,7 +115,7 @@ export default function CourseEnrollPage() {
         <div className="space-y-4">
           <div className="bg-white rounded-2xl border border-slate-200 p-5">
             <h3 className="font-heading font-bold text-slate-900 text-sm mb-2">&#128161; Pas de code ?</h3>
-            <p className="text-xs text-slate-500 leading-relaxed">Demande à ton professeur le code d’inscription. Il l’a défini lors de la création du cours.</p>
+            <p className="text-xs text-slate-500 leading-relaxed">Demande à ton teacher le code d’inscription. Il l’a défini lors de la création du cours.</p>
           </div>
           <div className="bg-brand-50 rounded-2xl border border-brand-200 p-5">
             <h3 className="font-heading font-bold text-brand-900 text-sm mb-2">&#127919; Cours libres</h3>

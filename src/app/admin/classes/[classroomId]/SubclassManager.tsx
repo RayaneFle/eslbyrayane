@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 interface Member { id: string; userId: string; subclassId: string | null; user: { name: string | null; email: string | null } }
 interface Subclass { id: string; name: string }
 
-export default function SubclassManager({ classroomId, members, subclasses }: { classroomId: string; members: Member[]; subclasses: Subclass[] }) {
+export default function SubclassManager({ classroomId, members, subclasss }: { classroomId: string; members: Member[]; subclasss: Subclass[] }) {
   const router = useRouter();
   const [newName, setNewName] = useState("");
   const [creating, setCreating] = useState(false);
@@ -15,7 +15,7 @@ export default function SubclassManager({ classroomId, members, subclasses }: { 
   async function createSubclass() {
     if (!newName.trim()) return;
     setCreating(true);
-    await fetch("/api/classrooms/" + classroomId + "/subclasses", {
+    await fetch("/api/classrooms/" + classroomId + "/subclasss", {
       method: "POST", headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name: newName.trim() }),
     });
@@ -23,8 +23,8 @@ export default function SubclassManager({ classroomId, members, subclasses }: { 
   }
 
   async function deleteSubclass(id: string) {
-    if (!confirm("Supprimer cette sous-classe ? Les élèves ne seront pas supprimés.")) return;
-    await fetch("/api/classrooms/" + classroomId + "/subclasses/" + id, { method: "DELETE" });
+    if (!confirm("Supprimer cette sous-class ? Les students ne seront pas supprimés.")) return;
+    await fetch("/api/classrooms/" + classroomId + "/subclasss/" + id, { method: "DELETE" });
     router.refresh();
   }
 
@@ -57,11 +57,11 @@ export default function SubclassManager({ classroomId, members, subclasses }: { 
   return (
     <div className="space-y-3">
       <div className="flex gap-2">
-        <input value={newName} onChange={e => setNewName(e.target.value)} onKeyDown={e => e.key === "Enter" && createSubclass()} placeholder="Nouvelle sous-classe..." className="flex-1 border border-slate-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-brand-400" />
+        <input value={newName} onChange={e => setNewName(e.target.value)} onKeyDown={e => e.key === "Enter" && createSubclass()} placeholder="Nouvelle sous-class..." className="flex-1 border border-slate-200 rounded-lg px-3 py-1.5 text-sm outline-none focus:border-brand-400" />
         <button onClick={createSubclass} disabled={creating || !newName.trim()} className="px-3 py-1.5 bg-brand-500 text-white text-xs font-bold rounded-lg hover:bg-brand-600 disabled:opacity-50">+</button>
       </div>
 
-      {subclasses.map(sc => {
+      {subclasss.map(sc => {
         const scMembers = members.filter(m => m.subclassId === sc.id);
         const isAdding = addingTo === sc.id;
         return (
@@ -70,7 +70,7 @@ export default function SubclassManager({ classroomId, members, subclasses }: { 
               <p className="text-sm font-bold text-brand-800">{sc.name} <span className="text-xs font-normal text-slate-400">({scMembers.length})</span></p>
               <div className="flex items-center gap-2">
                 <button onClick={() => { setAddingTo(isAdding ? null : sc.id); setSelected(new Set()); }} className={"text-[10px] px-2 py-0.5 rounded font-bold " + (isAdding ? "bg-brand-500 text-white" : "bg-white text-brand-600 border border-brand-200")}>
-                  {isAdding ? "Annuler" : "+ Ajouter"}
+                  {isAdding ? "Cancel" : "+ Ajouter"}
                 </button>
                 <button onClick={() => deleteSubclass(sc.id)} className="text-[10px] text-red-400 hover:text-red-600">x</button>
               </div>
@@ -100,21 +100,21 @@ export default function SubclassManager({ classroomId, members, subclasses }: { 
                 </div>
                 {selected.size > 0 && (
                   <button onClick={() => assignSelected(sc.id)} className="mt-2 w-full py-1.5 bg-brand-500 text-white text-xs font-bold rounded-lg hover:bg-brand-600">
-                    Ajouter {selected.size} élève{selected.size > 1 ? "s" : ""}
+                    Ajouter {selected.size} student{selected.size > 1 ? "s" : ""}
                   </button>
                 )}
               </div>
             )}
 
             {isAdding && unassigned.length === 0 && (
-              <p className="px-3 py-2 text-[10px] text-slate-400 text-center border-t border-brand-50">Tous les élèves sont assignés.</p>
+              <p className="px-3 py-2 text-[10px] text-slate-400 text-center border-t border-brand-50">Tous les students sont assignés.</p>
             )}
           </div>
         );
       })}
 
-      {unassigned.length > 0 && subclasses.length > 0 && (
-        <p className="text-[10px] text-slate-400 text-center">{unassigned.length} élève{unassigned.length > 1 ? "s" : ""} non assigné{unassigned.length > 1 ? "s" : ""}</p>
+      {unassigned.length > 0 && subclasss.length > 0 && (
+        <p className="text-[10px] text-slate-400 text-center">{unassigned.length} student{unassigned.length > 1 ? "s" : ""} non assigné{unassigned.length > 1 ? "s" : ""}</p>
       )}
     </div>
   );

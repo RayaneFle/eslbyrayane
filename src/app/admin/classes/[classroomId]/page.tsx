@@ -15,7 +15,7 @@ export default async function ClassroomDetailPage({ params }: { params: { classr
     where: { id: params.classroomId },
     include: {
       members: { include: { user: { select: { id: true, name: true, email: true } } }, orderBy: { joinedAt: "desc" } },
-      subclasses: { orderBy: { createdAt: "asc" } },
+      subclasss: { orderBy: { createdAt: "asc" } },
       courses: { include: { course: { select: { id: true, title: true, slug: true, level: true } } } },
       activities: { include: { activity: { select: { id: true, title: true, type: true, level: true } } } },
       posts: { include: { author: { select: { name: true } } }, orderBy: { createdAt: "desc" } },
@@ -79,8 +79,8 @@ export default async function ClassroomDetailPage({ params }: { params: { classr
     <div>
       {/* Breadcrumb */}
       <div className="mb-4">
-        <Link href="/admin/classes" className="text-sm text-slate-500 hover:text-brand-600 transition-colors">
-          ← Mes classes
+        <Link href="/admin/classs" className="text-sm text-slate-500 hover:text-brand-600 transition-colors">
+          ← Mes classs
         </Link>
       </div>
 
@@ -96,7 +96,7 @@ export default async function ClassroomDetailPage({ params }: { params: { classr
               📊 Export Excel
             </a>
             <div className="bg-gradient-to-r from-brand-500 to-accent-500 text-white rounded-lg px-4 py-2">
-              <p className="text-[9px] uppercase tracking-wider text-white/80 font-semibold">Code classe</p>
+              <p className="text-[9px] uppercase tracking-wider text-white/80 font-semibold">Code class</p>
               <p className="font-mono font-bold text-base tracking-widest">{classroom.code}</p>
             </div>
             <ClassroomActionsMenu classroomId={classroom.id} classroomName={classroom.name} />
@@ -105,7 +105,7 @@ export default async function ClassroomDetailPage({ params }: { params: { classr
 
         {/* Stats */}
         <div className="mt-5 pt-5 border-t border-slate-100 grid grid-cols-2 md:grid-cols-4 gap-3">
-          <StatCard icon="👥" label="Élèves" value={totalStudents} gradient="from-brand-50 to-brand-100/50" />
+          <StatCard icon="👥" label="Students" value={totalStudents} gradient="from-brand-50 to-brand-100/50" />
           <StatCard icon="📚" label="Cours" value={classroom.courses.length} gradient="from-accent-50 to-accent-100/50" />
           <StatCard icon="🎮" label="Activités" value={classroom.activities.length} gradient="from-green-50 to-green-100/50" />
           <StatCard icon="📈" label="Progression" value={completionRate + "%"} gradient="from-amber-50 to-amber-100/50" subtitle={"Score moyen: " + globalAvg + "%"} />

@@ -9,19 +9,19 @@ export default async function AdminUsersPage() {
   if (!session || (session.user.role !== "admin" && session.user.role !== "teacher")) redirect("/admin");
   const isAdmin = session.user.role === "admin";
 
-  // Teachers only see students in their classes
+  // Teachers only see students in their classs
   let userFilter: any = {};
   if (!isAdmin) {
-    const teacherClasses = await prisma.classroom.findMany({
+    const teacherClasss = await prisma.classroom.findMany({
       where: { ownerId: session.user.id },
       select: { members: { select: { userId: true } } },
     });
-    const studentIds = Array.from(new Set(teacherClasses.flatMap(c => c.members.map(m => m.userId))));
+    const studentIds = Array.from(new Set(teacherClasss.flatMap(c => c.members.map(m => m.userId))));
     userFilter = { id: { in: studentIds } };
   }
 
-  // Fetch all classes (for admin filter dropdown)
-  const allClasses = isAdmin ? await prisma.classroom.findMany({
+  // Fetch all classs (for admin filter dropdown)
+  const allClasss = isAdmin ? await prisma.classroom.findMany({
     select: { id: true, name: true, code: true, members: { select: { userId: true } } },
     orderBy: { createdAt: "desc" },
   }) : [];
@@ -104,7 +104,7 @@ export default async function AdminUsersPage() {
     }
   }
 
-  // Regroup courses per user (unique, from enrollments + classes)
+  // Regroup courses per user (unique, from enrollments + classs)
   const coursesMap = new Map<string, { id: string; title: string; level: string; slug: string; source: string }[]>();
   for (const u of coursesPerUser) {
     const seen = new Set<string>();
@@ -185,7 +185,7 @@ export default async function AdminUsersPage() {
     courses: coursesMap.get(u.id) || [],
   }));
 
-  const classrooms = allClasses.map(c => ({ id: c.id, name: c.name, code: c.code, memberCount: c.members.length }));
+  const classrooms = allClasss.map(c => ({ id: c.id, name: c.name, code: c.code, memberCount: c.members.length }));
 
   return <UsersClient users={enriched} isAdmin={isAdmin} currentUserEmail={session.user.email || ""} classrooms={classrooms} />;
 }

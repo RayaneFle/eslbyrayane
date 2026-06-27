@@ -55,7 +55,7 @@ export default function ActivitiesClient({ myActivities, otherActivities, isAdmi
           </p>
         </div>
         <Link href="/admin/activites/creer" className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all text-sm">
-          + Nouvelle activité
+          + New activity
         </Link>
       </div>
 
@@ -115,7 +115,7 @@ export default function ActivitiesClient({ myActivities, otherActivities, isAdmi
                       <span>{t.emoji}</span><span>{t.label}</span>
                     </span>
                     {a.level && <span className={"text-[10px] font-bold px-2 py-0.5 rounded-full " + (levelColors[a.level] || "")}>{a.level}</span>}
-                    {!isPublic && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">🔒 Masquée</span>}
+                    {!isPublic && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-600">🔒 Hidden</span>}
                     {isPublic && <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">✅ Visible</span>}
                   </div>
                   <Link href={"/admin/activites/" + a.id + "/modifier"} className="font-heading font-bold text-slate-900 hover:text-brand-700 text-base leading-tight block mb-2">{a.title}</Link>
@@ -169,13 +169,13 @@ function ActivityActionsMenu({ activityId, isPublic, canDelete, onDeleted, onTog
       body: JSON.stringify({ isPublic: newValue }),
     });
     if (res.ok) onTogglePublic?.(newValue);
-    else alert("Erreur lors de la mise à jour.");
+    else alert("Error lors de la mise à jour.");
     setLoading(false);
   }
 
   async function duplicate() {
     if (loading) return;
-    if (!confirm("Dupliquer cette activité ?")) return;
+    if (!confirm("Duplicate cette activité ?")) return;
     setLoading(true);
     const res = await fetch("/api/activities/" + activityId + "/duplicate", { method: "POST" });
     if (res.ok) {
@@ -183,7 +183,7 @@ function ActivityActionsMenu({ activityId, isPublic, canDelete, onDeleted, onTog
       router.push("/admin/activites/" + data.id + "/modifier");
       router.refresh();
     } else {
-      alert("Erreur lors de la duplication.");
+      alert("Error lors de la duplication.");
     }
     setLoading(false);
     setOpen(false);
@@ -195,9 +195,9 @@ function ActivityActionsMenu({ activityId, isPublic, canDelete, onDeleted, onTog
     if (onDeleted) onDeleted();
     try {
       const res = await fetch("/api/activities/" + activityId, { method: "DELETE" });
-      if (!res.ok) alert("Erreur lors de la suppression. Rechargez la page.");
+      if (!res.ok) alert("Error lors de la suppression. Rechargez la page.");
     } catch {
-      alert("Erreur réseau. Rechargez la page.");
+      alert("Error réseau. Rechargez la page.");
     }
   }
 
@@ -212,11 +212,11 @@ function ActivityActionsMenu({ activityId, isPublic, canDelete, onDeleted, onTog
         <div className="absolute right-0 top-full mt-1 w-48 bg-white rounded-xl shadow-lg border border-slate-200 py-1.5 z-20 animate-slide-down">
           <button onClick={togglePublic} disabled={loading} className="flex items-center gap-3 w-full px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 text-left disabled:opacity-50">
             <span className="text-base">{isPublic ? "🙈" : "✅"}</span>
-            <span>{isPublic ? "Masquer" : "Publier"}</span>
+            <span>{isPublic ? "Hide" : "Publish"}</span>
           </button>
           <button onClick={duplicate} disabled={loading} className="flex items-center gap-3 w-full px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 text-left disabled:opacity-50">
             <span className="text-base">📋</span>
-            <span>{loading ? "Duplication..." : "Dupliquer"}</span>
+            <span>{loading ? "Duplication..." : "Duplicate"}</span>
           </button>
           {canDelete && (
             <>

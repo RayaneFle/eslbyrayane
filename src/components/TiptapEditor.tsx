@@ -41,7 +41,7 @@ export default function TiptapEditor({ content, onChange }: Props) {
     editorProps: { attributes: { class: "prose max-w-none focus:outline-none min-h-[200px]" } },
   });
 
-  if (!editor) return <div className="border border-brand-200 rounded-xl p-4 text-brand-300 text-sm">Chargement...</div>;
+  if (!editor) return <div className="border border-brand-200 rounded-xl p-4 text-brand-300 text-sm">Loading...</div>;
 
   async function uploadImage(file: File) {
     setUploading(true);
@@ -50,7 +50,7 @@ export default function TiptapEditor({ content, onChange }: Props) {
     if (res.ok) {
       const d = await res.json();
       editor?.chain().focus().setImage({ src: d.url }).run();
-    } else { alert("Erreur upload."); }
+    } else { alert("Error upload."); }
     setUploading(false);
   }
 
@@ -61,7 +61,7 @@ export default function TiptapEditor({ content, onChange }: Props) {
   }
 
   function addImageChoice() {
-    const choice = confirm("OK = Importer depuis votre ordinateur\nAnnuler = Saisir une URL");
+    const choice = confirm("OK = Importer depuis votre ordinateur\nCancel = Saisir une URL");
     if (choice) { fileRef.current?.click(); }
     else { const url = prompt("URL de l'image :"); if (url) editor?.chain().focus().setImage({ src: url }).run(); }
   }
@@ -131,7 +131,7 @@ export default function TiptapEditor({ content, onChange }: Props) {
           <B onClick={() => editor.chain().focus().deleteTable().run()} title="Supprimer tableau">{"\ud83d\uddd1"}</B>
           <span className="w-px h-6 bg-brand-200 mx-1 self-center" />
         </>}
-        <B onClick={() => editor.chain().focus().undo().run()} title="Annuler">{"\u21a9"}</B>
+        <B onClick={() => editor.chain().focus().undo().run()} title="Cancel">{"\u21a9"}</B>
         <B onClick={() => editor.chain().focus().redo().run()} title="Refaire">{"\u21aa"}</B>
       </div>
       <EditorContent editor={editor} className="p-4" />

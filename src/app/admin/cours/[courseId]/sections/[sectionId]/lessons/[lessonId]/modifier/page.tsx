@@ -34,7 +34,7 @@ export default function EditLessonPage() {
     { key:"MATCHING", label:"Appariement", emoji:"\ud83d\udd17", def:{ pairs:[{left:"",right:""}] } },
     { key:"MEMORY", label:"Memory", emoji:"\ud83c\udccf", def:{ pairs:[{front:"",back:""}] } },
     { key:"HANGMAN", label:"Pendu", emoji:"\ud83d\udc80", def:{ words:[{word:"",hint:""}] } },
-    { key:"SORTING", label:"Classement", emoji:"\ud83d\udcca", def:{ items:["",""],correctOrder:["",""],instruction:"" } },
+    { key:"SORTING", label:"Classment", emoji:"\ud83d\udcca", def:{ items:["",""],correctOrder:["",""],instruction:"" } },
     { key:"WORD_ORDER", label:"Mots dans l'ordre", emoji:"\ud83d\udd24", def:{ sentences:[{text:"",hint:""}] } },
     { key:"CATEGORIZE", label:"Catégorisation", emoji:"\ud83d\udcc2", def:{ categories:[{name:"",imageUrl:""},{name:"",imageUrl:""}], items:[{text:"",category:"",imageUrl:""}], instruction:"" } },
     { key:"DRAG_DROP", label:"Glisser-déposer", emoji:"\ud83c\udfaf", def:{ zones:[{name:"",imageUrl:""},{name:"",imageUrl:""}], items:[], instruction:"" } },
@@ -117,15 +117,15 @@ export default function EditLessonPage() {
         setSavedToast(true);
         setTimeout(() => setSavedToast(false), 2500);
       } else {
-        setError("Erreur de sauvegarde.");
+        setError("Error de sauvegarde.");
       }
     } catch {
-      setError("Erreur réseau.");
+      setError("Error réseau.");
     }
     setSaving(false);
   }
 
-  if (loading) return <div className="text-center py-12 text-slate-400">Chargement...</div>;
+  if (loading) return <div className="text-center py-12 text-slate-400">Loading...</div>;
 
   return (
     <div className="max-w-3xl">
@@ -197,7 +197,7 @@ export default function EditLessonPage() {
                           <span className="text-xl">{g.emoji}</span><p className="text-xs font-medium text-slate-700 mt-1">{g.label}</p>
                         </button>
                       ))}</div>
-                      <button type="button" onClick={()=>setShowCreate(null)} className="text-xs text-slate-400 mt-3">Annuler</button>
+                      <button type="button" onClick={()=>setShowCreate(null)} className="text-xs text-slate-400 mt-3">Cancel</button>
                     </div>
                   ) : (
                     <div className="space-y-3">
@@ -229,7 +229,7 @@ export default function EditLessonPage() {
                         <button type="button" onClick={()=>{const c={...createConfig};c.questions=[...c.questions,{statement:"",isTrue:true}];setCreateConfig({...c});}} className="w-full py-2 border-2 border-dashed border-slate-200 rounded-lg text-xs text-slate-400">+ Affirmation</button>
                       </div>}
 
-                      {createType==="FILL_BLANKS" && <textarea value={createConfig?.text||""} onChange={e=>setCreateConfig({...createConfig,text:e.target.value})} rows={3} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm font-mono outline-none" placeholder={"Je {{suis}} français."} />}
+                      {createType==="FILL_BLANKS" && <textarea value={createConfig?.text||""} onChange={e=>setCreateConfig({...createConfig,text:e.target.value})} rows={3} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm font-mono outline-none" placeholder={"Je {{suis}} English."} />}
 
                       {createType==="MATCHING" && <div className="space-y-2">
                         {createConfig?.pairs?.map((p:any,i:number)=>(<div key={i} className="flex gap-2 items-center"><input value={p.left||""} onChange={e=>{const c={...createConfig};c.pairs[i]={...p,left:e.target.value};setCreateConfig({...c});}} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Gauche" /><input value={p.right||""} onChange={e=>{const c={...createConfig};c.pairs[i]={...p,right:e.target.value};setCreateConfig({...c});}} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Droite" />{createConfig.pairs.length>1&&<button type="button" onClick={()=>{const c={...createConfig};c.pairs=c.pairs.filter((_:any,j:number)=>j!==i);setCreateConfig({...c});}} className="text-red-400 text-xs">x</button>}</div>))}
@@ -281,7 +281,7 @@ export default function EditLessonPage() {
 
                       <div className="flex gap-2 pt-2">
                         <button type="button" onClick={()=>createAndInsert(idx)} disabled={!createTitle||creating} className="px-5 py-2 bg-brand-500 text-white text-sm font-semibold rounded-lg hover:bg-brand-600 disabled:opacity-50">{creating?"Création...":"Créer et insérer"}</button>
-                        <button type="button" onClick={()=>setShowCreate(null)} className="px-5 py-2 bg-slate-100 text-slate-500 text-sm rounded-lg">Annuler</button>
+                        <button type="button" onClick={()=>setShowCreate(null)} className="px-5 py-2 bg-slate-100 text-slate-500 text-sm rounded-lg">Cancel</button>
                       </div>
                     </div>
                   )}
@@ -298,7 +298,7 @@ export default function EditLessonPage() {
             {saving && <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>}
             {saving ? "Sauvegarde en cours..." : "Sauvegarder"}
           </button>
-          <button type="button" onClick={() => { if (dirty && !confirm("Modifications non sauvegardees. Quitter quand meme ?")) return; router.push("/admin/cours/" + courseId); }} className="px-8 py-3 bg-slate-100 text-slate-700 font-semibold rounded-xl hover:bg-slate-200 transition-colors">Retour au cours</button>
+          <button type="button" onClick={() => { if (dirty && !confirm("Modifications non sauvegardees. Leave quand meme ?")) return; router.push("/admin/cours/" + courseId); }} className="px-8 py-3 bg-slate-100 text-slate-700 font-semibold rounded-xl hover:bg-slate-200 transition-colors">Back au cours</button>
           <span className="text-xs text-slate-400 ml-auto">Astuce: Ctrl+S pour sauvegarder</span>
           {dirty && !saving && !savedToast && (
             <span className="text-xs font-semibold text-amber-600 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200">Modifications non sauvegardees</span>

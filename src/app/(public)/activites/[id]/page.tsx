@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     title: a.title + " — " + t.label + (a.level ? " (" + a.level + ")" : ""),
     description: a.description || "Activité interactive de FLE : " + a.title,
     openGraph: {
-      title: a.title + " | FLE by Rayane",
+      title: a.title + " | ESL Guliston",
       description: a.description || "Activité interactive de FLE",
     },
   };
@@ -117,7 +117,7 @@ export default async function ActivityPlayPage({ params }: { params: { id: strin
       {/* Footer CTA */}
       <div className="mt-6 flex items-center justify-between flex-wrap gap-3">
         <Link href="/activites" className="text-sm font-semibold text-slate-600 hover:text-brand-700 transition-colors">
-          &larr; Retour aux activités
+          &larr; Back aux activités
         </Link>
         {!session?.user && (
           <Link href="/register" className="text-sm font-semibold text-brand-600 hover:text-brand-800 transition-colors">

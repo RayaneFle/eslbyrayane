@@ -1,6 +1,6 @@
 export const metadata = {
-  title: "Politique de confidentialité - FLE by Rayane",
-  description: "Comment vos données sont traitées sur FLE by Rayane.",
+  title: "Politique de confidentialité - ESL Guliston",
+  description: "Comment vos données sont traitées sur ESL Guliston.",
 };
 
 export default function ConfidentialitePage() {
@@ -11,7 +11,7 @@ export default function ConfidentialitePage() {
       <section className="space-y-6 text-slate-700 leading-relaxed">
         <div>
           <h2 className="font-heading text-xl font-bold text-slate-900 mb-2">Responsable du traitement</h2>
-          <p>Rayane, éditeur du site FLE by Rayane (France).</p>
+          <p>Rayane, éditeur du site ESL Guliston (France).</p>
           <p>Contact : <a href="mailto:bekhakhrayane@gmail.com" className="text-brand-600 underline">bekhakhrayane@gmail.com</a></p>
         </div>
 
@@ -27,7 +27,7 @@ export default function ConfidentialitePage() {
           <ul className="list-disc pl-6 mt-2 space-y-1">
             <li>Vos progrès dans les cours et activités</li>
             <li>Vos scores aux exercices</li>
-            <li>Votre appartenance à des classes</li>
+            <li>Votre appartenance à des classs</li>
           </ul>
         </div>
 

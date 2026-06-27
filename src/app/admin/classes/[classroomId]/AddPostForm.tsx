@@ -26,7 +26,7 @@ export default function AddPostForm({ classroomId }: { classroomId: string }) {
     router.refresh();
   }
 
-  if (!open) return <button onClick={() => setOpen(true)} className="w-full py-3 border-2 border-dashed border-brand-200 rounded-xl text-sm font-medium text-slate-400 hover:border-brand-400 hover:text-brand-600 transition-colors">+ Publier du contenu</button>;
+  if (!open) return <button onClick={() => setOpen(true)} className="w-full py-3 border-2 border-dashed border-brand-200 rounded-xl text-sm font-medium text-slate-400 hover:border-brand-400 hover:text-brand-600 transition-colors">+ Publish du contenu</button>;
 
   return (
     <div className="p-4 bg-brand-50 rounded-xl space-y-3">
@@ -43,8 +43,8 @@ export default function AddPostForm({ classroomId }: { classroomId: string }) {
       {type === "pdf" && <input type="file" accept=".pdf,.doc,.docx,.ppt,.pptx,.xls,.xlsx,image/*" onChange={e => setFile(e.target.files?.[0] || null)} className="w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-brand-50 file:text-brand-700 hover:file:bg-brand-100" />}
       {type === "link" && <input value={videoUrl} onChange={e => setVideoUrl(e.target.value)} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="URL du lien" />}
       <div className="flex gap-2">
-        <button onClick={submit} disabled={loading} className="px-5 py-2 bg-brand-500 text-white text-sm font-semibold rounded-lg hover:bg-brand-600 disabled:opacity-50">{loading ? "Publication…" : "Publier"}</button>
-        <button onClick={() => setOpen(false)} className="px-5 py-2 bg-slate-100 text-slate-500 text-sm rounded-lg">Annuler</button>
+        <button onClick={submit} disabled={loading} className="px-5 py-2 bg-brand-500 text-white text-sm font-semibold rounded-lg hover:bg-brand-600 disabled:opacity-50">{loading ? "Publication…" : "Publish"}</button>
+        <button onClick={() => setOpen(false)} className="px-5 py-2 bg-slate-100 text-slate-500 text-sm rounded-lg">Cancel</button>
       </div>
     </div>
   );

@@ -28,7 +28,7 @@ export default function EditCourseForm({ courseId, initial }: Props) {
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
-      setMsg({ type: "err", text: data.message || "Erreur" });
+      setMsg({ type: "err", text: data.message || "Error" });
       setLoading(false);
       return;
     }
@@ -48,7 +48,7 @@ export default function EditCourseForm({ courseId, initial }: Props) {
   return (
     <div className="bg-white rounded-2xl border border-brand-200 p-5 space-y-3">
       <div className="flex items-center justify-between">
-        <h3 className="font-heading font-bold text-slate-800">Modifier le cours</h3>
+        <h3 className="font-heading font-bold text-slate-800">Edit course</h3>
         <button onClick={() => setOpen(false)} className="text-slate-400 hover:text-slate-600" aria-label="Fermer">✕</button>
       </div>
       {msg && <div className={"text-sm px-3 py-2 rounded-lg " + (msg.type === "ok" ? "bg-green-50 text-green-700 border border-green-200" : "bg-red-50 text-red-600 border border-red-200")}>{msg.text}</div>}
@@ -85,9 +85,9 @@ export default function EditCourseForm({ courseId, initial }: Props) {
           </label>
         </div>
         <div className="flex justify-end gap-2 pt-2">
-          <button type="button" onClick={() => setOpen(false)} className="text-sm px-4 py-2 bg-slate-100 text-slate-700 rounded-xl hover:bg-slate-200 transition-colors">Annuler</button>
+          <button type="button" onClick={() => setOpen(false)} className="text-sm px-4 py-2 bg-slate-100 text-slate-700 rounded-xl hover:bg-slate-200 transition-colors">Cancel</button>
           <button type="submit" disabled={loading} className="text-sm px-4 py-2 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-50 transition-all">
-            {loading ? "Enregistrement…" : "Enregistrer"}
+            {loading ? "Enregistrement…" : "Save"}
           </button>
         </div>
       </form>

@@ -4,7 +4,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 
 export default function PageLoader() {
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("Chargement...");
+  const [message, setMessage] = useState("Loading...");
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -30,7 +30,7 @@ export default function PageLoader() {
       if (link && link.href && link.href.startsWith(window.location.origin) && !link.href.includes("#") && !link.target && !link.hasAttribute("download")) {
         const url = new URL(link.href);
         if (url.pathname !== pathname) {
-          setMessage("Chargement...");
+          setMessage("Loading...");
           setLoading(true);
         }
       }

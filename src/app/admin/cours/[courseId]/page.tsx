@@ -54,7 +54,7 @@ export default async function AdminCourseEditorPage({ params }: { params: { cour
       {/* Breadcrumb */}
       <div className="mb-4">
         <Link href="/admin/cours" className="text-sm text-slate-500 hover:text-brand-600 transition-colors">
-          ← Retour aux cours
+          ← Back aux cours
         </Link>
       </div>
 
@@ -159,7 +159,7 @@ export default async function AdminCourseEditorPage({ params }: { params: { cour
                 <div className="border-t border-slate-100 px-5 py-3 bg-slate-50/50 rounded-b-2xl">
                   <Link href={"/admin/cours/" + course.id + "/sections/" + s.id + "/lessons/new"} className="inline-flex items-center gap-2 text-sm font-semibold text-brand-600 hover:text-brand-800 transition-colors">
                     <span>+</span>
-                    <span>Nouvelle leçon dans cette section</span>
+                    <span>New lesson dans cette section</span>
                   </Link>
                 </div>
               </div>
@@ -173,9 +173,9 @@ export default async function AdminCourseEditorPage({ params }: { params: { cour
         </div>
       </div>
 
-      {/* Classes assignées (à la fin) */}
+      {/* Classs assignées (à la fin) */}
       <div className="bg-white rounded-2xl border border-slate-200 p-5">
-        <h2 className="font-heading font-bold text-slate-800 mb-3">🏫 Classes assignées ({assignedClassrooms.length})</h2>
+        <h2 className="font-heading font-bold text-slate-800 mb-3">🏫 Classs assignées ({assignedClassrooms.length})</h2>
         {assignedClassrooms.length > 0 && (
           <div className="space-y-2 mb-4">
             {assignedClassrooms.map(c => (
@@ -193,11 +193,11 @@ export default async function AdminCourseEditorPage({ params }: { params: { cour
           <AssignClassForm courseId={course.id} classrooms={availableClassrooms} />
         ) : assignedClassrooms.length === 0 ? (
           <div className="text-center py-4">
-            <p className="text-sm text-slate-400">Aucune classe disponible</p>
-            <Link href="/admin/classes" className="inline-block mt-2 text-xs text-brand-600 font-semibold">Créer une classe →</Link>
+            <p className="text-sm text-slate-400">Aucune class disponible</p>
+            <Link href="/admin/classs" className="inline-block mt-2 text-xs text-brand-600 font-semibold">Créer une class →</Link>
           </div>
         ) : (
-          <p className="text-xs text-slate-400">Ce cours est assigné à toutes vos classes.</p>
+          <p className="text-xs text-slate-400">Ce cours est assigné à toutes vos classs.</p>
         )}
       </div>
     </div>

@@ -54,11 +54,11 @@ export default function LessonActionsMenu({ courseId, sectionId, lessonId, hidde
       });
       if (!res.ok) {
         if (row) row.style.display = "";
-        alert("Erreur lors de la suppression.");
+        alert("Error lors de la suppression.");
       }
     } catch {
       if (row) row.style.display = "";
-      alert("Erreur réseau.");
+      alert("Error réseau.");
     }
   }
 
@@ -89,7 +89,7 @@ export default function LessonActionsMenu({ courseId, sectionId, lessonId, hidde
               className="flex items-center gap-3 w-full px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 text-left"
             >
               <span className="text-base">📋</span>
-              <span>Dupliquer</span>
+              <span>Duplicate</span>
             </button>
             <button
               onClick={toggleVisibility}
@@ -97,7 +97,7 @@ export default function LessonActionsMenu({ courseId, sectionId, lessonId, hidde
               className="flex items-center gap-3 w-full px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 text-left disabled:opacity-50"
             >
               <span className="text-base">{hidden ? "🔒" : "👁"}</span>
-              <span>{hidden ? "Rendre visible" : "Masquer"}</span>
+              <span>{hidden ? "Rendre visible" : "Hide"}</span>
             </button>
             <div className="border-t border-slate-100 my-1"></div>
             <button
@@ -163,7 +163,7 @@ function DuplicateLessonModal({ lessonId, onClose, onSuccess }: { lessonId: stri
     <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4" onClick={onClose}>
       <div className="bg-white rounded-2xl w-full max-w-lg shadow-xl overflow-hidden" onClick={e => e.stopPropagation()}>
         <div className="px-6 py-4 border-b border-slate-100">
-          <h3 className="font-heading font-bold text-lg text-slate-900">📋 Dupliquer la leçon</h3>
+          <h3 className="font-heading font-bold text-lg text-slate-900">📋 Duplicate la leçon</h3>
           <p className="text-xs text-slate-500 mt-1">Choisissez où copier cette leçon.</p>
         </div>
         <div className="p-6">
@@ -174,7 +174,7 @@ function DuplicateLessonModal({ lessonId, onClose, onSuccess }: { lessonId: stri
             </div>
           ) : loadingCourses ? (
             <div className="text-center py-8">
-              <p className="text-sm text-slate-400">Chargement des cours...</p>
+              <p className="text-sm text-slate-400">Loading des cours...</p>
             </div>
           ) : (
             <div className="space-y-4">
@@ -216,14 +216,14 @@ function DuplicateLessonModal({ lessonId, onClose, onSuccess }: { lessonId: stri
         {!done && (
           <div className="border-t border-slate-100 px-6 py-3 flex justify-end gap-2 bg-slate-50/50">
             <button onClick={onClose} className="text-sm px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-50 transition-colors">
-              Annuler
+              Cancel
             </button>
             <button
               onClick={dup}
               disabled={!selectedSectionId || loading}
               className="text-sm px-5 py-2 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow disabled:opacity-50 transition-all"
             >
-              {loading ? "Duplication…" : "Dupliquer ici"}
+              {loading ? "Duplication…" : "Duplicate ici"}
             </button>
           </div>
         )}
