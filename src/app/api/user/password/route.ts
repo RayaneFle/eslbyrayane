@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 import { z } from "zod";
 
 const PasswordSchema = z.object({
-  currentPassword: z.string().min(1, "Mot de passe actuel requis.").max(200),
+  currentPassword: z.string().min(1, "Current password required.").max(200),
   newPassword: z.string().min(8, "Minimum 8 characters.").max(200, "Password too long."),
 });
 
@@ -24,15 +24,15 @@ export async function POST(request: Request) {
     const { currentPassword, newPassword } = parsed.data;
 
     const user = await prisma.user.findUnique({ where: { id: session.user.id } });
-    if (!user?.hashedPassword) return NextResponse.json({ message: "Erreur." }, { status: 400 });
+    if (!user?.hashedPassword) return NextResponse.json({ message: "Error." }, { status: 400 });
 
     const valid = await bcrypt.compare(currentPassword, user.hashedPassword);
-    if (!valid) return NextResponse.json({ message: "Mot de passe actuel incorrect." }, { status: 403 });
+    if (!valid) return NextResponse.json({ message: "Incorrect current password." }, { status: 403 });
 
     const hashed = await bcrypt.hash(newPassword, 12);
     await prisma.user.update({ where: { id: session.user.id }, data: { hashedPassword: hashed } });
     return NextResponse.json({ success: true });
   } catch {
-    return NextResponse.json({ message: "Erreur serveur." }, { status: 500 });
+    return NextResponse.json({ message: "Server error." }, { status: 500 });
   }
 }

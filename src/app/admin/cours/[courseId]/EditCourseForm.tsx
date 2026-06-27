@@ -40,7 +40,7 @@ export default function EditCourseForm({ courseId, initial }: Props) {
   if (!open) {
     return (
       <button onClick={() => setOpen(true)} className="text-xs font-semibold px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg hover:bg-slate-200 transition-colors">
-        ✏️ Modifier les infos du cours
+        ✏️ Edit course info
       </button>
     );
   }

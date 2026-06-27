@@ -10,7 +10,7 @@ export async function middleware(request: NextRequest) {
 
   if (!token) {
     if (isApi) {
-      return NextResponse.json({ message: "Non autorise." }, { status: 401 });
+      return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
     }
     const url = new URL("/login", request.url);
     url.searchParams.set("callbackUrl", pathname);

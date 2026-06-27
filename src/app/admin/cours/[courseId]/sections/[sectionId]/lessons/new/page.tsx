@@ -143,7 +143,7 @@ export default function NewLessonPage() {
       {error && <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl mb-6">{error}</div>}
       <form onSubmit={handleSubmit} className="space-y-6">
         <div className="bg-white rounded-2xl border border-brand-100 p-6">
-          <label className="block text-sm font-medium text-slate-600 mb-1">Titre *</label>
+          <label className="block text-sm font-medium text-slate-600 mb-1">Title *</label>
           <input type="text" required value={title} onChange={e=>setTitle(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-brand-400 outline-none text-lg font-heading" placeholder="Ex: Definite articles" />
         </div>
 

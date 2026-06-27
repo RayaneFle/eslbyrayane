@@ -48,11 +48,11 @@ export async function POST(request: Request) {
       }
       const parsed = JoinSchema.safeParse(body);
       if (!parsed.success) {
-        return NextResponse.json({ message: parsed.error.errors[0]?.message || "Code invalide." }, { status: 400 });
+        return NextResponse.json({ message: parsed.error.errors[0]?.message || "Invalid code." }, { status: 400 });
       }
       const { code } = parsed.data;
       const classroom = await prisma.classroom.findUnique({ where: { code: code.toUpperCase() } });
-      if (!classroom) return NextResponse.json({ message: "Code introuvable." }, { status: 404 });
+      if (!classroom) return NextResponse.json({ message: "Code not found." }, { status: 404 });
       const existing = await prisma.classroomMember.findUnique({
         where: { userId_classroomId: { userId: session.user.id, classroomId: classroom.id } },
       });
@@ -76,6 +76,6 @@ export async function POST(request: Request) {
     });
     return NextResponse.json(classroom, { status: 201 });
   } catch {
-    return NextResponse.json({ message: "Erreur serveur." }, { status: 500 });
+    return NextResponse.json({ message: "Server error." }, { status: 500 });
   }
 }

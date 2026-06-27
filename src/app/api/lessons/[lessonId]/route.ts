@@ -46,6 +46,6 @@ export async function GET(_req: Request, { params }: { params: { lessonId: strin
     });
   } catch (e) {
     console.error("Lesson GET error:", e);
-    return NextResponse.json({ message: "Erreur serveur." }, { status: 500 });
+    return NextResponse.json({ message: "Server error." }, { status: 500 });
   }
 }

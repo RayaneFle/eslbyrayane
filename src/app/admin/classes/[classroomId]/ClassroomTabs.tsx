@@ -32,7 +32,7 @@ export default function ClassroomTabs({ classroom, availableCourses, availableAc
 
   const TABS = [
     { key: "suivi", label: "Progress", icon: "📊", count: classroom.members.length },
-    { key: "cours", label: "Cours", icon: "📚", count: classroom.courses.length },
+    { key: "cours", label: "Courses", icon: "📚", count: classroom.courses.length },
     { key: "activites", label: "Activities", icon: "🎮", count: classroom.activities.length },
     { key: "eleves", label: "Students", icon: "👥", count: classroom.members.length },
     { key: "ressources", label: "Resources", icon: "📌", count: classroom.posts.length },

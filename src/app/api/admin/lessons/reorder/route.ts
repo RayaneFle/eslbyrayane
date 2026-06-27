@@ -49,6 +49,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   } catch (e) {
     console.error("Reorder lesson error:", e);
-    return NextResponse.json({ message: "Erreur serveur." }, { status: 500 });
+    return NextResponse.json({ message: "Server error." }, { status: 500 });
   }
 }

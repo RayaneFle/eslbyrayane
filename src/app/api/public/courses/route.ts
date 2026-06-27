@@ -54,6 +54,6 @@ export async function GET(request: Request) {
     return NextResponse.json(courses);
   } catch (e) {
     console.error("Public courses error:", e);
-    return NextResponse.json({ message: "Erreur serveur." }, { status: 500 });
+    return NextResponse.json({ message: "Server error." }, { status: 500 });
   }
 }

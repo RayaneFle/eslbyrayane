@@ -6,7 +6,7 @@ import { prisma } from "@/lib/prisma";
 export async function POST(_r: Request, { params }: { params: { courseId: string } }) {
   const session = await getServerSession(authOptions);
   if (!session || (session.user.role !== "admin" && session.user.role !== "teacher")) {
-    return NextResponse.json({ message: "Non autorise." }, { status: 401 });
+    return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   }
 
   const original = await prisma.course.findUnique({
@@ -23,7 +23,7 @@ export async function POST(_r: Request, { params }: { params: { courseId: string
       },
     },
   });
-  if (!original) return NextResponse.json({ message: "Non trouve." }, { status: 404 });
+  if (!original) return NextResponse.json({ message: "Not found." }, { status: 404 });
 
   const slug = original.slug + "-copie-" + Date.now().toString(36);
 

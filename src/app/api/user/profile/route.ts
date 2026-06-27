@@ -6,7 +6,7 @@ import { z } from "zod";
 
 const UpdateProfileSchema = z.object({
   name: z.string().trim().min(1, "Nom requis.").max(100, "Nom trop long."),
-  email: z.string().trim().toLowerCase().email("Email invalide.").max(200),
+  email: z.string().trim().toLowerCase().email("Invalid email.").max(200),
 });
 
 export async function PATCH(request: Request) {
@@ -41,6 +41,6 @@ export async function PATCH(request: Request) {
     return NextResponse.json(updated);
   } catch (e) {
     console.error("Update profile error:", e);
-    return NextResponse.json({ message: "Erreur serveur." }, { status: 500 });
+    return NextResponse.json({ message: "Server error." }, { status: 500 });
   }
 }

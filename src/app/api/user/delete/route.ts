@@ -8,7 +8,7 @@ export async function POST(request: Request) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user) {
-      return NextResponse.json({ message: "Non autorise." }, { status: 401 });
+      return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
     }
 
     // Admins must not delete themselves this way (safety)
@@ -18,7 +18,7 @@ export async function POST(request: Request) {
 
     const { password } = await request.json();
     if (!password || typeof password !== "string") {
-      return NextResponse.json({ message: "Mot de passe requis." }, { status: 400 });
+      return NextResponse.json({ message: "Password required." }, { status: 400 });
     }
 
     const user = await prisma.user.findUnique({
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
 
     const valid = await bcrypt.compare(password, user.hashedPassword);
     if (!valid) {
-      return NextResponse.json({ message: "Mot de passe incorrect." }, { status: 400 });
+      return NextResponse.json({ message: "Incorrect password." }, { status: 400 });
     }
 
     // Delete user - cascade will handle related records (ActivityResult, LessonProgress, etc.)
@@ -41,6 +41,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: true });
   } catch (e) {
     console.error("User self-delete error:", e);
-    return NextResponse.json({ message: "Erreur serveur." }, { status: 500 });
+    return NextResponse.json({ message: "Server error." }, { status: 500 });
   }
 }

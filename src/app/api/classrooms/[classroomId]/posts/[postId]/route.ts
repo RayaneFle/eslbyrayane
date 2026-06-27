@@ -16,7 +16,7 @@ export async function DELETE(_r: Request, { params }: { params: { classroomId: s
     where: { id: params.postId }, select: { classroomId: true },
   });
   if (!post || post.classroomId !== params.classroomId) {
-    return NextResponse.json({ message: "Post introuvable." }, { status: 404 });
+    return NextResponse.json({ message: "Post not found." }, { status: 404 });
   }
   await prisma.classroomPost.delete({ where: { id: params.postId } });
   return NextResponse.json({ success: true });

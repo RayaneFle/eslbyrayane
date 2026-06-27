@@ -29,7 +29,7 @@ export async function PUT(request: Request, { params }: { params: { courseId: st
   if (!allowed) return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
   const { title, blocks } = await request.json();
   if (blocks && !Array.isArray(blocks)) {
-    return NextResponse.json({ message: "Format invalide." }, { status: 400 });
+    return NextResponse.json({ message: "Invalid format." }, { status: 400 });
   }
   const lesson = await prisma.$transaction(async (tx) => {
     await tx.lessonBlock.deleteMany({ where: { lessonId: params.lessonId } });

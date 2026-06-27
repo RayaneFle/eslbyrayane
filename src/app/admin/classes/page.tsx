@@ -90,7 +90,7 @@ export default async function AdminClasssPage() {
                   </div>
                   <div>
                     <p className="font-heading font-bold text-base text-slate-900">{c._count.courses}</p>
-                    <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Cours</p>
+                    <p className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold">Courses</p>
                   </div>
                   <div>
                     <p className="font-heading font-bold text-base text-slate-900">{c._count.activities}</p>

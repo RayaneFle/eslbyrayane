@@ -6,7 +6,7 @@ import { rateLimit, getClientKey } from "@/lib/ratelimit";
 
 const RegisterSchema = z.object({
   name: z.string().trim().min(1, "Nom requis.").max(100, "Nom trop long."),
-  email: z.string().trim().toLowerCase().email("Email invalide.").max(200),
+  email: z.string().trim().toLowerCase().email("Invalid email.").max(200),
   password: z.string().min(8, "Minimum 8 characters.").max(200, "Password too long."),
 });
 
@@ -28,6 +28,6 @@ export async function POST(request: Request) {
     const user = await prisma.user.create({ data: { name, email, hashedPassword: hashed, role: "student" } });
     return NextResponse.json({ message: "OK", userId: user.id }, { status: 201 });
   } catch {
-    return NextResponse.json({ message: "Erreur serveur." }, { status: 500 });
+    return NextResponse.json({ message: "Server error." }, { status: 500 });
   }
 }

@@ -38,11 +38,11 @@ export async function POST(request: Request) {
     const session = await getServerSession(authOptions);
     if (!session?.user) return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
     if (session.user.role !== "admin" && session.user.role !== "teacher") {
-      return NextResponse.json({ message: "Seuls les enseignants peuvent uploader des fichiers." }, { status: 403 });
+      return NextResponse.json({ message: "Only teachers can upload files." }, { status: 403 });
     }
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
-    if (!file) return NextResponse.json({ message: "Aucun fichier fourni." }, { status: 400 });
+    if (!file) return NextResponse.json({ message: "No file provided." }, { status: 400 });
     if (file.size > MAX_SIZE) return NextResponse.json({ message: "Fichier trop volumineux (max 10 MB)." }, { status: 413 });
     if (!ALLOWED_TYPES.has(file.type)) {
       return NextResponse.json({ message: "Unauthorized file type: " + file.type }, { status: 415 });
@@ -57,7 +57,7 @@ export async function POST(request: Request) {
     const { error } = await supabase.storage.from("uploads").upload(uniqueName, buffer, { contentType: file.type, upsert: false });
     if (error) {
       console.error("Supabase upload error:", error);
-      return NextResponse.json({ message: "Erreur upload." }, { status: 500 });
+      return NextResponse.json({ message: "Upload error." }, { status: 500 });
     }
     const { data: urlData } = supabase.storage.from("uploads").getPublicUrl(uniqueName);
     const upload = await prisma.upload.create({
@@ -66,6 +66,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ url: urlData.publicUrl, id: upload.id }, { status: 201 });
   } catch (e) {
     console.error("Upload error:", e);
-    return NextResponse.json({ message: "Erreur serveur." }, { status: 500 });
+    return NextResponse.json({ message: "Server error." }, { status: 500 });
   }
 }

@@ -18,7 +18,7 @@ export async function PUT(request: Request, { params }: { params: { classroomId:
       where: { id: subclassId }, select: { classroomId: true },
     });
     if (!subclass || subclass.classroomId !== params.classroomId) {
-      return NextResponse.json({ message: "Sous-classe invalide." }, { status: 400 });
+      return NextResponse.json({ message: "Invalid subclass." }, { status: 400 });
     }
   }
   await prisma.classroomMember.updateMany({

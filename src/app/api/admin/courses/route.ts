@@ -6,9 +6,9 @@ import { slugify, generateClassCode } from "@/lib/utils";
 import { z } from "zod";
 
 const CreateCourseSchema = z.object({
-  title: z.string().trim().min(1, "Titre requis.").max(200, "Titre trop long."),
+  title: z.string().trim().min(1, "Title required.").max(200, "Title too long."),
   description: z.string().trim().min(1, "Description requise.").max(2000, "Description trop longue."),
-  level: z.enum(["A1", "A2", "B1", "B2", "C1", "C2"], { errorMap: () => ({ message: "Niveau invalide." }) }),
+  level: z.enum(["A1", "A2", "B1", "B2", "C1", "C2"], { errorMap: () => ({ message: "Invalid level." }) }),
   requiresEnrollment: z.boolean().optional().default(false),
 });
 
@@ -53,6 +53,6 @@ export async function POST(request: Request) {
     });
     return NextResponse.json(course, { status: 201 });
   } catch {
-    return NextResponse.json({ message: "Erreur serveur." }, { status: 500 });
+    return NextResponse.json({ message: "Server error." }, { status: 500 });
   }
 }

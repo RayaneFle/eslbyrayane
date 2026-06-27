@@ -7,7 +7,7 @@ import ExcelJS from "exceljs";
 export async function GET(_r: Request, { params }: { params: { classroomId: string } }) {
   const session = await getServerSession(authOptions);
   if (!session || (session.user.role !== "admin" && session.user.role !== "teacher")) {
-    return NextResponse.json({ message: "Non autorise." }, { status: 401 });
+    return NextResponse.json({ message: "Unauthorized." }, { status: 401 });
   }
 
   const classroom = await prisma.classroom.findUnique({
@@ -17,8 +17,8 @@ export async function GET(_r: Request, { params }: { params: { classroomId: stri
       courses: { include: { course: { select: { id: true, title: true } } } },
     },
   });
-  if (!classroom) return NextResponse.json({ message: "Non trouve." }, { status: 404 });
-  if (session.user.role !== "admin" && classroom.ownerId !== session.user.id) return NextResponse.json({ message: "Non autorise." }, { status: 403 });
+  if (!classroom) return NextResponse.json({ message: "Not found." }, { status: 404 });
+  if (session.user.role !== "admin" && classroom.ownerId !== session.user.id) return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
 
   const lessons = await prisma.lesson.findMany({
     where: { section: { courseId: { in: classroom.courses.map(c => c.courseId) } } },

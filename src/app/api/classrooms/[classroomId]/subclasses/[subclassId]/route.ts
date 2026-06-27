@@ -16,7 +16,7 @@ export async function DELETE(_r: Request, { params }: { params: { classroomId: s
     where: { id: params.subclassId }, select: { classroomId: true },
   });
   if (!subclass || subclass.classroomId !== params.classroomId) {
-    return NextResponse.json({ message: "Sous-classe introuvable." }, { status: 404 });
+    return NextResponse.json({ message: "Subclass not found." }, { status: 404 });
   }
   await prisma.subclass.delete({ where: { id: params.subclassId } });
   return NextResponse.json({ success: true });

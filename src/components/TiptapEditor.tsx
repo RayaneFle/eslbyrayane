@@ -92,9 +92,9 @@ export default function TiptapEditor({ content, onChange }: Props) {
         <B active={editor.isActive("underline")} onClick={() => editor.chain().focus().toggleUnderline().run()} title="Souligne"><u>S</u></B>
         <B active={editor.isActive("strike")} onClick={() => editor.chain().focus().toggleStrike().run()} title="Barre"><s>B</s></B>
         <span className="w-px h-6 bg-brand-200 mx-1 self-center" />
-        <B active={editor.isActive("heading", { level: 1 })} onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()} title="Titre 1">H1</B>
-        <B active={editor.isActive("heading", { level: 2 })} onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} title="Titre 2">H2</B>
-        <B active={editor.isActive("heading", { level: 3 })} onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()} title="Titre 3">H3</B>
+        <B active={editor.isActive("heading", { level: 1 })} onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()} title="Heading 1">H1</B>
+        <B active={editor.isActive("heading", { level: 2 })} onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()} title="Heading 2">H2</B>
+        <B active={editor.isActive("heading", { level: 3 })} onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()} title="Heading 3">H3</B>
         <span className="w-px h-6 bg-brand-200 mx-1 self-center" />
         <B active={editor.isActive("bulletList")} onClick={() => editor.chain().focus().toggleBulletList().run()} title="Liste a puces">{"\u2022"}</B>
         <B active={editor.isActive("orderedList")} onClick={() => editor.chain().focus().toggleOrderedList().run()} title="Liste numerotee">1.</B>
@@ -128,7 +128,7 @@ export default function TiptapEditor({ content, onChange }: Props) {
           <B onClick={() => editor.chain().focus().deleteColumn().run()} title="Colonne -">C-</B>
           <B onClick={() => editor.chain().focus().addRowAfter().run()} title="Ligne +">L+</B>
           <B onClick={() => editor.chain().focus().deleteRow().run()} title="Ligne -">L-</B>
-          <B onClick={() => editor.chain().focus().deleteTable().run()} title="Supprimer tableau">{"\ud83d\uddd1"}</B>
+          <B onClick={() => editor.chain().focus().deleteTable().run()} title="Delete table">{"\ud83d\uddd1"}</B>
           <span className="w-px h-6 bg-brand-200 mx-1 self-center" />
         </>}
         <B onClick={() => editor.chain().focus().undo().run()} title="Cancel">{"\u21a9"}</B>

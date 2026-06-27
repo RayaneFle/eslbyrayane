@@ -15,7 +15,7 @@ export default function CreateClassroomForm() {
   if (!open) return <button onClick={()=>setOpen(true)} className="px-5 py-2.5 bg-gradient-to-r from-brand-500 to-accent-500 text-white font-semibold rounded-xl hover:shadow-glow transition-all">+ Create a class</button>;
   return (
     <div className="bg-white rounded-2xl border border-brand-100 p-6">
-      {result ? <div className="text-center"><span className="text-4xl">🎉</span><h3 className="font-heading text-xl font-bold text-slate-900 mt-2">Class "{result.name}" created!</h3><p className="text-4xl font-mono font-black text-brand-600 my-4 tracking-[0.3em]">{result.code}</p><p className="text-sm text-slate-400 mb-4">Share this code with your students</p><button onClick={()=>{setResult(null);setOpen(false)}} className="text-sm text-slate-500">Fermer</button></div> :
+      {result ? <div className="text-center"><span className="text-4xl">🎉</span><h3 className="font-heading text-xl font-bold text-slate-900 mt-2">Class "{result.name}" created!</h3><p className="text-4xl font-mono font-black text-brand-600 my-4 tracking-[0.3em]">{result.code}</p><p className="text-sm text-slate-400 mb-4">Share this code with your students</p><button onClick={()=>{setResult(null);setOpen(false)}} className="text-sm text-slate-500">Close</button></div> :
       <form onSubmit={onSubmit} className="space-y-4">
         <h3 className="font-heading font-bold text-lg text-slate-900">New class</h3>
         <input type="text" required value={name} onChange={e=>setName(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 outline-none focus:ring-2 focus:ring-brand-400" placeholder="Class name" />

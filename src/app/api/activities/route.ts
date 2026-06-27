@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 
 const CreateActivitySchema = z.object({
-  title: z.string().trim().min(1, "Titre requis.").max(200, "Titre trop long."),
+  title: z.string().trim().min(1, "Title required.").max(200, "Title too long."),
   description: z.string().trim().max(1000).optional().nullable(),
   type: z.string().min(1, "Type requis.").max(50),
   config: z.any(),
@@ -49,6 +49,6 @@ export async function POST(request: Request) {
     });
     return NextResponse.json({ ...activity, config: JSON.parse(activity.config) }, { status: 201 });
   } catch {
-    return NextResponse.json({ message: "Erreur serveur." }, { status: 500 });
+    return NextResponse.json({ message: "Server error." }, { status: 500 });
   }
 }

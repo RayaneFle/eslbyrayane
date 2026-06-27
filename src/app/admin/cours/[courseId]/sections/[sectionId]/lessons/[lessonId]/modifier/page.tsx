@@ -129,11 +129,11 @@ export default function EditLessonPage() {
 
   return (
     <div className="max-w-3xl">
-      <h1 className="font-heading text-2xl font-bold text-slate-900 mb-8">Modifier la lecon</h1>
+      <h1 className="font-heading text-2xl font-bold text-slate-900 mb-8">Edit lesson</h1>
       {error && <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl mb-6">{error}</div>}
       <form onSubmit={save} className="space-y-6">
         <div className="bg-white rounded-2xl border border-brand-100 p-6">
-          <label className="block text-sm font-medium text-slate-600 mb-1">Titre *</label>
+          <label className="block text-sm font-medium text-slate-600 mb-1">Title *</label>
           <input type="text" required value={title} onChange={e => { setTitle(e.target.value); setDirty(true); }} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-brand-400 outline-none text-lg font-heading" />
         </div>
         <div className="space-y-3">
@@ -212,7 +212,7 @@ export default function EditLessonPage() {
                           <div key={qi} className="p-3 bg-white rounded-lg space-y-2">
                             <input value={q.question||""} onChange={e=>{const c={...createConfig};c.questions[qi]={...q,question:e.target.value};setCreateConfig({...c});}} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Question" />
                             {(q.options||[]).map((o:string,oi:number)=>(<div key={oi} className="flex items-center gap-2"><input type="radio" name={`eq${qi}`} checked={q.correctIndex===oi} onChange={()=>{const c={...createConfig};c.questions[qi]={...q,correctIndex:oi};setCreateConfig({...c});}} className="accent-green-600" /><input value={o} onChange={e=>{const c={...createConfig};const opts=[...q.options];opts[oi]=e.target.value;c.questions[qi]={...q,options:opts};setCreateConfig({...c});}} className="flex-1 border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder={`Option ${String.fromCharCode(65+oi)}`} /></div>))}
-                            {createConfig.questions.length>1 && <button type="button" onClick={()=>{const c={...createConfig};c.questions=c.questions.filter((_:any,i:number)=>i!==qi);setCreateConfig({...c});}} className="text-xs text-red-500">Supprimer</button>}
+                            {createConfig.questions.length>1 && <button type="button" onClick={()=>{const c={...createConfig};c.questions=c.questions.filter((_:any,i:number)=>i!==qi);setCreateConfig({...c});}} className="text-xs text-red-500">Delete</button>}
                           </div>
                         ))}
                         <button type="button" onClick={()=>{const c={...createConfig};c.questions=[...c.questions,{question:"",options:["",""],correctIndex:0}];setCreateConfig({...c});}} className="w-full py-2 border-2 border-dashed border-slate-200 rounded-lg text-xs text-slate-400">+ Question</button>
@@ -223,7 +223,7 @@ export default function EditLessonPage() {
                           <div key={i} className="p-3 bg-white rounded-lg space-y-2">
                             <input value={q.statement||""} onChange={e=>{const c={...createConfig};c.questions[i]={...q,statement:e.target.value};setCreateConfig({...c});}} className="w-full border border-slate-200 rounded-lg px-3 py-2 text-sm outline-none" placeholder="Statement" />
                             <div className="flex gap-4"><label className="text-sm"><input type="radio" checked={q.isTrue} onChange={()=>{const c={...createConfig};c.questions[i]={...q,isTrue:true};setCreateConfig({...c});}} /> True</label><label className="text-sm"><input type="radio" checked={!q.isTrue} onChange={()=>{const c={...createConfig};c.questions[i]={...q,isTrue:false};setCreateConfig({...c});}} /> False</label></div>
-                            {createConfig.questions.length>1 && <button type="button" onClick={()=>{const c={...createConfig};c.questions=c.questions.filter((_:any,j:number)=>j!==i);setCreateConfig({...c});}} className="text-xs text-red-500">Supprimer</button>}
+                            {createConfig.questions.length>1 && <button type="button" onClick={()=>{const c={...createConfig};c.questions=c.questions.filter((_:any,j:number)=>j!==i);setCreateConfig({...c});}} className="text-xs text-red-500">Delete</button>}
                           </div>
                         ))}
                         <button type="button" onClick={()=>{const c={...createConfig};c.questions=[...c.questions,{statement:"",isTrue:true}];setCreateConfig({...c});}} className="w-full py-2 border-2 border-dashed border-slate-200 rounded-lg text-xs text-slate-400">+ Statement</button>

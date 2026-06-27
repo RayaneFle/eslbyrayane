@@ -90,7 +90,7 @@ export default function CreateActivityPage() {
       {error && <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl mb-6">{error}</div>}
       <form onSubmit={onSubmit} className="space-y-6">
         <div className="bg-white rounded-2xl border border-brand-100 p-6 space-y-4">
-          <div><label className="block text-sm font-medium text-slate-600 mb-1">Titre *</label><input type="text" required value={title} onChange={e => setTitle(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-brand-400 outline-none" /></div>
+          <div><label className="block text-sm font-medium text-slate-600 mb-1">Title *</label><input type="text" required value={title} onChange={e => setTitle(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 focus:ring-2 focus:ring-brand-400 outline-none" /></div>
           <div><label className="block text-sm font-medium text-slate-600 mb-1">Description</label><textarea value={desc} onChange={e => setDesc(e.target.value)} rows={2} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 outline-none" /></div>
           <div className="grid grid-cols-2 gap-4">
             <div><label className="block text-sm font-medium text-slate-600 mb-1">Niveau</label><select value={level} onChange={e => setLevel(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 outline-none"><option value="">Tous</option>{LEVELS.map(l => <option key={l} value={l}>{l}</option>)}</select></div>
@@ -184,7 +184,7 @@ export default function CreateActivityPage() {
           <h2 className="font-heading font-bold text-slate-800 mb-3">Assign to a class (optional)</h2>
           {classrooms.length > 0 ? (
             <select value={selectedClassroom} onChange={e => setSelectedClassroom(e.target.value)} className="w-full border border-slate-200 rounded-xl px-4 py-2.5 outline-none">
-              <option value="">Aucune class</option>
+              <option value="">No class</option>
               {classrooms.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           ) : <p className="text-xs text-slate-400">No class yet. Create one first.</p>}

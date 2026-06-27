@@ -56,7 +56,7 @@ export default function CourseEnrollPage() {
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Breadcrumb */}
       <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 mb-6">
-        <Link href="/cours" className="hover:text-brand-600 transition-colors">Cours</Link>
+        <Link href="/cours" className="hover:text-brand-600 transition-colors">Courses</Link>
         <span className="text-slate-300">/</span>
         {course && <Link href={"/cours/" + slug} className="hover:text-brand-600 transition-colors truncate max-w-[200px]">{course.title}</Link>}
         {course && <span className="text-slate-300">/</span>}
@@ -106,7 +106,7 @@ export default function CourseEnrollPage() {
               disabled={loading || !!success || code.length < 4 || !course}
               className="w-full bg-gradient-to-r from-brand-500 to-accent-500 text-white py-3 rounded-xl font-semibold hover:shadow-glow disabled:opacity-50 transition-all"
             >
-              {loading ? "Verifying..." : success ? "Redirecting..." : "S’inscrire au cours"}
+              {loading ? "Verifying..." : success ? "Redirecting..." : "Enroll in course"}
             </button>
           </form>
         </div>

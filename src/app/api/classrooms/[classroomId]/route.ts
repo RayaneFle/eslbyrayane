@@ -34,7 +34,7 @@ export async function GET(_req: Request, { params }: { params: { classroomId: st
       },
     });
 
-    if (!classroom) return NextResponse.json({ message: "Classe introuvable." }, { status: 404 });
+    if (!classroom) return NextResponse.json({ message: "Classroom not found." }, { status: 404 });
 
     return NextResponse.json({
       id:          classroom.id,
@@ -48,7 +48,7 @@ export async function GET(_req: Request, { params }: { params: { classroomId: st
     });
   } catch (e: any) {
     console.error("GET classroom error:", e);
-    return NextResponse.json({ message: "Erreur serveur." }, { status: 500 });
+    return NextResponse.json({ message: "Server error." }, { status: 500 });
   }
 }
 
@@ -61,7 +61,7 @@ export async function DELETE(_req: Request, { params }: { params: { classroomId:
       where: { id: params.classroomId },
       select: { ownerId: true },
     });
-    if (!classroom) return NextResponse.json({ message: "Classe introuvable." }, { status: 404 });
+    if (!classroom) return NextResponse.json({ message: "Classroom not found." }, { status: 404 });
 
     if (classroom.ownerId !== session.user.id && session.user.role !== "admin") {
       return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
@@ -71,6 +71,6 @@ export async function DELETE(_req: Request, { params }: { params: { classroomId:
     return NextResponse.json({ success: true });
   } catch (e: any) {
     console.error("Delete classroom error:", e);
-    return NextResponse.json({ message: "Erreur serveur." }, { status: 500 });
+    return NextResponse.json({ message: "Server error." }, { status: 500 });
   }
 }

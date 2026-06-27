@@ -15,7 +15,7 @@ export async function POST(request: Request, { params }: { params: { classroomId
   const { courseId } = await request.json();
   if (!courseId) return NextResponse.json({ message: "courseId requis." }, { status: 400 });
   const course = await prisma.course.findUnique({ where: { id: courseId }, select: { id: true } });
-  if (!course) return NextResponse.json({ message: "Cours introuvable." }, { status: 404 });
+  if (!course) return NextResponse.json({ message: "Course not found." }, { status: 404 });
   const existing = await prisma.classroomCourse.findUnique({
     where: { classroomId_courseId: { classroomId: params.classroomId, courseId } },
   });

@@ -6,7 +6,7 @@ import { canEditCourse } from "@/lib/authz";
 import { z } from "zod";
 
 const CreateSectionSchema = z.object({
-  title: z.string().trim().min(1, "Titre requis.").max(200, "Titre trop long."),
+  title: z.string().trim().min(1, "Title required.").max(200, "Title too long."),
 });
 
 export async function POST(request: Request, { params }: { params: { courseId: string } }) {
