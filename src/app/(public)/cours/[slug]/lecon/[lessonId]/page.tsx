@@ -45,7 +45,6 @@ export default async function LessonPage({ params }: { params: { slug: string; l
   const publishAt = (lesson as any).publishAt;
   if (publishAt && new Date(publishAt) > new Date() && !isTeacher) notFound();
 
-  // Get progress for sidebar (which lessons are done)
   const progress = await prisma.lessonProgress.findMany({
     where: { userId: session.user.id, lesson: { section: { courseId: course.id } } },
     select: { lessonId: true, status: true },
@@ -62,7 +61,6 @@ export default async function LessonPage({ params }: { params: { slug: string; l
     activity: b.activity ? { ...b.activity, config: typeof b.activity.config === "string" ? JSON.parse(b.activity.config) : b.activity.config } : null,
   }));
 
-  // Stats for header
   const allLessonsInCourse = course.sections.flatMap((s: any) => s.lessons.filter((l: any) => !l.hidden));
   const totalCourseLessons = allLessonsInCourse.length;
   const doneCourseLessons = allLessonsInCourse.filter((l: any) => progressMap.get(l.id) === "completed").length;
@@ -70,9 +68,8 @@ export default async function LessonPage({ params }: { params: { slug: string; l
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-      {/* Breadcrumb */}
       <div className="flex flex-wrap items-center gap-2 text-xs text-slate-500 mb-4">
-        <Link href="/dashboard" className="hover:text-brand-600 transition-colors">Tableau de bord</Link>
+        <Link href="/dashboard" className="hover:text-brand-600 transition-colors">Dashboard</Link>
         <span className="text-slate-300">/</span>
         <Link href={"/cours/" + slug} className="hover:text-brand-600 transition-colors truncate max-w-[180px]">{course.title}</Link>
         <span className="text-slate-300">/</span>
@@ -80,26 +77,23 @@ export default async function LessonPage({ params }: { params: { slug: string; l
       </div>
 
       <div className="grid lg:grid-cols-[1fr_280px] gap-6">
-        {/* Main column */}
         <div className="min-w-0">
-          {/* Header card */}
           <div className="bg-white rounded-2xl border border-slate-200 p-5 sm:p-6 mb-6">
             <div className="flex flex-wrap items-center gap-2 mb-3">
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-100 text-brand-700">{course.level}</span>
               <span className="text-[11px] font-semibold text-slate-500">{lesson.section.title}</span>
               <span className="text-slate-300">·</span>
-              <span className="text-[11px] font-semibold text-slate-500">Leçon {idx + 1}/{lessonsInSection.length}</span>
+              <span className="text-[11px] font-semibold text-slate-500">Lesson {idx + 1}/{lessonsInSection.length}</span>
               {currentLessonStatus === "completed" && (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">✓ Terminée</span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700">✓ Completed</span>
               )}
               {currentLessonStatus === "in_progress" && (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">En cours</span>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">In progress</span>
               )}
             </div>
             <h1 className="font-heading text-2xl md:text-3xl font-bold text-slate-900 leading-tight">{lesson.title}</h1>
           </div>
 
-          {/* Lesson content */}
           <LessonContent
             blocks={blocksWithParsedConfig}
             lessonId={lessonId}
@@ -107,35 +101,31 @@ export default async function LessonPage({ params }: { params: { slug: string; l
             courseUrl={"/cours/" + slug}
           />
 
-          {/* Footer navigation */}
           <div className="mt-8 pt-6 border-t border-slate-200 grid grid-cols-2 gap-3">
             {prev ? (
               <Link href={"/cours/" + slug + "/lecon/" + prev.id} className="bg-white rounded-xl border border-slate-200 hover:border-brand-300 hover:shadow-sm transition-all p-4 group">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">← Leçon précédente</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">← Previous lesson</p>
                 <p className="text-sm font-semibold text-slate-700 group-hover:text-brand-700 transition-colors truncate">{prev.title}</p>
               </Link>
-            ) : (
-              <div />
-            )}
+            ) : <div />}
             {next ? (
               <Link href={"/cours/" + slug + "/lecon/" + next.id} className="bg-white rounded-xl border border-slate-200 hover:border-brand-300 hover:shadow-sm transition-all p-4 group text-right">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Leçon suivante →</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-1">Next lesson →</p>
                 <p className="text-sm font-semibold text-slate-700 group-hover:text-brand-700 transition-colors truncate">{next.title}</p>
               </Link>
             ) : (
               <Link href={"/cours/" + slug} className="bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl text-white p-4 text-right hover:shadow-glow transition-all">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-white/80 mb-1">Fin de section</p>
-                <p className="text-sm font-bold">✓ Retour au cours</p>
+                <p className="text-[10px] font-bold uppercase tracking-wider text-white/80 mb-1">End of section</p>
+                <p className="text-sm font-bold">✓ Back to course</p>
               </Link>
             )}
           </div>
         </div>
 
-        {/* Sidebar - Plan du cours */}
         <aside className="hidden lg:block">
           <div className="sticky top-6 bg-white rounded-2xl border border-slate-200 p-5 max-h-[calc(100vh-3rem)] overflow-y-auto">
             <div className="mb-4">
-              <h2 className="font-heading font-bold text-slate-900 text-sm">📚 Plan du cours</h2>
+              <h2 className="font-heading font-bold text-slate-900 text-sm">📚 Course outline</h2>
               <div className="mt-2 flex items-center gap-2">
                 <div className="flex-1 h-1.5 bg-slate-200 rounded-full overflow-hidden">
                   <div className="h-full bg-green-500 rounded-full" style={{ width: (totalCourseLessons > 0 ? doneCourseLessons / totalCourseLessons * 100 : 0) + "%" }}></div>
@@ -158,11 +148,8 @@ export default async function LessonPage({ params }: { params: { slug: string; l
                         const status = progressMap.get(l.id) || "not_started";
                         const isCurrent = l.id === lessonId;
                         return (
-                          <Link
-                            key={l.id}
-                            href={"/cours/" + slug + "/lecon/" + l.id}
-                            className={"flex items-center gap-2 px-2.5 py-2 rounded-lg text-xs transition-colors " + (isCurrent ? "bg-brand-50 text-brand-700 font-semibold border border-brand-200" : "text-slate-600 hover:bg-slate-50")}
-                          >
+                          <Link key={l.id} href={"/cours/" + slug + "/lecon/" + l.id}
+                            className={"flex items-center gap-2 px-2.5 py-2 rounded-lg text-xs transition-colors " + (isCurrent ? "bg-brand-50 text-brand-700 font-semibold border border-brand-200" : "text-slate-600 hover:bg-slate-50")}>
                             <span className={"shrink-0 w-4 h-4 flex items-center justify-center rounded-full text-[9px] font-bold " + (status === "completed" ? "bg-green-500 text-white" : status === "in_progress" ? "bg-amber-400 text-white" : "bg-slate-200 text-slate-500")}>
                               {status === "completed" ? "✓" : si + 1 + "." + (li + 1)}
                             </span>
