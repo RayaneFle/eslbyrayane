@@ -16,15 +16,15 @@ export default function LoginForm() {
   async function onSubmit(e: FormEvent) {
     e.preventDefault(); setLoading(true); setError(null);
     const res = await signIn("credentials", { email, password, redirect: false });
-    if (res?.error) { setError("Email ou mot de passe incorrect."); setLoading(false); }
+    if (res?.error) { setError("Incorrect email or password."); setLoading(false); }
     else { window.location.href = callbackUrl; }
   }
 
   return (
     <div className="w-full max-w-sm">
       <div className="mb-8">
-        <h1 className="font-heading text-2xl font-bold text-slate-900">Content de vous revoir</h1>
-        <p className="text-sm text-slate-400 mt-1">Connectez-vous pour continuer</p>
+        <h1 className="font-heading text-2xl font-bold text-slate-900">Welcome back</h1>
+        <p className="text-sm text-slate-400 mt-1">Sign in to continue</p>
       </div>
       {error && <div className="bg-red-50 border border-red-200 text-red-600 text-sm px-4 py-3 rounded-xl mb-6">{error}</div>}
       <form onSubmit={onSubmit} className="space-y-4">
@@ -32,20 +32,20 @@ export default function LoginForm() {
           <label className="block text-sm font-medium text-slate-700 mb-1.5">Email</label>
           <input type="email" required value={email} onChange={e => setEmail(e.target.value)}
             className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-brand-400 focus:border-brand-400 outline-none transition-all"
-            placeholder="vous@exemple.com" />
+            placeholder="you@example.com" />
         </div>
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1.5">Mot de passe</label>
+          <label className="block text-sm font-medium text-slate-700 mb-1.5">Password</label>
           <input type="password" required value={password} onChange={e => setPassword(e.target.value)}
             className="w-full border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-brand-400 focus:border-brand-400 outline-none transition-all"
-            placeholder="Votre mot de passe" />
+            placeholder="Your password" />
         </div>
         <button type="submit" disabled={loading}
           className="w-full bg-gradient-to-r from-brand-500 to-accent-500 text-white py-3 rounded-xl font-semibold hover:shadow-lg disabled:opacity-50 transition-all text-sm">
-          {loading ? "Connexion..." : "Se connecter"}
+          {loading ? "Signing in..." : "Sign in"}
         </button>
       </form>
-      <p className="text-center text-sm text-slate-400 mt-8">Pas encore de compte ? <Link href="/register" className="text-brand-600 font-semibold hover:text-brand-700">Créer un compte</Link></p>
+      <p className="text-center text-sm text-slate-400 mt-8">No account yet? <Link href="/register" className="text-brand-600 font-semibold hover:text-brand-700">Create an account</Link></p>
     </div>
   );
 }
