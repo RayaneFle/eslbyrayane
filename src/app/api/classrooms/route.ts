@@ -11,8 +11,8 @@ const JoinSchema = z.object({
 });
 
 const CreateSchema = z.object({
-  name: z.string().trim().min(1, "Nom requis.").max(100, "Nom trop long."),
-  description: z.string().trim().max(500, "Description trop longue.").optional().nullable(),
+  name: z.string().trim().min(1, "Name required.").max(100, "Name too long."),
+  description: z.string().trim().max(500, "Description too long.").optional().nullable(),
 });
 
 export async function GET() {

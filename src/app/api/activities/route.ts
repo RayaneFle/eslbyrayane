@@ -7,7 +7,7 @@ import { z } from "zod";
 const CreateActivitySchema = z.object({
   title: z.string().trim().min(1, "Title required.").max(200, "Title too long."),
   description: z.string().trim().max(1000).optional().nullable(),
-  type: z.string().min(1, "Type requis.").max(50),
+  type: z.string().min(1, "Type required.").max(50),
   config: z.any(),
   level: z.string().max(10).optional().nullable(),
   isPublic: z.boolean().optional(),

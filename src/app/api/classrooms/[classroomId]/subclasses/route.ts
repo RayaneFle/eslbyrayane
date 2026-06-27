@@ -6,7 +6,7 @@ import { canEditClassroom, canViewClassroom } from "@/lib/authz";
 import { z } from "zod";
 
 const CreateSubclassSchema = z.object({
-  name: z.string().trim().min(1, "Nom requis.").max(100, "Nom trop long."),
+  name: z.string().trim().min(1, "Name required.").max(100, "Name too long."),
 });
 
 export async function GET(_r: Request, { params }: { params: { classroomId: string } }) {

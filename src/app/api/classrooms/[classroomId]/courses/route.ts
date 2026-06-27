@@ -13,7 +13,7 @@ export async function POST(request: Request, { params }: { params: { classroomId
   const classroom = await canEditClassroom(params.classroomId, session.user.id, session.user.role);
   if (!classroom) return NextResponse.json({ message: "Unauthorized." }, { status: 403 });
   const { courseId } = await request.json();
-  if (!courseId) return NextResponse.json({ message: "courseId requis." }, { status: 400 });
+  if (!courseId) return NextResponse.json({ message: "courseId required." }, { status: 400 });
   const course = await prisma.course.findUnique({ where: { id: courseId }, select: { id: true } });
   if (!course) return NextResponse.json({ message: "Course not found." }, { status: 404 });
   const existing = await prisma.classroomCourse.findUnique({

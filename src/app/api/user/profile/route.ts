@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 
 const UpdateProfileSchema = z.object({
-  name: z.string().trim().min(1, "Nom requis.").max(100, "Nom trop long."),
+  name: z.string().trim().min(1, "Name required.").max(100, "Name too long."),
   email: z.string().trim().toLowerCase().email("Invalid email.").max(200),
 });
 

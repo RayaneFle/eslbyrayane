@@ -121,7 +121,7 @@ export default function TiptapEditor({ content, onChange }: Props) {
         <B onClick={addLink} title="Lien">{"\ud83d\udd17"}</B>
         <B onClick={addImageChoice} title="Image">{uploading ? "..." : "\ud83d\uddbc\ufe0f"}</B>
         <B onClick={addYoutube} title="YouTube">{"\u25b6\ufe0f"}</B>
-        <B onClick={addTable} title="Tableau">{"\ud83d\udcca"}</B>
+        <B onClick={addTable} title="Table">{"\ud83d\udcca"}</B>
         <span className="w-px h-6 bg-brand-200 mx-1 self-center" />
         {editor.isActive("table") && <>
           <B onClick={() => editor.chain().focus().addColumnAfter().run()} title="Colonne +">C+</B>

@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { rateLimit, getClientKey } from "@/lib/ratelimit";
 
 const RegisterSchema = z.object({
-  name: z.string().trim().min(1, "Nom requis.").max(100, "Nom trop long."),
+  name: z.string().trim().min(1, "Name required.").max(100, "Name too long."),
   email: z.string().trim().toLowerCase().email("Invalid email.").max(200),
   password: z.string().min(8, "Minimum 8 characters.").max(200, "Password too long."),
 });

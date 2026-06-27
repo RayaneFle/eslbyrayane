@@ -6,7 +6,7 @@ import { rateLimit, getClientKey } from "@/lib/ratelimit";
 import { z } from "zod";
 
 const EnrollSchema = z.object({
-  courseId: z.string().min(1, "courseId requis.").max(100),
+  courseId: z.string().min(1, "courseId required.").max(100),
   enrollmentCode: z.string().max(50).optional().nullable(),
 });
 

@@ -7,7 +7,7 @@ import { z } from "zod";
 
 const CreateCourseSchema = z.object({
   title: z.string().trim().min(1, "Title required.").max(200, "Title too long."),
-  description: z.string().trim().min(1, "Description requise.").max(2000, "Description trop longue."),
+  description: z.string().trim().min(1, "Description required.").max(2000, "Description too long."),
   level: z.enum(["A1", "A2", "B1", "B2", "C1", "C2"], { errorMap: () => ({ message: "Invalid level." }) }),
   requiresEnrollment: z.boolean().optional().default(false),
 });
